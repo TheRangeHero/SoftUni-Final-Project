@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-GamesNexus.Web-2C9092C2-1A1D-49E2-95C1-774E81865428</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GamesNexus.Common\GamesNexus.Common.csproj" />
+    <ProjectReference Include="..\GamesNexus.Data.Models\GamesNexus.Data.Models.csproj" />
+    <ProjectReference Include="..\GamesNexus.Data\GamesNexus.Data.csproj" />
+    <ProjectReference Include="..\GamesNexus.Web.ViewModels\GamesNexus.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
