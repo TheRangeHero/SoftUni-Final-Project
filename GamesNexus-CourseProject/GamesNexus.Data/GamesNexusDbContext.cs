@@ -11,5 +11,14 @@ namespace GamesNexus.Data
             : base(options)
         {
         }
+
+        //TO DO Add DB sets
+        //TO DO Configure OnModelCreating
+        //TO DO Make configuration for every entity
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }

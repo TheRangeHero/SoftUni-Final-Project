@@ -39,14 +39,13 @@ namespace GamesNexus.Data.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-        [ForeignKey(nameof(Wishlist))]
         public int WishlistId { get; set; }
-        public Wishlist? Wishlist { get; set; }
+        public Wishlist Wishlist { get; set; } = null!;
 
-        public ICollection<Discussion>? Discussions { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
-        public ICollection<Order>? Orders { get; set; }
-        public ICollection<Review>? Reviews { get; set; }
-        public ICollection<News>? News { get; set; }
+        public ICollection<Discussion> Discussions { get; set; } = null!;
+        public ICollection<Comment> Comments { get; set; } = null!;
+        public ICollection<Order> Orders { get; set; } = null!;
+        public ICollection<Review> Reviews { get; set; } = null!;
+        public ICollection<News> News { get; set; } = null!;
     }
 }
