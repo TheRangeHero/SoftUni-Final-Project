@@ -44,10 +44,14 @@ namespace GamesNexus.Data.Models
         public Guid PublisherId { get; set; }
         public Publisher Publisher { get; set; } = null!;
 
-        public ICollection<Review>? Reviews { get; set; }
-        public ICollection<Category> Categories { get; set; } = null!;
+        [ForeignKey(nameof(Order))]
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; } = null!;
+
         public ICollection<Genre> Genres { get; set; } = null!;
+        public ICollection<Category> Categories { get; set; } = null!;
+        public ICollection<Review> Reviews { get; set; } = null!;
         public ICollection<GameImage> Images { get; set; } = null!;
-        public ICollection<GameVideo>? Videos { get; set; }
+        public ICollection<GameVideo> Videos { get; set; } = null!;
     }
 }

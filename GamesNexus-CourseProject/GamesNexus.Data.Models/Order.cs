@@ -9,6 +9,7 @@ namespace GamesNexus.Data.Models
     {
         public Order()
         {
+            this.Id = Guid.NewGuid();
             this.GamesToBuy = new HashSet<Game>();
             CreatedAt = DateTime.UtcNow;
         }

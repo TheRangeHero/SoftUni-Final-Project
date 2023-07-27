@@ -13,7 +13,48 @@ namespace GamesNexus.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .Property(d => d.DateOfBirth)
+                .HasColumnType("date");
+
+
+            builder
+                .HasOne(x => x.Wishlist)
+                .WithOne(x => x.ApplicationUser)
+                .HasForeignKey<Wishlist>(x => x.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(d => d.Discussions)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(u => u.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(c => c.Comments)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(u => u.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(r => r.Reviews)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(u => u.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(n => n.News)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(u => u.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(o => o.Orders)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(u => u.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
     }
 }
