@@ -34,6 +34,7 @@ namespace GamesNexus.Data.Models
         public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
+
         public ICollection<Game> GamesToBuy { get; set; } = null!;
     }
 }

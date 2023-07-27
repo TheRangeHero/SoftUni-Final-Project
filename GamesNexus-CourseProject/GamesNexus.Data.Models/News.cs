@@ -26,6 +26,7 @@ namespace GamesNexus.Data.Models
         [Required]
         [MaxLength(NewsContentMaxLength)]
         public string Content { get; set; } = null!;
+
         public DateTime PublishedAt { get; set; }
 
 

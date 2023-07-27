@@ -19,10 +19,10 @@ namespace GamesNexus.Data.Configurations
 
 
             builder
-                .HasOne(x => x.Wishlist)
-                .WithOne(x => x.ApplicationUser)
-                .HasForeignKey<Wishlist>(x => x.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+              .HasMany(g=>g.WishlistGames)
+              .WithOne(u=>u.ApplicationUser) 
+              .HasForeignKey(u=>u.ApplicationUser.Id)
+              .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasMany(d => d.Discussions)

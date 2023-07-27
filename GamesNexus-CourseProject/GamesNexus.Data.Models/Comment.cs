@@ -11,6 +11,11 @@ namespace GamesNexus.Data.Models
 {
     public class Comment
     {
+        public Comment()
+        {
+            this.CreatedAt = DateTime.Now.Date;
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -19,9 +24,11 @@ namespace GamesNexus.Data.Models
 
         public DateTime CreatedAt { get; set; }
 
+
         [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = null!;
+
 
         [ForeignKey(nameof(Discussion))]
         public int DiscussionId { get; set; }

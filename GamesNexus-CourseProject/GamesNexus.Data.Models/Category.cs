@@ -16,7 +16,7 @@ namespace GamesNexus.Data.Models
 
         [Required]
         [MaxLength(CategoryMaxLenght)]
-        public string Name { get; set; } = null!;
+        public string Type { get; set; } = null!;
 
 
         public ICollection<Game> CategoryGames { get; set; } = null!;

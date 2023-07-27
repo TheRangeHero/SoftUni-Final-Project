@@ -36,17 +36,25 @@ namespace GamesNexus.Data.Models
         [Required]
         public DateTime ReleaseDate { get; set; }
 
+
         [Required]
         [MaxLength(GameDeveloperMaxLenght)]
         public string Developer { get; set; } = null!;
+
 
         [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; }
         public Publisher Publisher { get; set; } = null!;
 
+
         [ForeignKey(nameof(Order))]
         public Guid OrderId { get; set; }
         public Order Order { get; set; } = null!;
+
+        [ForeignKey(nameof(ApplicationUser))]
+        public Guid ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; } = null!;
+
 
         public ICollection<Genre> Genres { get; set; } = null!;
         public ICollection<Category> Categories { get; set; } = null!;

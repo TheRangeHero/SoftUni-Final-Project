@@ -19,6 +19,7 @@ namespace GamesNexus.Data.Models
             this.Orders = new HashSet<Order>();
             this.Reviews = new HashSet<Review>();
             this.News = new HashSet<News>();
+            this.WishlistGames = new HashSet<Game>();
         }
 
 
@@ -39,13 +40,11 @@ namespace GamesNexus.Data.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-        public int WishlistId { get; set; }
-        public Wishlist Wishlist { get; set; } = null!;
-
         public ICollection<Discussion> Discussions { get; set; } = null!;
         public ICollection<Comment> Comments { get; set; } = null!;
         public ICollection<Order> Orders { get; set; } = null!;
         public ICollection<Review> Reviews { get; set; } = null!;
         public ICollection<News> News { get; set; } = null!;
+        public ICollection<Game> WishlistGames { get; set; } = null!;
     }
 }

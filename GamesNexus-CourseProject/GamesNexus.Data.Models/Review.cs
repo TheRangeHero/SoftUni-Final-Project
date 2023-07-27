@@ -26,9 +26,11 @@ namespace GamesNexus.Data.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
+
         [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
+
 
         [ForeignKey(nameof(Game))]
         public int GameId { get; set; }

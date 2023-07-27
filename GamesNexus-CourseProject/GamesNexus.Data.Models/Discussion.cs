@@ -30,6 +30,7 @@ namespace GamesNexus.Data.Models
         [Required]
         public DateTime CreatedAt { get; set; }
 
+
         [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = null!;
