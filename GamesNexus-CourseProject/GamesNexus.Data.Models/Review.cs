@@ -24,7 +24,7 @@ namespace GamesNexus.Data.Models
         public string? Comment { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

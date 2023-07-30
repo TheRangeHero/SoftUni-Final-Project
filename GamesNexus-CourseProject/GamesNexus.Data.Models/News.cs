@@ -13,6 +13,7 @@ namespace GamesNexus.Data.Models
     {        public News()
         {
             this.PublishedAt = DateTime.UtcNow;
+            
         }
 
 
@@ -27,7 +28,7 @@ namespace GamesNexus.Data.Models
         [MaxLength(NewsContentMaxLength)]
         public string Content { get; set; } = null!;
 
-        public DateTime PublishedAt { get; set; }
+        public DateTime PublishedAt { get; private set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

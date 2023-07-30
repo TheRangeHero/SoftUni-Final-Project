@@ -21,7 +21,7 @@ namespace GamesNexus.Data.Configurations
             builder
               .HasMany(g=>g.WishlistGames)
               .WithOne(u=>u.ApplicationUser) 
-              .HasForeignKey(u=>u.ApplicationUser.Id)
+              .HasForeignKey(u=>u.ApplicationUserId)
               .OnDelete(DeleteBehavior.Restrict);
 
             builder

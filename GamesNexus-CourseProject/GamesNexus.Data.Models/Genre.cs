@@ -11,7 +11,7 @@ namespace GamesNexus.Data.Models
     public class Genre
     {        public Genre()
         {
-            this.GenreGames = new HashSet<Game>();
+            this.GamesGenres = new HashSet<GameGenre>();
         }
 
         [Key]
@@ -21,6 +21,6 @@ namespace GamesNexus.Data.Models
         [MaxLength(GenreNameMaxLenght)]
         public string Type { get; set; } = null!;
 
-        public ICollection<Game> GenreGames { get; set; } = null!;
+        public ICollection<GameGenre> GamesGenres { get; set; } = null!;
     }
 }

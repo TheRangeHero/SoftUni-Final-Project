@@ -20,4 +20,8 @@
     <ProjectReference Include="..\GamesNexus.Data.Models\GamesNexus.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -8,7 +8,7 @@ namespace GamesNexus.Data.Models
     {
         public Category()
         {
-            this.CategoryGames = new HashSet<Game>();
+            this.GamesCategories = new HashSet<GameCategory>();
         }
 
         [Key]
@@ -19,6 +19,6 @@ namespace GamesNexus.Data.Models
         public string Type { get; set; } = null!;
 
 
-        public ICollection<Game> CategoryGames { get; set; } = null!;
+        public ICollection<GameCategory> GamesCategories { get; set; } = null!;
     }
 }

@@ -24,10 +24,14 @@ namespace GamesNexus.Data.Models
             {
                 return GamesToBuy?.Sum(game => game.Price) ?? 0;
             }
+            private set
+            {
+
+            }
         }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

@@ -14,10 +14,11 @@ namespace GamesNexus.Data.Models
         public Game()
         {
             this.Reviews = new HashSet<Review>();
-            this.Categories = new HashSet<Category>();
-            this.Genres = new HashSet<Genre>();
+            this.GamesCategories = new HashSet<GameCategory>();
+            this.GamesGenres = new HashSet<GameGenre>();
             this.Images = new HashSet<GameImage>();
             this.Videos = new HashSet<GameVideo>();
+            this.ReleaseDate = DateTime.Now.Date;
         }
 
         [Key]
@@ -34,7 +35,7 @@ namespace GamesNexus.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; private set; }
 
 
         [Required]
@@ -56,8 +57,8 @@ namespace GamesNexus.Data.Models
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
 
-        public ICollection<Genre> Genres { get; set; } = null!;
-        public ICollection<Category> Categories { get; set; } = null!;
+        public ICollection<GameGenre> GamesGenres { get; set; } = null!;
+        public ICollection<GameCategory> GamesCategories { get; set; } = null!;
         public ICollection<Review> Reviews { get; set; } = null!;
         public ICollection<GameImage> Images { get; set; } = null!;
         public ICollection<GameVideo> Videos { get; set; } = null!;

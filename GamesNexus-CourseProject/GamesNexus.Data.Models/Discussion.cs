@@ -14,6 +14,7 @@ namespace GamesNexus.Data.Models
         public Discussion()
         {
             this.Comments = new HashSet<Comment>();
+            this.CreatedAt = DateTime.Now.Date;
         }
 
         [Key]
@@ -28,7 +29,7 @@ namespace GamesNexus.Data.Models
         public string Content { get; set; } = null!;
 
         [Required]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

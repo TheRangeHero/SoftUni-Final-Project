@@ -22,7 +22,7 @@ namespace GamesNexus.Data.Models
         [MaxLength(CommentContentMaxLenght)]
         public string? Content { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

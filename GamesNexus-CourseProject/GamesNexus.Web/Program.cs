@@ -1,4 +1,4 @@
-using GamesNexus.Data;
+﻿using GamesNexus.Data;
 using GamesNexus.Data.Models;
 
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +13,23 @@ namespace GamesNexus.Web
 
 
             string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
             builder.Services.AddDbContext<GamesNexusDbContext>(options =>
                 options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
-
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = 
+                    builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                options.Password.RequireLowercase = 
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
+                options.Password.RequireUppercase = 
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+                options.Password.RequireNonAlphanumeric = 
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                options.Password.RequiredLength = 
+                    builder.Configuration.GetValue<int>("Identity:Password:RequiredLength"); ;
             })
                 .AddEntityFrameworkStores<GamesNexusDbContext>();
             builder.Services.AddControllersWithViews();
