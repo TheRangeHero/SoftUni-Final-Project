@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230801200655_GamesImagesAndVideoSeed")]
+    partial class GamesImagesAndVideoSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,7 +265,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Riot Games",
                             Price = 10.25m,
                             PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2023, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             Title = "League of Legends"
                         },
                         new
@@ -273,7 +275,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Insomniac Games",
                             Price = 55.55m,
                             PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2023, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             Title = "Spyro"
                         });
                 });
@@ -291,18 +293,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("GamesCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            GameId = 1,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            CategoryId = 1
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameGenre", b =>
@@ -318,28 +308,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("GamesGenres");
-
-                    b.HasData(
-                        new
-                        {
-                            GameId = 1,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            GameId = 1,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            GenreId = 3
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            GenreId = 1
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameImage", b =>

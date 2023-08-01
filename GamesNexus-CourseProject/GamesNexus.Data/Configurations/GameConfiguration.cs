@@ -37,6 +37,8 @@ namespace GamesNexus.Data.Configurations
                 .WithOne(g => g.Game)
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(GenerateGames());
         }
 
         private Game[] GenerateGames()
@@ -44,9 +46,29 @@ namespace GamesNexus.Data.Configurations
             ICollection<Game> games = new HashSet<Game>();
 
             Game game;
-           
+            game = new Game()
+            {
+                Id = 1,
+                Title = "League of Legends",
+                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
+                Price = 10.25M,
+                Developer = "Riot Games",
+                PublisherId = Guid.Parse("A9AC2BF7-C3E8-4597-841B-21A6CE1B766B")
+            };
+            games.Add(game);
 
-            return null;
+            game = new Game()
+            {
+                Id = 2,
+                Title = "Spyro",
+                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
+                Price = 55.55M,
+                Developer = "Insomniac Games",
+                PublisherId = Guid.Parse("A9AC2BF7-C3E8-4597-841B-21A6CE1B766B")
+            };
+            games.Add(game);
+
+            return games.ToArray();
         }
     }
 }

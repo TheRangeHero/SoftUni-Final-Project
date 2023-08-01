@@ -49,12 +49,12 @@ namespace GamesNexus.Data.Models
 
 
         [ForeignKey(nameof(Order))]
-        public Guid OrderId { get; set; }
-        public Order Order { get; set; } = null!;
+        public Guid? OrderId { get; set; }
+        public Order? Order { get; set; }
 
         [ForeignKey(nameof(ApplicationUser))]
-        public Guid ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+        public Guid? ApplicationUserId { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
 
 
         public ICollection<GameGenre> GamesGenres { get; set; } = null!;

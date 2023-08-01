@@ -19,6 +19,31 @@ namespace GamesNexus.Data.Configurations
                     cg.GameId,
                     cg.CategoryId
                 });
+
+            builder.HasData(GenerateGameCategory());
+        }
+
+        private GameCategory[] GenerateGameCategory()
+        {
+            ICollection<GameCategory> gameCategories = new HashSet<GameCategory>();
+
+            GameCategory gameCategory;
+
+            gameCategory = new GameCategory()
+            {
+                GameId = 1,
+                CategoryId = 2
+            };
+            gameCategories.Add(gameCategory);
+
+            gameCategory = new GameCategory()
+            {
+                GameId = 2,
+                CategoryId = 1
+            };
+            gameCategories.Add(gameCategory);
+
+            return gameCategories.ToArray();
         }
     }
 }

@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230801191623_AdjustedGameNullPropertiesNewAttempt")]
+    partial class AdjustedGameNullPropertiesNewAttempt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,28 +256,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Games");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
-                            Developer = "Riot Games",
-                            Price = 10.25m,
-                            PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
-                            Title = "League of Legends"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
-                            Developer = "Insomniac Games",
-                            Price = 55.55m,
-                            PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
-                            Title = "Spyro"
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameCategory", b =>
@@ -291,18 +271,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("GamesCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            GameId = 1,
-                            CategoryId = 2
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            CategoryId = 1
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameGenre", b =>
@@ -318,28 +286,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("GamesGenres");
-
-                    b.HasData(
-                        new
-                        {
-                            GameId = 1,
-                            GenreId = 2
-                        },
-                        new
-                        {
-                            GameId = 1,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            GenreId = 3
-                        },
-                        new
-                        {
-                            GameId = 2,
-                            GenreId = 1
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameImage", b =>
@@ -363,26 +309,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("GamesImages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GameId = 1,
-                            ImageUrl = "https://media.wired.co.uk/photos/606da9336ab54fce4fbb245f/master/w_1280,c_limit/lol_1.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GameId = 1,
-                            ImageUrl = "https://i.pinimg.com/564x/c5/6c/77/c56c774ee09e3e16bf12460dea765109.jpg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            GameId = 2,
-                            ImageUrl = "https://cdn.mobygames.com/covers/7240915-spyro-reignited-trilogy-xbox-one-front-cover.jpg"
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameVideo", b =>
@@ -405,20 +331,6 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("GamesVideos");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GameId = 1,
-                            VideoUrl = "https://www.leagueoflegends.com/static/hero-0632cbf2872c5cc0dffa93d2ae8a29e8.webm"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GameId = 2,
-                            VideoUrl = "https://cdn.akamai.steamstatic.com/steam/apps/256752581/movie480.webm?t=1560272971"
-                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.Genre", b =>
