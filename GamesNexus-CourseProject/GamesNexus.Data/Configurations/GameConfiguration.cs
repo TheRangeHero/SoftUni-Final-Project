@@ -27,16 +27,26 @@ namespace GamesNexus.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasMany(i=>i.Images)
-                .WithOne(g=>g.Game)
+                .HasMany(i => i.Images)
+                .WithOne(g => g.Game)
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasMany(v=>v.Videos)
-                .WithOne(g=>g.Game)
+                .HasMany(v => v.Videos)
+                .WithOne(g => g.Game)
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private Game[] GenerateGames()
+        {
+            ICollection<Game> games = new HashSet<Game>();
+
+            Game game;
+           
+
+            return null;
         }
     }
 }
