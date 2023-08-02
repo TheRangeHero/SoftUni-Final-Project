@@ -29,13 +29,13 @@ namespace GamesNexus.Data.Models
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string? LastName { get; set; }
 
-        [MaxLength(ApplicationUserAvatarURLMaxLenght)]
+        [MaxLength(ApplicationUserAvatarURLMaxLength)]
         public string? AvatarImage { get; set; }
 
-        [MaxLength(ApplicationUserCountryMaxLenght)]
+        [MaxLength(ApplicationUserCountryMaxLength)]
         public string? Country { get; set; }
 
-        [MaxLength(ApplicationUserStateCityMaxLenght)]
+        [MaxLength(ApplicationUserStateCityMaxLength)]
         public string? StateCity { get; set; }
 
         public DateTime? DateOfBirth { get; set; }

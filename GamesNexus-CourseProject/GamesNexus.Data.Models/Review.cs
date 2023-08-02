@@ -20,7 +20,7 @@ namespace GamesNexus.Data.Models
 
         public RatingOption Rating { get; set; }
 
-        [MaxLength(ReviewCommentMaxLenght)]
+        [MaxLength(ReviewCommentMaxLength)]
         public string? Comment { get; set; }
 
         [Required]

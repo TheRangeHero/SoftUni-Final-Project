@@ -14,7 +14,7 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder
-                .Property(i=>i.Id)
+                .Property(i => i.Id)
                 .HasColumnType("bigint");
 
             builder
@@ -43,9 +43,12 @@ namespace GamesNexus.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(g => g.SystemRequirement)
-                .WithOne()
-                .HasForeignKey<Game>(g => g.SystemRequirementId);
+               .HasOne(sr => sr.SystemRequirement)
+               .WithOne(g => g.Game)
+               .HasForeignKey<SystemRequirement>(sr => sr.GameId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
 
             builder.HasData(GenerateGames());
         }
@@ -62,7 +65,7 @@ namespace GamesNexus.Data.Configurations
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
                 Price = 10.25M,
                 Developer = "Riot Games",
-                PublisherId = Guid.Parse("A9AC2BF7-C3E8-4597-841B-21A6CE1B766B")
+                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),            
             };
             games.Add(game);
 
@@ -73,7 +76,7 @@ namespace GamesNexus.Data.Configurations
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
                 Price = 55.55M,
                 Developer = "Insomniac Games",
-                PublisherId = Guid.Parse("A9AC2BF7-C3E8-4597-841B-21A6CE1B766B")
+                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),               
             };
             games.Add(game);
 

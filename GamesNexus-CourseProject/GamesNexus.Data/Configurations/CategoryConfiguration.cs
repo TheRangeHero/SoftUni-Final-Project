@@ -51,5 +51,5 @@ namespace GamesNexus.Data.Configurations
             return categories.ToArray();
         }
     }
-    
+
 }

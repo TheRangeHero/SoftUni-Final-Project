@@ -10,7 +10,7 @@ namespace GamesNexus.Data.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(GameVideoURLMaxLenght)]
+        [MaxLength(GameVideoURLMaxLength)]
         public string? VideoUrl { get; set; }
 
 

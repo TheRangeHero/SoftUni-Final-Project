@@ -21,7 +21,7 @@ namespace GamesNexus.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NewsTitleMaxLegth)]
+        [MaxLength(NewsTitleMaxLength)]
         public string Title { get; set; } = null!;
 
         [Required]

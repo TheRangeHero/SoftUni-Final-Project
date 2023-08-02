@@ -19,7 +19,7 @@ namespace GamesNexus.Data.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(CommentContentMaxLenght)]
+        [MaxLength(CommentContentMaxLength)]
         public string? Content { get; set; }
 
         public DateTime CreatedAt { get; private set; }

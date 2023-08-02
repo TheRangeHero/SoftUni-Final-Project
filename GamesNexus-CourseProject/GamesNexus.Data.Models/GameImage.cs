@@ -11,7 +11,7 @@ namespace GamesNexus.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GameImageURLMaxLenght)]
+        [MaxLength(GameImageURLMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
 

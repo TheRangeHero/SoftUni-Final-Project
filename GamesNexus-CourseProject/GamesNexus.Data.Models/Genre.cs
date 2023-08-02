@@ -18,7 +18,7 @@ namespace GamesNexus.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(GenreNameMaxLenght)]
+        [MaxLength(GenreNameMaxLength)]
         public string Name { get; set; } = null!;
 
         public ICollection<GameGenre> GamesGenres { get; set; } = null!;

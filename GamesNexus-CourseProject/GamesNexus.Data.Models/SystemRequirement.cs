@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,15 +16,27 @@ namespace GamesNexus.Data.Models
         [Key]
         public long Id { set; get; }
 
-        [MaxLength(GPUMaxLenght)]
+        [MaxLength(GPUMaxLength)]
         public string? GPU { set; get; }
 
-        [MaxLength(CPUMaxLenght)]
+        [MaxLength(CPUMaxLength)]
         public string? CPU { set; get; }
 
-        [MaxLength(OSMaxLenght)]
+        [MaxLength(OSMaxLength)]
         public string? OS { set; get; }
-        public int RAM { set; get; }
+
+        [MaxLength(StorageMaxLength)]
+        public string? Storage { set; get; }
+
+        [MaxLength(RAMMaxLength)]
+        public string? RAM { set; get; }
+
+        [MaxLength(AdditionalNotesMaxLength)]
+        public string? AdditionalNotes { set; get; }
+
+        public long GameId { set; get; }
+        public Game Game { set; get; } = null!;
+
 
     }
 }

@@ -251,9 +251,6 @@ namespace GamesNexus.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.HasIndex("SystemRequirementId")
-                        .IsUnique();
-
                     b.ToTable("Games");
 
                     b.HasData(
@@ -263,8 +260,8 @@ namespace GamesNexus.Data.Migrations
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
                             Developer = "Riot Games",
                             Price = 10.25m,
-                            PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             SystemRequirementId = 0L,
                             Title = "League of Legends"
                         },
@@ -274,8 +271,8 @@ namespace GamesNexus.Data.Migrations
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
                             Developer = "Insomniac Games",
                             Price = 55.55m,
-                            PublisherId = new Guid("a9ac2bf7-c3e8-4597-841b-21a6ce1b766b"),
-                            ReleaseDate = new DateTime(2023, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             SystemRequirementId = 0L,
                             Title = "Spyro"
                         });
@@ -533,7 +530,7 @@ namespace GamesNexus.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetail");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.Publisher", b =>
@@ -602,24 +599,39 @@ namespace GamesNexus.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
+                    b.Property<string>("AdditionalNotes")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("CPU")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("GPU")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OS")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RAM")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Storage")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("OS")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("RAM")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.ToTable("SystemRequirement");
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.ToTable("SystemRequirements");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -800,17 +812,9 @@ namespace GamesNexus.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("GamesNexus.Data.Models.SystemRequirement", "SystemRequirement")
-                        .WithOne()
-                        .HasForeignKey("GamesNexus.Data.Models.Game", "SystemRequirementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Publisher");
-
-                    b.Navigation("SystemRequirement");
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameCategory", b =>
@@ -944,6 +948,17 @@ namespace GamesNexus.Data.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("GamesNexus.Data.Models.SystemRequirement", b =>
+                {
+                    b.HasOne("GamesNexus.Data.Models.Game", "Game")
+                        .WithOne("SystemRequirement")
+                        .HasForeignKey("GamesNexus.Data.Models.SystemRequirement", "GameId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -1031,6 +1046,8 @@ namespace GamesNexus.Data.Migrations
                     b.Navigation("OrderDetail");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("SystemRequirement");
 
                     b.Navigation("Videos");
                 });

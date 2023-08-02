@@ -21,11 +21,11 @@ namespace GamesNexus.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(DiscussionTitleMaxLenght)]
+        [MaxLength(DiscussionTitleMaxLength)]
         public string Title { get; set; } = null!;
 
         [Required]
-        [MaxLength(DiscussionContentMaxLenght)]
+        [MaxLength(DiscussionContentMaxLength)]
         public string Content { get; set; } = null!;
 
         [Required]

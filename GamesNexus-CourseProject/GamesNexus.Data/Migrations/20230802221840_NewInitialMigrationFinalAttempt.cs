@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GamesNexus.Data.Migrations
 {
-    public partial class InitializeDb : Migration
+    public partial class NewInitialMigrationFinalAttempt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,7 +60,7 @@ namespace GamesNexus.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +73,7 @@ namespace GamesNexus.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,7 +302,7 @@ namespace GamesNexus.Data.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
@@ -310,8 +310,8 @@ namespace GamesNexus.Data.Migrations
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
                     Developer = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     PublisherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SystemRequirementId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -320,12 +320,6 @@ namespace GamesNexus.Data.Migrations
                         name: "FK_Games_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Games_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -340,7 +334,7 @@ namespace GamesNexus.Data.Migrations
                 name: "GamesCategories",
                 columns: table => new
                 {
-                    GameId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<long>(type: "bigint", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -364,7 +358,7 @@ namespace GamesNexus.Data.Migrations
                 name: "GamesGenres",
                 columns: table => new
                 {
-                    GameId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<long>(type: "bigint", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -391,7 +385,7 @@ namespace GamesNexus.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    GameId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -411,7 +405,7 @@ namespace GamesNexus.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VideoUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    GameId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -425,6 +419,31 @@ namespace GamesNexus.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderDetails",
+                columns: table => new
+                {
+                    GameId = table.Column<long>(type: "bigint", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetails", x => new { x.GameId, x.OrderId });
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -434,7 +453,7 @@ namespace GamesNexus.Data.Migrations
                     Comment = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    GameId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -447,6 +466,30 @@ namespace GamesNexus.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reviews_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SystemRequirements",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GPU = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    CPU = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    OS = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Storage = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    RAM = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemRequirements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SystemRequirements_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
@@ -513,11 +556,6 @@ namespace GamesNexus.Data.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Games_OrderId",
-                table: "Games",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Games_PublisherId",
                 table: "Games",
                 column: "PublisherId");
@@ -548,6 +586,11 @@ namespace GamesNexus.Data.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_OrderId",
+                table: "OrderDetails",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_ApplicationUserId",
                 table: "Orders",
                 column: "ApplicationUserId");
@@ -566,6 +609,12 @@ namespace GamesNexus.Data.Migrations
                 name: "IX_Reviews_GameId",
                 table: "Reviews",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SystemRequirements_GameId",
+                table: "SystemRequirements",
+                column: "GameId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -604,7 +653,13 @@ namespace GamesNexus.Data.Migrations
                 name: "News");
 
             migrationBuilder.DropTable(
+                name: "OrderDetails");
+
+            migrationBuilder.DropTable(
                 name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "SystemRequirements");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -619,10 +674,10 @@ namespace GamesNexus.Data.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Games");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "Publishers");

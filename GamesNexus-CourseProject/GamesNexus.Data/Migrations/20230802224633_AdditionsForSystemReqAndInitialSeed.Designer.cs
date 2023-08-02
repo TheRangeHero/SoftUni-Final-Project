@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    [Migration("20230730131510_InitializeDb")]
-    partial class InitializeDb
+    [Migration("20230802224633_AdditionsForSystemReqAndInitialSeed")]
+    partial class AdditionsForSystemReqAndInitialSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,7 +121,7 @@ namespace GamesNexus.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -129,6 +129,23 @@ namespace GamesNexus.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Single-player"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Multi-player"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "LAN"
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.Comment", b =>
@@ -194,13 +211,13 @@ namespace GamesNexus.Data.Migrations
 
             modelBuilder.Entity("GamesNexus.Data.Models.Game", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<Guid>("ApplicationUserId")
+                    b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -212,9 +229,6 @@ namespace GamesNexus.Data.Migrations
                         .HasMaxLength(70)
                         .HasColumnType("nvarchar(70)");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("Price")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
@@ -225,6 +239,9 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
 
+                    b.Property<long>("SystemRequirementId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -234,17 +251,39 @@ namespace GamesNexus.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("OrderId");
-
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
+                            Developer = "Riot Games",
+                            Price = 10.25m,
+                            PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            SystemRequirementId = 0L,
+                            Title = "League of Legends"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
+                            Developer = "Insomniac Games",
+                            Price = 55.55m,
+                            PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            SystemRequirementId = 0L,
+                            Title = "Spyro"
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameCategory", b =>
                 {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -254,12 +293,24 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("GamesCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            GameId = 1L,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            GameId = 2L,
+                            CategoryId = 1
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameGenre", b =>
                 {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
@@ -269,6 +320,28 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("GamesGenres");
+
+                    b.HasData(
+                        new
+                        {
+                            GameId = 1L,
+                            GenreId = 2
+                        },
+                        new
+                        {
+                            GameId = 1L,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            GameId = 2L,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            GameId = 2L,
+                            GenreId = 1
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameImage", b =>
@@ -279,8 +352,8 @@ namespace GamesNexus.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -292,6 +365,26 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("GamesImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GameId = 1L,
+                            ImageUrl = "https://media.wired.co.uk/photos/606da9336ab54fce4fbb245f/master/w_1280,c_limit/lol_1.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GameId = 1L,
+                            ImageUrl = "https://i.pinimg.com/564x/c5/6c/77/c56c774ee09e3e16bf12460dea765109.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GameId = 2L,
+                            ImageUrl = "https://cdn.mobygames.com/covers/7240915-spyro-reignited-trilogy-xbox-one-front-cover.jpg"
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.GameVideo", b =>
@@ -302,8 +395,8 @@ namespace GamesNexus.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("VideoUrl")
                         .HasMaxLength(2048)
@@ -314,6 +407,20 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("GamesVideos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GameId = 1L,
+                            VideoUrl = "https://www.leagueoflegends.com/static/hero-0632cbf2872c5cc0dffa93d2ae8a29e8.webm"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GameId = 2L,
+                            VideoUrl = "https://cdn.akamai.steamstatic.com/steam/apps/256752581/movie480.webm?t=1560272971"
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.Genre", b =>
@@ -324,7 +431,7 @@ namespace GamesNexus.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -332,6 +439,28 @@ namespace GamesNexus.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Strategy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Simulation"
+                        });
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.News", b =>
@@ -388,6 +517,24 @@ namespace GamesNexus.Data.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("GamesNexus.Data.Models.OrderDetail", b =>
+                {
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("GameId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("GamesNexus.Data.Models.Publisher", b =>
                 {
                     b.Property<Guid>("Id")
@@ -431,8 +578,8 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -444,6 +591,49 @@ namespace GamesNexus.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("GamesNexus.Data.Models.SystemRequirement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("AdditionalNotes")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CPU")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("GPU")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<long>("GameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OS")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("RAM")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Storage")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.ToTable("SystemRequirements");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -616,14 +806,7 @@ namespace GamesNexus.Data.Migrations
                     b.HasOne("GamesNexus.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("WishlistGames")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("GamesNexus.Data.Models.Order", "Order")
-                        .WithMany("GamesToBuy")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("GamesNexus.Data.Models.Publisher", "Publisher")
                         .WithMany("PublishedGames")
@@ -632,8 +815,6 @@ namespace GamesNexus.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Order");
 
                     b.Navigation("Publisher");
                 });
@@ -720,6 +901,25 @@ namespace GamesNexus.Data.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
+            modelBuilder.Entity("GamesNexus.Data.Models.OrderDetail", b =>
+                {
+                    b.HasOne("GamesNexus.Data.Models.Game", "Game")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GamesNexus.Data.Models.Order", "Order")
+                        .WithMany("OrderDetail")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("GamesNexus.Data.Models.Publisher", b =>
                 {
                     b.HasOne("GamesNexus.Data.Models.ApplicationUser", "ApplicationUser")
@@ -746,6 +946,17 @@ namespace GamesNexus.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("GamesNexus.Data.Models.SystemRequirement", b =>
+                {
+                    b.HasOne("GamesNexus.Data.Models.Game", "Game")
+                        .WithOne("SystemRequirement")
+                        .HasForeignKey("GamesNexus.Data.Models.SystemRequirement", "GameId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
@@ -834,7 +1045,11 @@ namespace GamesNexus.Data.Migrations
 
                     b.Navigation("Images");
 
+                    b.Navigation("OrderDetail");
+
                     b.Navigation("Reviews");
+
+                    b.Navigation("SystemRequirement");
 
                     b.Navigation("Videos");
                 });
@@ -846,7 +1061,7 @@ namespace GamesNexus.Data.Migrations
 
             modelBuilder.Entity("GamesNexus.Data.Models.Order", b =>
                 {
-                    b.Navigation("GamesToBuy");
+                    b.Navigation("OrderDetail");
                 });
 
             modelBuilder.Entity("GamesNexus.Data.Models.Publisher", b =>

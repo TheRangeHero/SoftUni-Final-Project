@@ -27,10 +27,10 @@ namespace GamesNexus.Data.Models
         public long Id { get; set; }
 
         [Required]
-        [MaxLength(GameTitleMaxLenght)]
+        [MaxLength(GameTitleMaxLength)]
         public string Title { get; set; } = null!;
 
-        [MaxLength(GameDescriptionMaxLenght)]
+        [MaxLength(GameDescriptionMaxLength)]
         public string? Description { get; set; }
 
         [Required]
@@ -41,7 +41,7 @@ namespace GamesNexus.Data.Models
 
 
         [Required]
-        [MaxLength(GameDeveloperMaxLenght)]
+        [MaxLength(GameDeveloperMaxLength)]
         public string Developer { get; set; } = null!;
 
 
@@ -54,9 +54,8 @@ namespace GamesNexus.Data.Models
         public Guid? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
 
-        [ForeignKey(nameof(SystemRequirement))]
         public long SystemRequirementId { get; set; }
-        public SystemRequirement SystemRequirement { get; set; } = null!;
+        public SystemRequirement? SystemRequirement { get; set; }
 
 
         public ICollection<GameGenre> GamesGenres { get; set; } = null!;

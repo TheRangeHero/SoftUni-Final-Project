@@ -15,7 +15,7 @@ namespace GamesNexus.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(CategoryMaxLenght)]
+        [MaxLength(CategoryMaxLength)]
         public string Name { get; set; } = null!;
 
 
