@@ -26,6 +26,8 @@ namespace GamesNexus.Data
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Publisher> Publishers { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
+        public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public DbSet<SystemRequirement> SystemRequirements = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

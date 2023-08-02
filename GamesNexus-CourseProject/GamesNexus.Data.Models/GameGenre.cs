@@ -5,7 +5,7 @@ namespace GamesNexus.Data.Models
     public class GameGenre
     {
         [ForeignKey(nameof(Game))]
-        public int GameId { get; set; }
+        public long GameId { get; set; }
         public Game Game { get; set; } = null!;
 
 

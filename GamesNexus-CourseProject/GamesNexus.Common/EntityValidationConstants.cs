@@ -100,14 +100,18 @@ namespace GamesNexus.Common
             public const int ReviewCommentMinLenght = 3;
             public const int ReviewCommentMaxLenght = 100;
         }
-        public static class Order
+        public static class SystemRequirement
         {
+            public const int GPUMinLenght = 3;
+            public const int GPUMaxLenght = 30;
+
+            public const int CPUMinLenght = 1;
+            public const int CPUMaxLenght = 50;
+
+            public const int OSMinLenght = 3;
+            public const int OSMaxLenght = 50;
 
         }
 
-        public static class Wishlist
-        {
-
-        }
     }
 }

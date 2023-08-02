@@ -21,11 +21,7 @@ namespace GamesNexus.Data.Configurations
                 .Property(d => d.CreatedAt)
                 .HasColumnType("datetime2");
 
-            builder
-                .HasMany(g => g.GamesToBuy)
-                .WithOne(o => o.Order)
-                .HasForeignKey(o => o.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
+         
         }
     }
 }

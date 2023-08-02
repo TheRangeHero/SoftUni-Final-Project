@@ -10,19 +10,18 @@ namespace GamesNexus.Data.Models
         public Order()
         {
             this.Id = Guid.NewGuid();
-            this.GamesToBuy = new HashSet<Game>();
+            this.OrderDetail = new HashSet<OrderDetail>();
             CreatedAt = DateTime.UtcNow;
         }
 
         [Key]
         public Guid Id { get; set; }
 
-
         public decimal TotalPrice
         {
             get
             {
-                return GamesToBuy?.Sum(game => game.Price) ?? 0;
+                return OrderDetail?.Sum(od => od.Game.Price) ?? 0;
             }
             private set
             {
@@ -39,6 +38,6 @@ namespace GamesNexus.Data.Models
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
 
-        public ICollection<Game> GamesToBuy { get; set; } = null!;
+        public ICollection<OrderDetail> OrderDetail { get; set; } = null!;
     }
 }

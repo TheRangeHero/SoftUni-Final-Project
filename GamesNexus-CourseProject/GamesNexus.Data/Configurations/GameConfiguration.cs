@@ -14,6 +14,10 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder
+                .Property(i=>i.Id)
+                .HasColumnType("bigint");
+
+            builder
                 .Property(r => r.ReleaseDate)
                 .HasColumnType("date");
 
@@ -37,6 +41,11 @@ namespace GamesNexus.Data.Configurations
                 .WithOne(g => g.Game)
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(g => g.SystemRequirement)
+                .WithOne()
+                .HasForeignKey<Game>(g => g.SystemRequirementId);
 
             builder.HasData(GenerateGames());
         }

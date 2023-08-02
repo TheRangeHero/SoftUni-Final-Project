@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static GamesNexus.Common.EntityValidationConstants.Game;
+using System.Numerics;
 
 namespace GamesNexus.Data.Models
 {
@@ -18,11 +19,12 @@ namespace GamesNexus.Data.Models
             this.GamesGenres = new HashSet<GameGenre>();
             this.Images = new HashSet<GameImage>();
             this.Videos = new HashSet<GameVideo>();
+            this.OrderDetail = new HashSet<OrderDetail>();
             this.ReleaseDate = DateTime.Now.Date;
         }
 
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(GameTitleMaxLenght)]
@@ -48,13 +50,13 @@ namespace GamesNexus.Data.Models
         public Publisher Publisher { get; set; } = null!;
 
 
-        [ForeignKey(nameof(Order))]
-        public Guid? OrderId { get; set; }
-        public Order? Order { get; set; }
-
         [ForeignKey(nameof(ApplicationUser))]
         public Guid? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
+
+        [ForeignKey(nameof(SystemRequirement))]
+        public long SystemRequirementId { get; set; }
+        public SystemRequirement SystemRequirement { get; set; } = null!;
 
 
         public ICollection<GameGenre> GamesGenres { get; set; } = null!;
@@ -62,5 +64,6 @@ namespace GamesNexus.Data.Models
         public ICollection<Review> Reviews { get; set; } = null!;
         public ICollection<GameImage> Images { get; set; } = null!;
         public ICollection<GameVideo> Videos { get; set; } = null!;
+        public ICollection<OrderDetail> OrderDetail { get; set; } = null!;
     }
 }
