@@ -23,6 +23,7 @@
     <ProjectReference Include="..\GamesNexus.Common\GamesNexus.Common.csproj" />
     <ProjectReference Include="..\GamesNexus.Data.Models\GamesNexus.Data.Models.csproj" />
     <ProjectReference Include="..\GamesNexus.Data\GamesNexus.Data.csproj" />
+    <ProjectReference Include="..\GamesNexus.Web.Infrastructure\GamesNexus.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\GamesNexus.Web.ViewModels\GamesNexus.Web.ViewModels.csproj" />
   </ItemGroup>
 
