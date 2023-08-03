@@ -10,10 +10,8 @@ namespace GamesNexus.Data.Models
     {
         public Review()
         {
-            CreatedAt = DateTime.UtcNow;
-            Rating = RatingOption.None;
+            this.PostedOn = DateTime.UtcNow;
         }
-
 
         [Key]
         public int Id { get; set; }
@@ -24,7 +22,7 @@ namespace GamesNexus.Data.Models
         public string? Comment { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; private set; }
+        public DateTime PostedOn { get;  set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

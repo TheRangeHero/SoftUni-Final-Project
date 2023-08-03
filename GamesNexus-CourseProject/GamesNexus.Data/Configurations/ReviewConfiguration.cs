@@ -1,4 +1,5 @@
 ﻿using GamesNexus.Data.Models;
+using GamesNexus.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -14,8 +15,12 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder
-                .Property(d => d.CreatedAt)
-                .HasColumnType("datetime2");
+                .Property(d => d.PostedOn)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            builder
+                .Property(d => d.Rating)
+                .HasDefaultValue(RatingOption.None);
         }
     }
 }

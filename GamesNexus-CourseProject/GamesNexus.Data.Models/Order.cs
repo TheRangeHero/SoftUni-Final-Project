@@ -11,7 +11,7 @@ namespace GamesNexus.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.OrderDetail = new HashSet<OrderDetail>();
-            CreatedAt = DateTime.UtcNow;
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         [Key]
@@ -30,7 +30,7 @@ namespace GamesNexus.Data.Models
         }
 
         [Required]
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedOn { get;  set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

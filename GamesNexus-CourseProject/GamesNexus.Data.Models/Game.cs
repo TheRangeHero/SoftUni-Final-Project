@@ -20,7 +20,7 @@ namespace GamesNexus.Data.Models
             this.Images = new HashSet<GameImage>();
             this.Videos = new HashSet<GameVideo>();
             this.OrderDetail = new HashSet<OrderDetail>();
-            this.ReleaseDate = DateTime.Now.Date;
+            this.ReleaseDate = DateTime.UtcNow;
         }
 
         [Key]
@@ -35,9 +35,8 @@ namespace GamesNexus.Data.Models
 
         [Required]
         public decimal Price { get; set; }
-
-        [Required]
-        public DateTime ReleaseDate { get; private set; }
+       
+        public DateTime ReleaseDate { get;  set; }
 
 
         [Required]

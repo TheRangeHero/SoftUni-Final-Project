@@ -11,9 +11,10 @@ namespace GamesNexus.Data.Models
 {
     public class Comment
     {
+
         public Comment()
         {
-            this.CreatedAt = DateTime.Now.Date;
+            this.PostedOn = DateTime.UtcNow;
         }
 
         [Key]
@@ -22,7 +23,7 @@ namespace GamesNexus.Data.Models
         [MaxLength(CommentContentMaxLength)]
         public string? Content { get; set; }
 
-        public DateTime CreatedAt { get; private set; }
+        public DateTime PostedOn { get;  set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

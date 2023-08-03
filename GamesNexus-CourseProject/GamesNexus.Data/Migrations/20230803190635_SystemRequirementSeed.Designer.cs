@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230803190635_SystemRequirementSeed")]
+    partial class SystemRequirementSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,13 +163,11 @@ namespace GamesNexus.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("DiscussionId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("PostedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 203, DateTimeKind.Utc).AddTicks(9115));
 
                     b.HasKey("Id");
 
@@ -194,10 +194,8 @@ namespace GamesNexus.Data.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 203, DateTimeKind.Utc).AddTicks(9282));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -239,9 +237,7 @@ namespace GamesNexus.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(1837));
+                        .HasColumnType("date");
 
                     b.Property<long>("SystemRequirementId")
                         .HasColumnType("bigint");
@@ -267,7 +263,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Riot Games",
                             Price = 10.25m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(6610),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             SystemRequirementId = 0L,
                             Title = "League of Legends"
                         },
@@ -278,7 +274,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Insomniac Games",
                             Price = 55.55m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(6623),
+                            ReleaseDate = new DateTime(2023, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             SystemRequirementId = 0L,
                             Title = "Spyro"
                         });
@@ -483,10 +479,8 @@ namespace GamesNexus.Data.Migrations
                         .HasMaxLength(650)
                         .HasColumnType("nvarchar(650)");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(7549));
+                    b.Property<DateTime>("PublishedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -509,10 +503,8 @@ namespace GamesNexus.Data.Migrations
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(7728));
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(10, 2)
@@ -583,18 +575,14 @@ namespace GamesNexus.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("GameId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("PostedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 3, 20, 46, 58, 204, DateTimeKind.Utc).AddTicks(9208));
-
                     b.Property<int>("Rating")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

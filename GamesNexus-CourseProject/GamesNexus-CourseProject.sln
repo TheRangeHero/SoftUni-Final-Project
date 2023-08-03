@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesNexus.Data.Models", "G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesNexus.Web.ViewModels", "GamesNexus.Web.ViewModels\GamesNexus.Web.ViewModels.csproj", "{FADC814C-2EDF-4362-B5A9-10695F275EE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesNexus.Web.Infrastructure", "GamesNexus.Web.Infrastructure\GamesNexus.Web.Infrastructure.csproj", "{E79D964F-99C2-4891-8C61-7277F18022A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesNexus.Web.Infrastructure", "GamesNexus.Web.Infrastructure\GamesNexus.Web.Infrastructure.csproj", "{E79D964F-99C2-4891-8C61-7277F18022A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A959F1EA-3034-4267-B9DE-759665626EDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesNexus.Services.Data", "GamesNexus.Services.Data\GamesNexus.Services.Data.csproj", "{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{E79D964F-99C2-4891-8C61-7277F18022A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E79D964F-99C2-4891-8C61-7277F18022A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E79D964F-99C2-4891-8C61-7277F18022A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{35CA0360-1861-490B-937C-1569A03AB8DC} = {D58D6A3F-C84A-47FB-B4A1-6325D0479930}
 		{FADC814C-2EDF-4362-B5A9-10695F275EE5} = {19CF8318-95C9-4F70-9B00-1ACDD8F7E5E6}
 		{E79D964F-99C2-4891-8C61-7277F18022A3} = {19CF8318-95C9-4F70-9B00-1ACDD8F7E5E6}
+		{DF0ADBE3-7585-4026-8B5A-B7389D8C85BA} = {A959F1EA-3034-4267-B9DE-759665626EDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D26756DF-65D3-4A38-BC84-C098B7FC62BF}

@@ -14,8 +14,8 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<News> builder)
         {
             builder
-                .Property(d => d.PublishedAt)
-                .HasColumnType("datetime2");
+               .Property(d => d.PublishedOn)
+               .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

@@ -14,8 +14,8 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<Discussion> builder)
         {
             builder
-                .Property(d => d.CreatedAt)
-                .HasColumnType("datetime2");
+               .Property(d => d.CreatedOn)
+               .HasDefaultValue(DateTime.UtcNow);
 
             builder
                 .HasMany(c => c.Comments)

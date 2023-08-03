@@ -10,12 +10,11 @@ using static GamesNexus.Common.EntityValidationConstants.News;
 namespace GamesNexus.Data.Models
 {
     public class News
-    {        public News()
+    {
+        public News()
         {
-            this.PublishedAt = DateTime.UtcNow;
-            
+            this.PublishedOn = DateTime.UtcNow;
         }
-
 
         [Key]
         public int Id { get; set; }
@@ -28,7 +27,7 @@ namespace GamesNexus.Data.Models
         [MaxLength(NewsContentMaxLength)]
         public string Content { get; set; } = null!;
 
-        public DateTime PublishedAt { get; private set; }
+        public DateTime PublishedOn { get;  set; }
 
 
         [ForeignKey(nameof(ApplicationUser))]

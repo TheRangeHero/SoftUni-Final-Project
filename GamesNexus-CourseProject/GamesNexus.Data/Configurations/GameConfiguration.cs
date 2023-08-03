@@ -18,8 +18,8 @@ namespace GamesNexus.Data.Configurations
                 .HasColumnType("bigint");
 
             builder
-                .Property(r => r.ReleaseDate)
-                .HasColumnType("date");
+               .Property(d => d.ReleaseDate)
+               .HasDefaultValue(DateTime.UtcNow);
 
             builder.Property(p => p.Price)
                 .HasPrecision(10, 2);

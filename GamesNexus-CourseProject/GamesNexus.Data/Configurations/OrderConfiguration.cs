@@ -18,8 +18,8 @@ namespace GamesNexus.Data.Configurations
                 .HasPrecision(10, 2);
 
             builder
-                .Property(d => d.CreatedAt)
-                .HasColumnType("datetime2");
+                .Property(d => d.CreatedOn)
+                .HasDefaultValue(DateTime.UtcNow);
 
          
         }

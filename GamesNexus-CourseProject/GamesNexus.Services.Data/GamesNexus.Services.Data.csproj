@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GamesNexus.Common\GamesNexus.Common.csproj" />
+    <ProjectReference Include="..\GamesNexus.Data.Models\GamesNexus.Data.Models.csproj" />
+    <ProjectReference Include="..\GamesNexus.Data\GamesNexus.Data.csproj" />
+    <ProjectReference Include="..\GamesNexus.Web.ViewModels\GamesNexus.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

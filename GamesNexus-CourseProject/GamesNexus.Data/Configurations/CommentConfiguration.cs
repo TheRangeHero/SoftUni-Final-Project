@@ -14,8 +14,8 @@ namespace GamesNexus.Data.Configurations
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder
-                .Property(d => d.CreatedAt)
-                .HasColumnType("datetime2");
+              .Property(d => d.PostedOn)
+              .HasDefaultValue(DateTime.UtcNow);
         }
     }
 }
