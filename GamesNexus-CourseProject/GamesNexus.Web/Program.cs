@@ -1,6 +1,6 @@
 ﻿using GamesNexus.Data;
 using GamesNexus.Data.Models;
-
+using GamesNexus.Web.Infrastructure.ModelBinders;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamesNexus.Web
@@ -32,7 +32,11 @@ namespace GamesNexus.Web
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength"); ;
             })
                 .AddEntityFrameworkStores<GamesNexusDbContext>();
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider)
+                });
 
             WebApplication app = builder.Build();
 
