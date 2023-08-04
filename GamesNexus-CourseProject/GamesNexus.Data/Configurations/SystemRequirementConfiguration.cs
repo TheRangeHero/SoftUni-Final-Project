@@ -47,6 +47,18 @@ namespace GamesNexus.Data.Configurations
             };
             systemRequirements.Add(systemRequirement);
 
+            systemRequirement = new SystemRequirement()
+            {
+                Id = 3,
+                GPU = "Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0",
+                CPU = "Intel® Core™ 2 Duo E6600 or AMD Phenom™ X3 8750 processor or better",
+                OS = "Windows® 7/Vista/XP",
+                Storage = "15 GB available space",
+                RAM = "2 GB RAM",
+                GameId = 3
+            };
+            systemRequirements.Add(systemRequirement);
+
             return systemRequirements.ToArray();
         }
     }

@@ -56,6 +56,20 @@ namespace GamesNexus.Data.Configurations
             };
             gameGenres.Add(gameGenre);
 
+            gameGenre = new GameGenre()
+            {
+                GameId = 3,
+                GenreId = 1
+            };
+            gameGenres.Add(gameGenre);
+
+            gameGenre = new GameGenre()
+            {
+                GameId = 3,
+                GenreId = 5
+            };
+            gameGenres.Add(gameGenre);
+
             return gameGenres.ToArray();
         }
     }

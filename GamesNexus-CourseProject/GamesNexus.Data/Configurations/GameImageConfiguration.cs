@@ -45,6 +45,22 @@ namespace GamesNexus.Data.Configurations
             };
             gameImages.Add(gameImage);
 
+            gameImage = new GameImage()
+            {
+                Id = 4,
+                ImageUrl = "https://fanspace.gg/wp-content/uploads/2022/12/csgo-1-1024x576.jpg",
+                GameId = 3
+            };
+            gameImages.Add(gameImage);
+
+            gameImage = new GameImage()
+            {
+                Id = 5,
+                ImageUrl = "https://estnn.com/wp-content/uploads/2021/04/csgoft2.jpg.webp",
+                GameId = 3
+            };
+            gameImages.Add(gameImage);
+
             return gameImages.ToArray();
         }
     }

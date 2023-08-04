@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230804073625_AdditionalSeedForThirdGame")]
+    partial class AdditionalSeedForThirdGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 114, DateTimeKind.Utc).AddTicks(6217));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 396, DateTimeKind.Utc).AddTicks(5568));
 
                     b.HasKey("Id");
 
@@ -197,7 +199,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 114, DateTimeKind.Utc).AddTicks(7026));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 396, DateTimeKind.Utc).AddTicks(6078));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -241,7 +243,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 115, DateTimeKind.Utc).AddTicks(452));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 396, DateTimeKind.Utc).AddTicks(9865));
 
                     b.Property<long>("SystemRequirementId")
                         .HasColumnType("bigint");
@@ -267,8 +269,8 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Riot Games",
                             Price = 10.25m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 4, 7, 43, 57, 116, DateTimeKind.Utc).AddTicks(8819),
-                            SystemRequirementId = 1L,
+                            ReleaseDate = new DateTime(2023, 8, 4, 7, 36, 24, 398, DateTimeKind.Utc).AddTicks(8758),
+                            SystemRequirementId = 0L,
                             Title = "League of Legends"
                         },
                         new
@@ -278,8 +280,8 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Insomniac Games",
                             Price = 55.55m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 4, 7, 43, 57, 116, DateTimeKind.Utc).AddTicks(8852),
-                            SystemRequirementId = 2L,
+                            ReleaseDate = new DateTime(2023, 8, 4, 7, 36, 24, 398, DateTimeKind.Utc).AddTicks(8788),
+                            SystemRequirementId = 0L,
                             Title = "Spyro"
                         },
                         new
@@ -289,8 +291,8 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Valve Corporation, Hidden Path Entertainment",
                             Price = 20m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 4, 7, 43, 57, 116, DateTimeKind.Utc).AddTicks(8858),
-                            SystemRequirementId = 3L,
+                            ReleaseDate = new DateTime(2023, 8, 4, 7, 36, 24, 398, DateTimeKind.Utc).AddTicks(8793),
+                            SystemRequirementId = 0L,
                             Title = "CS:GO"
                         });
                 });
@@ -535,7 +537,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PublishedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 117, DateTimeKind.Utc).AddTicks(1932));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 399, DateTimeKind.Utc).AddTicks(4737));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -561,7 +563,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 117, DateTimeKind.Utc).AddTicks(2528));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 399, DateTimeKind.Utc).AddTicks(5399));
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(10, 2)
@@ -638,7 +640,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 43, 57, 118, DateTimeKind.Utc).AddTicks(601));
+                        .HasDefaultValue(new DateTime(2023, 8, 4, 7, 36, 24, 400, DateTimeKind.Utc).AddTicks(2038));
 
                     b.Property<int>("Rating")
                         .ValueGeneratedOnAdd()
@@ -667,12 +669,12 @@ namespace GamesNexus.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("CPU")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("GPU")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<long>("GameId")
                         .HasColumnType("bigint");
@@ -682,12 +684,12 @@ namespace GamesNexus.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("RAM")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Storage")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -717,16 +719,6 @@ namespace GamesNexus.Data.Migrations
                             OS = "Windows 7",
                             RAM = "8 GB RAM",
                             Storage = "40 GB available space"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CPU = "Intel® Core™ 2 Duo E6600 or AMD Phenom™ X3 8750 processor or better",
-                            GPU = "Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0",
-                            GameId = 3L,
-                            OS = "Windows® 7/Vista/XP",
-                            RAM = "2 GB RAM",
-                            Storage = "15 GB available space"
                         });
                 });
 

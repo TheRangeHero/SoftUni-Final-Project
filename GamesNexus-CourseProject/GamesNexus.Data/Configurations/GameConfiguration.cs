@@ -65,7 +65,8 @@ namespace GamesNexus.Data.Configurations
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tellus nunc, porttitor vel sapien eget, ornare tristique mauris. Donec diam neque, auctor et dui non.",
                 Price = 10.25M,
                 Developer = "Riot Games",
-                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),            
+                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
+                SystemRequirementId=1
             };
             games.Add(game);
 
@@ -76,7 +77,20 @@ namespace GamesNexus.Data.Configurations
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque consectetur gravida orci in dapibus. Mauris pharetra efficitur nisi ut vehicula. Nulla dapibus faucibus gravida. Nunc a eleifend sem, at tempus ante. Nunc tincidunt laoreet nisl, at viverra mauris ultricies iaculis. Nullam dui leo, mattis eu rutrum sed, vehicula at odio.",
                 Price = 55.55M,
                 Developer = "Insomniac Games",
-                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),               
+                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
+                SystemRequirementId=2
+            };
+            games.Add(game);
+
+            game = new Game()
+            {
+                Id = 3,
+                Title = "CS:GO",
+                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet sagittis quam, et sollicitudin nulla.",
+                Price = 20,
+                Developer = "Valve Corporation, Hidden Path Entertainment",
+                PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
+                SystemRequirementId=3
             };
             games.Add(game);
 

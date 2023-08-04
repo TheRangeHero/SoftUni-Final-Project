@@ -49,6 +49,13 @@ namespace GamesNexus.Data.Configurations
             };
             genres.Add(genre);
 
+            genre = new Genre()
+            {
+                Id = 5,
+                Name = "Shooter"
+            };
+            genres.Add(genre);
+
 
             return genres.ToArray();
         }

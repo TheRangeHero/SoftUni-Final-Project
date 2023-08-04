@@ -43,6 +43,13 @@ namespace GamesNexus.Data.Configurations
             };
             gameCategories.Add(gameCategory);
 
+            gameCategory = new GameCategory()
+            {
+                GameId = 3,
+                CategoryId = 2
+            };
+            gameCategories.Add(gameCategory);
+
             return gameCategories.ToArray();
         }
     }

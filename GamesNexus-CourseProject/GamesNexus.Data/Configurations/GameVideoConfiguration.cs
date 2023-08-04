@@ -37,6 +37,14 @@ namespace GamesNexus.Data.Configurations
             };
             gameVideos.Add(gameVideo);
 
+            gameVideo = new GameVideo()
+            {
+                Id = 3,
+                VideoUrl = "https://cdn.cloudflare.steamstatic.com/steam/apps/81958/movie480.webm?t=1554409259",
+                GameId = 3,
+            };
+            gameVideos.Add(gameVideo);
+
             return gameVideos.ToArray();
         }
     }

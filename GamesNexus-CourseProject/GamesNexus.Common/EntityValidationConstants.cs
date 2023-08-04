@@ -103,19 +103,19 @@ namespace GamesNexus.Common
         public static class SystemRequirement
         {
             public const int GPUMinLength = 3;
-            public const int GPUMaxLength = 100;
+            public const int GPUMaxLength = 150;
 
             public const int CPUMinLength = 3;
-            public const int CPUMaxLength = 100;
+            public const int CPUMaxLength = 150;
 
             public const int OSMinLength = 3;
             public const int OSMaxLength = 100;
 
             public const int StorageMinLength = 1;
-            public const int StorageMaxLength = 30;
+            public const int StorageMaxLength = 50;
 
             public const int RAMMinLength = 1;
-            public const int RAMMaxLength = 100;
+            public const int RAMMaxLength = 150;
 
             public const int AdditionalNotesMinLength = 3;
             public const int AdditionalNotesMaxLength = 200;
