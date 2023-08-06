@@ -21,6 +21,10 @@ namespace GamesNexus.Data.Models
         public Guid Id { get; set; }
 
         [Required]
+        [MaxLength(PublisherCompanyNameMaxLength)]
+        public string CompanyName { get; set; }
+
+        [Required]
         [MaxLength(PublisherEmailMaxLength)]
         public string BusinessEmail { get; set; } = null!;
 

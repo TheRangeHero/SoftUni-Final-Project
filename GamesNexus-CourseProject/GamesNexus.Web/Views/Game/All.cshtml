@@ -1,0 +1,18 @@
+﻿@model IEnumerable<GameAllViewModel>
+
+<h1>All Games</h1>
+
+<div class="game-container">
+    @foreach (var game in Model)
+    {
+        <div class="game-item">
+            <a href="@Url.Action("Details", "Game", new { id = game.Id })">
+                <img src="@game.Image" alt="Game Image">
+            </a>
+            <h2 class="game-title">
+                <a href="@Url.Action("Details", "Game", new { id = game.Id })">@game.Title</a>
+            </h2>
+            <p class="game-price">Price: @game.Price</p>
+        </div>
+    }
+</div>

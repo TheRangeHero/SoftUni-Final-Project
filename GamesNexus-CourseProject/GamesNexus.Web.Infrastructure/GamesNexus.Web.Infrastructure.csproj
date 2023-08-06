@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GamesNexus.Data\GamesNexus.Data.csproj" />
+    <ProjectReference Include="..\GamesNexus.Services.Data\GamesNexus.Services.Data.csproj" />
+  </ItemGroup>
+
 </Project>

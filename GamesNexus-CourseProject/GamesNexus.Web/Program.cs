@@ -1,5 +1,9 @@
 ﻿using GamesNexus.Data;
+using GamesNexus.Data.Common;
 using GamesNexus.Data.Models;
+using GamesNexus.Services.Data;
+using GamesNexus.Services.Data.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using GamesNexus.Web.Infrastructure.ModelBinders;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +36,10 @@ namespace GamesNexus.Web
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength"); ;
             })
                 .AddEntityFrameworkStores<GamesNexusDbContext>();
+
+            builder.Services.AddApplicationServices();
+          
+
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
                 {

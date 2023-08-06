@@ -16,20 +16,26 @@ namespace GamesNexus.Data.Models
         [Key]
         public long Id { set; get; }
 
+        [Required]
         [MaxLength(GPUMaxLength)]
-        public string? GPU { set; get; }
 
+        public string GPU { set; get; } = null!;
+
+        [Required]
         [MaxLength(CPUMaxLength)]
-        public string? CPU { set; get; }
+        public string CPU { set; get; } = null!;
 
+        [Required]
         [MaxLength(OSMaxLength)]
-        public string? OS { set; get; }
+        public string OS { set; get; } = null!;
 
+        [Required]
         [MaxLength(StorageMaxLength)]
-        public string? Storage { set; get; }
+        public string Storage { set; get; } = null!;
 
+        [Required]
         [MaxLength(RAMMaxLength)]
-        public string? RAM { set; get; }
+        public string RAM { set; get; } = null!;
 
         [MaxLength(AdditionalNotesMaxLength)]
         public string? AdditionalNotes { set; get; }

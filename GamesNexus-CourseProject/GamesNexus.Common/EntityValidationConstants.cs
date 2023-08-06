@@ -91,6 +91,9 @@ namespace GamesNexus.Common
             public const int PublisherEmailMaxLength = 320;
 
             public const int PublisherURLMaxLength = 2048;
+
+            public const int PublisherCompanyNameMinLength = 3;
+            public const int PublisherCompanyNameMaxLength = 60;
         }
 
         public static class Review

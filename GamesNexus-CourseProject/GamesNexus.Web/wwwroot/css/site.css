@@ -16,3 +16,37 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+
+/* CSS code for the game container and game item layout */
+/* CSS code for the game container and game item layout */
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.game-item {
+    width: calc(20% - 20px);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    .game-item img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        border: 1px solid #ccc;
+    }
+
+.game-title {
+    margin-top: 10px;
+}
+
+.game-price {
+    font-size: 14px;
+    color: #666; /* Set the color for the price */
+}
+
+
+

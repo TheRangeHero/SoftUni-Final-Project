@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamesNexus.Web.ViewModels.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace GamesNexus.Services.Data.Interfaces
 {
     public interface IGameService
     {
+        Task <IEnumerable<GameAllViewModel>> AllAsync ();
     }
 }
