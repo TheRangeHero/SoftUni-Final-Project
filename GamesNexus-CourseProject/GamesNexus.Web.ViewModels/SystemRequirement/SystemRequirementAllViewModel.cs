@@ -22,26 +22,26 @@ namespace GamesNexus.Web.ViewModels.SystemRequirement
         public long Id { get; set; }
 
 
-        [Display(Name = "Graphics")]       
-        public string GPU { get; set; }
+        [Display(Name = "Graphics")]
+        public string GPU { get; set; } = null!;
 
 
         [Display(Name = "Processor")]
-        public string CPU { get; set; }
+        public string CPU { get; set; } = null!;
 
 
         [Display(Name = "Operating System")]
-        public string OS { get; set; }
+        public string OS { get; set; } = null!;
 
 
-        public string Storage { get; set; }
+        public string Storage { get; set; } = null!;
 
 
         [Display(Name ="Memory")]
-        public string RAM { get; set; }
+        public string RAM { get; set; } = null!;
 
 
         [Display(Name = "Additional Notes")]
-        public string AdditionalNotes { get; set; }
+        public string? AdditionalNotes { get; set; }
     }
 }

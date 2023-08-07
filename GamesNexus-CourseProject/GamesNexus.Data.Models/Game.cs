@@ -30,8 +30,9 @@ namespace GamesNexus.Data.Models
         [MaxLength(GameTitleMaxLength)]
         public string Title { get; set; } = null!;
 
+        [Required]
         [MaxLength(GameDescriptionMaxLength)]
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
         [Required]
         public decimal Price { get; set; }

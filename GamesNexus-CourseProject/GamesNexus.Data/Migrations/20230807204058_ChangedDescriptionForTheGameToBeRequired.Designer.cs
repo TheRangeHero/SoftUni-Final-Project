@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807204058_ChangedDescriptionForTheGameToBeRequired")]
+    partial class ChangedDescriptionForTheGameToBeRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 896, DateTimeKind.Utc).AddTicks(6255));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 744, DateTimeKind.Utc).AddTicks(8062));
 
                     b.HasKey("Id");
 
@@ -197,7 +199,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 896, DateTimeKind.Utc).AddTicks(6422));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 744, DateTimeKind.Utc).AddTicks(8255));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -242,7 +244,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 896, DateTimeKind.Utc).AddTicks(7400));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 744, DateTimeKind.Utc).AddTicks(9257));
 
                     b.Property<long>("SystemRequirementId")
                         .HasColumnType("bigint");
@@ -268,7 +270,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Riot Games",
                             Price = 10.25m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(1350),
+                            ReleaseDate = new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(3343),
                             SystemRequirementId = 1L,
                             Title = "League of Legends"
                         },
@@ -279,7 +281,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Insomniac Games",
                             Price = 55.55m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(1364),
+                            ReleaseDate = new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(3357),
                             SystemRequirementId = 2L,
                             Title = "Spyro"
                         },
@@ -290,7 +292,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Valve Corporation, Hidden Path Entertainment",
                             Price = 20m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(1366),
+                            ReleaseDate = new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(3360),
                             SystemRequirementId = 3L,
                             Title = "CS:GO"
                         });
@@ -536,7 +538,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PublishedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(2175));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(4250));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -562,7 +564,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(2352));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(4411));
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(10, 2)
@@ -644,7 +646,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 7, 21, 47, 11, 897, DateTimeKind.Utc).AddTicks(3677));
+                        .HasDefaultValue(new DateTime(2023, 8, 7, 20, 40, 57, 745, DateTimeKind.Utc).AddTicks(5814));
 
                     b.Property<int>("Rating")
                         .ValueGeneratedOnAdd()

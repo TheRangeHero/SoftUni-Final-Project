@@ -9,10 +9,11 @@
             <a href="@Url.Action("Details", "Game", new { id = game.Id })">
                 <img src="@game.Image" alt="Game Image">
             </a>
-            <h2 class="game-title">
-                <a href="@Url.Action("Details", "Game", new { id = game.Id })">@game.Title</a>
-            </h2>
+            <h2 class="game-title">@game.Title</h2>
             <p class="game-price">Price: @game.Price</p>
+            <a href="@Url.Action("Details", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
         </div>
     }
 </div>
+
+

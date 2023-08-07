@@ -1,0 +1,68 @@
+﻿
+@model GameDetailViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Game Details</title>
+    <!-- Add your stylesheets and scripts here -->
+</head>
+<body>
+
+    <h1>@Model.Title</h1>
+
+    <div>
+        <h2>Images / Videos</h2>
+        <div>
+            @foreach (var image in Model.Images)
+            {
+                <img src="@image" alt="Game Image" width="200" />
+            }
+        </div>
+        @if (Model.Videos != null)
+        {
+            <div>
+                @foreach (var video in Model.Videos)
+                {
+                    <iframe width="400" height="300" src="@video" frameborder="0" allowfullscreen></iframe>
+                }
+            </div>
+        }
+    </div>
+
+    <div>
+        <h2>Release Date and Price</h2>
+        <p>Release Date: @Model.ReleaseDate.ToString("yyyy-MM-dd")</p>
+        <p>Price: $@Model.Price</p>
+    </div>
+
+    <div>
+        <h2>Publisher and Developer</h2>
+        <p>Publisher: @Model.Publisher</p>
+        <p>Developer: @Model.Developer</p>
+    </div>
+
+    <div>
+        <h2>Genres and Categories</h2>
+        <p>Genres: @string.Join(", ", Model.Genres)</p>
+        <p>Categories: @string.Join(", ", Model.Categories)</p>
+    </div>
+
+    <div>
+        <h2>Description</h2>
+        <p>@Model.Description</p>
+    </div>
+
+    <div>
+        <h2>System Requirements</h2>
+        <p>OS: @Model.SystemRequirements.OS</p>
+        <p>CPU: @Model.SystemRequirements.CPU</p>
+        <p>RAM: @Model.SystemRequirements.RAM</p>
+        <p>GPU: @Model.SystemRequirements.GPU</p>
+        <p>Storage: @Model.SystemRequirements.Storage</p>
+        <p>Additional Notes: @Model.SystemRequirements.AdditionalNotes</p>
+    </div>
+
+</body>
+</html>
