@@ -101,7 +101,7 @@ namespace GamesNexus.Common
 
 
             public const int ReviewCommentMinLength = 3;
-            public const int ReviewCommentMaxLength = 100;
+            public const int ReviewCommentMaxLength = 1500;
         }
         public static class SystemRequirement
         {

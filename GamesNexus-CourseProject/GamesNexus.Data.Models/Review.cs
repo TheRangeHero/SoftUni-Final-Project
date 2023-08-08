@@ -18,8 +18,9 @@ namespace GamesNexus.Data.Models
 
         public RatingOption Rating { get; set; }
 
+        [Required]
         [MaxLength(ReviewCommentMaxLength)]
-        public string? Comment { get; set; }
+        public string Comment { get; set; } = null!;
 
         [Required]
         public DateTime PostedOn { get;  set; }

@@ -19,6 +19,6 @@ namespace GamesNexus.Data.Models
         public string Name { get; set; } = null!;
 
 
-        public ICollection<GameCategory> GamesCategories { get; set; } = null!;
+        public ICollection<GameCategory> GamesCategories { get; set; }
     }
 }

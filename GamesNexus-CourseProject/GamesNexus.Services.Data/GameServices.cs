@@ -1,10 +1,12 @@
 ﻿using GamesNexus.Data.Common;
 using GamesNexus.Data.Models;
+using GamesNexus.Data.Models.Enums;
 using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.Review;
 using GamesNexus.Web.ViewModels.SystemRequirement;
 using Microsoft.EntityFrameworkCore;
-
+using System.Globalization;
 
 namespace GamesNexus.Services.Data
 {
@@ -53,6 +55,7 @@ namespace GamesNexus.Services.Data
                   .Include(g => g.Publisher)
                   .Include(g => g.GamesCategories).ThenInclude(g=>g.Category)
                   .Include(g => g.GamesGenres).ThenInclude(g=>g.Genre)
+                  .Include(g=>g.Reviews)
                   .FirstAsync(g => g.Id == Id);
 
             return new GameDetailViewModel
@@ -60,7 +63,7 @@ namespace GamesNexus.Services.Data
                 Id = game.Id,
                 Description = game.Description,
                 Price = game.Price,
-                ReleaseDate = game.ReleaseDate,
+                ReleaseDate = game.ReleaseDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Developer = game.Developer,
                 Publisher = game.Publisher.CompanyName,
                 Genres = game.GamesGenres.Select(gg => gg.Genre.Name).ToList(),
@@ -75,7 +78,13 @@ namespace GamesNexus.Services.Data
                     AdditionalNotes = game.SystemRequirement.AdditionalNotes
                 },
                 Images = game.Images.Select(img => img.ImageUrl).ToList(),
-                Videos = game.Videos.Select(vid => vid.VideoUrl).ToList()
+                Videos = game.Videos.Select(vid => vid.VideoUrl).ToList(),
+                Reviews = game.Reviews.Select(review => new ReviewAllViewModel
+                {
+                    Rating =  Enum.GetName(typeof(RatingOption),review.Rating),
+                    Opinion = review.Comment,
+                    PostedOn = review.PostedOn.ToString("HH:mm dd.MM.yyyy")
+                }).ToList()
             };
         }
     }

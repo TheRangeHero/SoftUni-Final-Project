@@ -37,6 +37,6 @@ namespace GamesNexus.Data.Models
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
 
-        public ICollection<Comment> Comments { get; set; } = null!;
+        public ICollection<Comment> Comments { get; set; }
     }
 }

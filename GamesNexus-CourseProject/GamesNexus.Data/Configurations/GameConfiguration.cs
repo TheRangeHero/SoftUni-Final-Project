@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GamesNexus.Data.Configurations
 {
-    internal class GameConfiguration : IEntityTypeConfiguration<Game>
+    public class GameConfiguration : IEntityTypeConfiguration<Game>
     {
         public void Configure(EntityTypeBuilder<Game> builder)
         {
@@ -48,8 +48,6 @@ namespace GamesNexus.Data.Configurations
                .HasForeignKey<SystemRequirement>(sr => sr.GameId)
                .OnDelete(DeleteBehavior.Restrict);
 
-
-
             builder.HasData(GenerateGames());
         }
 
@@ -66,7 +64,7 @@ namespace GamesNexus.Data.Configurations
                 Price = 10.25M,
                 Developer = "Riot Games",
                 PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
-                SystemRequirementId=1
+                SystemRequirementId=1                
             };
             games.Add(game);
 

@@ -38,6 +38,6 @@ namespace GamesNexus.Data.Models
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
 
-        public ICollection<OrderDetail> OrderDetail { get; set; } = null!;
+        public ICollection<OrderDetail> OrderDetail { get; set; }
     }
 }

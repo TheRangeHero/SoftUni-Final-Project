@@ -58,11 +58,11 @@ namespace GamesNexus.Data.Models
         public SystemRequirement? SystemRequirement { get; set; }
 
 
-        public ICollection<GameGenre> GamesGenres { get; set; } = null!;
-        public ICollection<GameCategory> GamesCategories { get; set; } = null!;
-        public ICollection<Review> Reviews { get; set; } = null!;
-        public ICollection<GameImage> Images { get; set; } = null!;
-        public ICollection<GameVideo> Videos { get; set; } = null!;
-        public ICollection<OrderDetail> OrderDetail { get; set; } = null!;
+        public ICollection<GameGenre> GamesGenres { get; set; } 
+        public ICollection<GameCategory> GamesCategories { get; set; } 
+        public ICollection<Review> Reviews { get; set; } 
+        public ICollection<GameImage> Images { get; set; } 
+        public ICollection<GameVideo> Videos { get; set; } 
+        public ICollection<OrderDetail> OrderDetail { get; set; } 
     }
 }

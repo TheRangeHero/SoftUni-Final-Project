@@ -1,8 +1,6 @@
-﻿
-@model GameDetailViewModel
+﻿@model GameDetailViewModel
 
-<!DOCTYPE html>
-<html>
+
 <head>
     <meta charset="utf-8" />
     <title>Game Details</title>
@@ -33,7 +31,7 @@
 
     <div>
         <h2>Release Date and Price</h2>
-        <p>Release Date: @Model.ReleaseDate.ToString("yyyy-MM-dd")</p>
+        <p>Release Date: @Model.ReleaseDate</p>
         <p>Price: $@Model.Price</p>
     </div>
 
@@ -64,5 +62,19 @@
         <p>Additional Notes: @Model.SystemRequirements.AdditionalNotes</p>
     </div>
 
+    <div>
+        <h2>Reviews</h2>
+        <ul>
+            @foreach (var review in Model.Reviews)
+            {
+                <li>
+                    <p>Rating: @review.Rating</p>
+                    <p>Opinion: @review.Opinion</p>
+                    <p>Posted On: @review.PostedOn</p>
+                </li>
+            }
+        </ul>
+    </div>
+
 </body>
-</html>
+

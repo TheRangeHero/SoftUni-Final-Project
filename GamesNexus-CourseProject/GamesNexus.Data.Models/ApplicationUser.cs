@@ -40,11 +40,11 @@ namespace GamesNexus.Data.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-        public ICollection<Discussion> Discussions { get; set; } = null!;
-        public ICollection<Comment> Comments { get; set; } = null!;
-        public ICollection<Order> Orders { get; set; } = null!;
-        public ICollection<Review> Reviews { get; set; } = null!;
-        public ICollection<News> News { get; set; } = null!;
-        public ICollection<Game> WishlistGames { get; set; } = null!;
+        public ICollection<Discussion> Discussions { get; set; } 
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<News> News { get; set; }
+        public ICollection<Game> WishlistGames { get; set; }
     }
 }
