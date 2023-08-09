@@ -28,4 +28,8 @@
     <ProjectReference Include="..\GamesNexus.Web.ViewModels\GamesNexus.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\" />
+  </ItemGroup>
+
 </Project>

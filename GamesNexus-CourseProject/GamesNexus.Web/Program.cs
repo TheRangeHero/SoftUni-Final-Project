@@ -34,7 +34,11 @@ namespace GamesNexus.Web
                 .AddEntityFrameworkStores<GamesNexusDbContext>();
 
             builder.Services.AddApplicationServices();
-          
+
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+            });
 
             builder.Services.AddControllersWithViews()
                 .AddMvcOptions(options =>
