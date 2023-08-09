@@ -56,6 +56,7 @@ namespace GamesNexus.Services.Data
                   .Include(g => g.GamesCategories).ThenInclude(g=>g.Category)
                   .Include(g => g.GamesGenres).ThenInclude(g=>g.Genre)
                   .Include(g=>g.Reviews)
+                  .Include(u=>u.ApplicationUser)
                   .FirstAsync(g => g.Id == Id);
 
             return new GameDetailViewModel
@@ -82,8 +83,8 @@ namespace GamesNexus.Services.Data
                 Reviews = game.Reviews.Select(review => new ReviewAllViewModel
                 {
                     Rating =  Enum.GetName(typeof(RatingOption),review.Rating),
-                    Opinion = review.Comment,
-                    PostedOn = review.PostedOn.ToString("HH:mm dd.MM.yyyy")
+                    Comment = review.Comment,
+                    PostedOn = review.PostedOn.ToString("HH:mm dd.MM.yyyy"),                    
                 }).ToList()
             };
         }

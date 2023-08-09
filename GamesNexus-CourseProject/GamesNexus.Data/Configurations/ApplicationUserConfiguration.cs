@@ -54,7 +54,7 @@ namespace GamesNexus.Data.Configurations
                 .HasForeignKey(u => u.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            
         }
     }
 }

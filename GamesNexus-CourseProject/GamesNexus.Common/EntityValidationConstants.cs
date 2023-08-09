@@ -10,8 +10,9 @@ namespace GamesNexus.Common
     {
         public static class ApplicationUser
         {
-            public const int ApplicationUserPasswordMinLength = 6;
-            public const int ApplicationUserPasswordMaxLength = 100;
+            public const int UsernameMinLength = 3;
+            public const int UsernameMaxLength = 20;
+            public const string UsernameRegexPattern = @"^\w+$";
 
             public const int ApplicationUserFirstNameMinLength = 1;
             public const int ApplicationUserFirstNameMaxLength = 15;
@@ -27,6 +28,9 @@ namespace GamesNexus.Common
 
             public const int ApplicationUserStateCityMaxLength = 1;
             public const int ApplicationUserStateCityMinLength = 190;
+
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 100;
         }
 
         public static class Category
@@ -98,10 +102,8 @@ namespace GamesNexus.Common
 
         public static class Review
         {
-
-
             public const int ReviewCommentMinLength = 3;
-            public const int ReviewCommentMaxLength = 1500;
+            public const int ReviewCommentMaxLength = 1600;
         }
         public static class SystemRequirement
         {

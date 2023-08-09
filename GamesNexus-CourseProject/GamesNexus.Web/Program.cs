@@ -1,9 +1,5 @@
-﻿using GamesNexus.Data;
-using GamesNexus.Data.Common;
+using GamesNexus.Data;
 using GamesNexus.Data.Models;
-using GamesNexus.Services.Data;
-using GamesNexus.Services.Data.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using GamesNexus.Web.Infrastructure.ModelBinders;
 using Microsoft.EntityFrameworkCore;
 

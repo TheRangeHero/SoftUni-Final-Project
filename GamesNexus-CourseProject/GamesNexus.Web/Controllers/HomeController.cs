@@ -1,4 +1,5 @@
 ﻿using GamesNexus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -12,6 +13,7 @@ namespace GamesNexus.Web.Controllers
 
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

@@ -10,8 +10,9 @@ using static GamesNexus.Common.EntityValidationConstants.ApplicationUser;
 
 namespace GamesNexus.Data.Models
 {
-    public class ApplicationUser:IdentityUser<Guid>
-    {        public ApplicationUser()
+    public class ApplicationUser : IdentityUser<Guid>
+    {
+        public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
             this.Discussions = new HashSet<Discussion>();
@@ -22,12 +23,12 @@ namespace GamesNexus.Data.Models
             this.WishlistGames = new HashSet<Game>();
         }
 
-
+        
         [MaxLength(ApplicationUserFirstNameMaxLength)]
         public string? FirstName { get; set; }
-
+        
         [MaxLength(ApplicationUserLastNameMaxLength)]
-        public string? LastName { get; set; }
+        public string? LastName { get; set; } 
 
         [MaxLength(ApplicationUserAvatarURLMaxLength)]
         public string? AvatarImage { get; set; }
@@ -40,7 +41,7 @@ namespace GamesNexus.Data.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-        public ICollection<Discussion> Discussions { get; set; } 
+        public ICollection<Discussion> Discussions { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Review> Reviews { get; set; }

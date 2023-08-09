@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809103549_ChangedUserPropertiesToRequiredAndAddedDefaultValues")]
+    partial class ChangedUserPropertiesToRequiredAndAddedDefaultValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,12 +56,16 @@ namespace GamesNexus.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(15)")
+                        .HasDefaultValue("Test");
 
                     b.Property<string>("LastName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(15)")
+                        .HasDefaultValue("TestTest");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -167,7 +173,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 169, DateTimeKind.Utc).AddTicks(7596));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 279, DateTimeKind.Utc).AddTicks(7588));
 
                     b.HasKey("Id");
 
@@ -197,7 +203,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 169, DateTimeKind.Utc).AddTicks(7787));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 279, DateTimeKind.Utc).AddTicks(7775));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -242,7 +248,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 169, DateTimeKind.Utc).AddTicks(8748));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 279, DateTimeKind.Utc).AddTicks(8870));
 
                     b.Property<long>("SystemRequirementId")
                         .HasColumnType("bigint");
@@ -268,7 +274,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Riot Games",
                             Price = 10.25m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(2792),
+                            ReleaseDate = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(3389),
                             SystemRequirementId = 1L,
                             Title = "League of Legends"
                         },
@@ -279,7 +285,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Insomniac Games",
                             Price = 55.55m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(2806),
+                            ReleaseDate = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(3406),
                             SystemRequirementId = 2L,
                             Title = "Spyro"
                         },
@@ -290,7 +296,7 @@ namespace GamesNexus.Data.Migrations
                             Developer = "Valve Corporation, Hidden Path Entertainment",
                             Price = 20m,
                             PublisherId = new Guid("dae07e76-9f5d-4bfb-800b-c0dfb0efec5b"),
-                            ReleaseDate = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(2809),
+                            ReleaseDate = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(3409),
                             SystemRequirementId = 3L,
                             Title = "CS:GO"
                         });
@@ -536,7 +542,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PublishedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(3664));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(4351));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -562,7 +568,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(3859));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(4537));
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(10, 2)
@@ -645,7 +651,7 @@ namespace GamesNexus.Data.Migrations
                     b.Property<DateTime>("PostedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5314));
+                        .HasDefaultValue(new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6094));
 
                     b.Property<int>("Rating")
                         .ValueGeneratedOnAdd()
@@ -667,7 +673,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("875b63f6-4c14-4757-bbc5-149615044a6f"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit porttitor dolor vel sagittis. Integer vulputate fringilla finibus.",
                             GameId = 1L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5433),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6231),
                             Rating = 1
                         },
                         new
@@ -676,7 +682,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("19659aed-ed83-474b-9cb7-13e6140b8c3a"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius tempor sapien at rhoncus. Donec finibus lacinia eros at iaculis. Praesent tincidunt dui lorem, in convallis urna varius vel. Etiam vehicula eros finibus sapien tincidunt, at luctus sem tristique. Aenean quis eros lobortis est tempus porta. Phasellus sed dui in neque hendrerit tempor eu a turpis. Sed blandit mi eget magna eleifend commodo. Phasellus cursus purus a mi eleifend vehicula. In aliquam leo eu suscipit interdum. Aliquam quis ipsum in urna tristique viverra a et lectus. Vivamus metus nulla, cursus sit amet augue ac, egestas rutrum enim.",
                             GameId = 1L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5439),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6246),
                             Rating = 2
                         },
                         new
@@ -685,7 +691,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("43ba6e1e-95b7-4f93-8324-a1f0300412d5"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum, diam quis lobortis facilisis, neque nisi pulvinar eros, ac porta lectus velit eu lacus. Sed posuere sapien vitae magna imperdiet, scelerisque tempor mi condimentum. Aliquam erat volutpat. Cras dolor elit, pharetra sit amet tristique.",
                             GameId = 1L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5441),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6249),
                             Rating = 2
                         },
                         new
@@ -694,7 +700,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("875b63f6-4c14-4757-bbc5-149615044a6f"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum, diam quis lobortis facilisis, neque nisi pulvinar eros, ac porta lectus velit eu lacus. Sed posuere sapien vitae magna imperdiet, scelerisque tempor mi condimentum. Aliquam erat volutpat. Cras dolor elit, pharetra sit amet.",
                             GameId = 2L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5444),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6251),
                             Rating = 1
                         },
                         new
@@ -703,7 +709,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("b33dcf98-79e3-4aea-bb2b-923601190998"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris molestie et nisi nec tempus. Fusce quis aliquet nisl. Nullam volutpat, sapien et accumsan vulputate, leo ligula convallis nulla, id hendrerit dolor tortor quis odio. Aenean pellentesque sagittis lacinia. Sed accumsan porttitor leo, sit amet ullamcorper sem molestie nec. Aenean maximus a diam at mattis. Donec in velit pellentesque mauris pretium fringilla ut ac erat.Etiam facilisis sapien sapien, et finibus sapien pretium id. Duis congue magna a lectus accumsan, sed ullamcorper leo tempor. Vestibulum vel efficitur magna, feugiat venenatis turpis. Etiam vulputate eros quis purus commodo auctor ut quis felis. Cras mollis tristique massa, sit amet semper elit varius eget. Donec eget diam id tortor aliquam sollicitudin ut nec ligula. Donec hendrerit augue id tortor iaculis bibendum. Aenean vulputate ante ut tincidunt aliquam.Donec vitae lacinia nisl, at sollicitudin metus. Sed pellentesque imperdiet eleifend. Integer scelerisque viverra nisl, ac imperdiet magna aliquam vel. Quisque in convallis dui. Pellentesque feugiat justo vitae mauris suscipit, sed malesuada tortor dapibus. Proin nec est aliquam, vulputate lectus sed, tristique velit. Maecenas quam orci, euismod at ultrices ac, pulvinar sed massa. Ut iaculis quis elementum. Nam vel dapibus nunc, vel ultricies ipsum. In.",
                             GameId = 3L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5446),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6252),
                             Rating = 1
                         },
                         new
@@ -712,7 +718,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("875b63f6-4c14-4757-bbc5-149615044a6f"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus consequat eros eu sodales. Sed vel enim et risus tempor dignissim non et sem. Phasellus suscipit mi nibh, at ultricies odio blandit a. Cras posuere, ante sed egestas pretium, leo erat ullamcorper nisi, et condimentum ligula ligula vitae urna. Proin vel nunc iaculis, ornare libero et, mollis quam. Maecenas eu dui odio. Morbi mi mauris, consectetur vel est in, iaculis elementum sapien. Nulla luctus bibendum nisl, in pellentesque dolor.",
                             GameId = 3L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5448),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6254),
                             Rating = 2
                         },
                         new
@@ -721,7 +727,7 @@ namespace GamesNexus.Data.Migrations
                             ApplicationUserId = new Guid("43ba6e1e-95b7-4f93-8324-a1f0300412d5"),
                             Comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus consequat eros eu sodales. Sed vel enim et risus tempor dignissim non et sem. Phasellus suscipit mi nibh, at ultricies odio blandit a. Cras posuere, ante sed egestas pretium, leo erat ullamcorper nisi, et condimentum ligula ligula vitae urna. Proin vel nunc iaculis, ornare libero et, mollis quam. Maecenas eu dui odio. Morbi mi mauris, consectetur vel est in, iaculis elementum sapien. Nulla luctus bibendum nisl, in pellentesque dolor.",
                             GameId = 3L,
-                            PostedOn = new DateTime(2023, 8, 9, 11, 32, 30, 170, DateTimeKind.Utc).AddTicks(5449),
+                            PostedOn = new DateTime(2023, 8, 9, 10, 35, 49, 280, DateTimeKind.Utc).AddTicks(6255),
                             Rating = 1
                         });
                 });

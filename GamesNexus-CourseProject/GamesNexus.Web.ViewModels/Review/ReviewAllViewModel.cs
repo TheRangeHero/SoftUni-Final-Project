@@ -10,8 +10,9 @@ namespace GamesNexus.Web.ViewModels.Review
     public class ReviewAllViewModel
     {
         public string Rating { get; set; } = null!;
-        public string Opinion { get; set; } = null!;
+        public string Comment { get; set; } = null!;
         public string PostedOn { get; set; } = null!;
+        public string PostedBy { get; set; } = null!;
 
     }
 }
