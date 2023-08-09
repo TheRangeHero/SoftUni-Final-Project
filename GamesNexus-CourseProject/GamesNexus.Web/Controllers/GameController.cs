@@ -11,10 +11,12 @@ namespace GamesNexus.Web.Controllers
     public class GameController : BaseController
     {
         private readonly IGameService gameService;
+        private readonly IUserService userService;
 
-        public GameController(IGameService _gameService)
+        public GameController(IGameService _gameService, IUserService _userService)
         {
             gameService = _gameService;
+            this.userService = _userService;
         }
 
         [HttpGet]
@@ -39,8 +41,7 @@ namespace GamesNexus.Web.Controllers
 
             try
             {
-                GameDetailViewModel viewModel = await gameService.GameDetailsById(Id);
-
+                GameDetailViewModel viewModel = await gameService.GameDetailsById(Id);               
                 return View(viewModel);
             }
             catch (Exception)
