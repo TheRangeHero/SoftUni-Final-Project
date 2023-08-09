@@ -1,6 +1,7 @@
 using GamesNexus.Data;
 using GamesNexus.Data.Models;
 using GamesNexus.Web.Infrastructure.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamesNexus.Web
@@ -31,6 +32,7 @@ namespace GamesNexus.Web
                 options.Password.RequiredLength = 
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength"); ;
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<GamesNexusDbContext>();
 
             builder.Services.AddApplicationServices();
