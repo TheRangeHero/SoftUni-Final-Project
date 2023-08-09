@@ -72,7 +72,10 @@ namespace GamesNexus.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            if (app.Environment.IsDevelopment())
+            {
             app.SeedAdministrator(DevelopmentAdminEmail);
+            }
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
