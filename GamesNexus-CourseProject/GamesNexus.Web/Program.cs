@@ -4,6 +4,8 @@ using GamesNexus.Web.Infrastructure.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using static GamesNexus.Common.GeneralApplicationConstants;
+
 namespace GamesNexus.Web
 {
     public class Program
@@ -69,6 +71,8 @@ namespace GamesNexus.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
