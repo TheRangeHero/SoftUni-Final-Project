@@ -13,10 +13,6 @@ namespace GamesNexus.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder
-                .Property(d => d.DateOfBirth)
-                .HasColumnType("date");
-
 
             builder
               .HasMany(g=>g.WishlistGames)

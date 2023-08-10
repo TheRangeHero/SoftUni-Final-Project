@@ -15,6 +15,12 @@ namespace GamesNexus.Services.Data
             this.repository = _repository;
         }
 
+        public async Task<bool> ExistsById(string userId)
+        {
+            return await repository.All<ApplicationUser>()
+                .AnyAsync(a => a.Id.ToString() == userId);
+        }
+
         public async Task<string> GetUsernameByEmailAsync(string username)
         {
             ApplicationUser? user = await this.repository.AllReadonly<ApplicationUser>()

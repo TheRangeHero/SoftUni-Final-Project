@@ -28,18 +28,13 @@ namespace GamesNexus.Data.Models
         public string? FirstName { get; set; }
         
         [MaxLength(ApplicationUserLastNameMaxLength)]
-        public string? LastName { get; set; } 
-
-        [MaxLength(ApplicationUserAvatarURLMaxLength)]
-        public string? AvatarImage { get; set; }
+        public string? LastName { get; set; }        
 
         [MaxLength(ApplicationUserCountryMaxLength)]
         public string? Country { get; set; }
 
-        [MaxLength(ApplicationUserStateCityMaxLength)]
-        public string? StateCity { get; set; }
-
-        public DateTime? DateOfBirth { get; set; }
+        [MaxLength(ApplicationUserCityMaxLength)]
+        public string? City { get; set; }
 
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<Comment> Comments { get; set; }

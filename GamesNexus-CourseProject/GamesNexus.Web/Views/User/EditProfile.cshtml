@@ -1,0 +1,50 @@
+﻿@model EditProfileModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form id="editProfileForm" method="post">
+            <h2>Edit your profile.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-2">
+                <input asp-for="Username" class="form-control" aria-required="true" />
+                <label asp-for="Username"></label>
+                <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            <div class="form-floating mb-2">
+                <input asp-for="FirstName" class="form-control" aria-required="true" />
+                <label asp-for="FirstName"></label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="LastName" class="form-control" aria-required="true" />
+                <label asp-for="LastName"></label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="City" class="form-control" aria-required="true" />
+                <label asp-for="City"></label>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Country" class="form-control" aria-required="true" />
+                <label asp-for="Country"></label>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <button id="editProfileSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

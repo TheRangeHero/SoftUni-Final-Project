@@ -16,18 +16,19 @@ namespace GamesNexus.Common
 
             public const int ApplicationUserFirstNameMinLength = 1;
             public const int ApplicationUserFirstNameMaxLength = 15;
+            public const string ApplicationUserFirstNameRegexPattern = @"^[a-zA-Z]+$";
 
             public const int ApplicationUserLastNameMinLength = 1;
             public const int ApplicationUserLastNameMaxLength = 15;
-
-            public const int ApplicationUserAvatarURLMaxLength = 2048;
+            public const string ApplicationUserLastNameRegexPattern = @"^[a-zA-Z]+$";
 
             public const int ApplicationUserCountryMinLength = 4;
             public const int ApplicationUserCountryMaxLength = 60;
+            public const string ApplicationUserCountryRegexPattern = @"^[a-zA-Z]+$";
 
-
-            public const int ApplicationUserStateCityMaxLength = 1;
-            public const int ApplicationUserStateCityMinLength = 190;
+            public const int ApplicationUserCityMinLength = 1;
+            public const int ApplicationUserCityMaxLength = 190;
+            public const string ApplicationUserCityRegexPattern = @"^[a-zA-Z]+$";
 
             public const int PasswordMinLength = 6;
             public const int PasswordMaxLength = 100;

@@ -1,11 +1,12 @@
 ﻿using GamesNexus.Data.Models;
+using GamesNexus.Web.Infrastructure.Extensions;
 using GamesNexus.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Security.Claims;
 using static GamesNexus.Common.NotificationMessagesConstants;
 
 namespace GamesNexus.Web.Controllers
@@ -15,6 +16,7 @@ namespace GamesNexus.Web.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserStore<ApplicationUser> userStore;
+        
 
         public UserController(SignInManager<ApplicationUser> _signInManager,
                                UserManager<ApplicationUser> _userManager,
@@ -104,6 +106,85 @@ namespace GamesNexus.Web.Controllers
             }
 
             return this.Redirect(model.ReturnUrl ?? "/Home/Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            //var user = await userManager.GetUserAsync(User);
+            string? userId = User.GetId();
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return this.View();
+            }
+
+            var editMV = new EditProfileModel()
+            {
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                City = user.City,
+                Country = user.Country,
+
+            };
+
+            return View(editMV);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileModel model)
+        {
+
+            //var user = await userManager.GetUserAsync(User);
+            string? userId = User.GetId();
+            var user = await userManager.FindByIdAsync(userId);
+
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit profile");
+                return this.View(model);
+            }
+             
+
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            try
+            {
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.City = model.City;
+                user.Country = model.Country;
+                user.UserName = model.Username;
+
+                 var result = await this.userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError("", "An error occurred while updating the profile.");
+                return View(model);
+            }
         }
 
     }

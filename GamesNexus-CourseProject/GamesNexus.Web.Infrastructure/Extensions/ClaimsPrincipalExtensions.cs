@@ -13,10 +13,18 @@ namespace GamesNexus.Web.Infrastructure.Extensions
     {
         public static string? GetId(this ClaimsPrincipal user)
         {
-            return user.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? id = null;
+
+            if (user != null)
+            {
+                return user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            }
+            return id;
+
         }
 
-        public static bool IsAdmin (this ClaimsPrincipal user)
+        public static bool IsAdmin(this ClaimsPrincipal user)
         {
             return user.IsInRole(AdminRoleName);
         }
