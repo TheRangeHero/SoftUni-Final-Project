@@ -24,12 +24,11 @@ namespace GamesNexus.Services.Data
         {
             IEnumerable<NewsIndexViewModel> news = await repository.AllReadonly<News>()
                 .OrderByDescending(n => n.PublishedOn)
-                .Take(5)
+                .Take(6)
                 .Select(n => new NewsIndexViewModel
                 {
                     Id = n.Id,
-                    Title = n.Title,
-                    Content = n.Content,
+                    Title = n.Title,                   
                     PublishedOn = n.PublishedOn.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
                 })
                 .ToArrayAsync();

@@ -87,7 +87,7 @@ namespace GamesNexus.Common
             public const int NewsTitleMaxLength = 150;
 
             public const int NewsContentMinLength = 10;
-            public const int NewsContentMaxLength = 650;
+            public const int NewsContentMaxLength = 2000;
         }
 
         public static class Publisher

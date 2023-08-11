@@ -7,6 +7,9 @@
     <h1 class="display-4">Welcome</h1>   
 </div>
 
+@if (Model.GameIndexViewModel.Any())
+{
+    
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -17,10 +20,10 @@
                     <div class="col-md-4 mb-4">
                         <div class="card" style="width: 100%;">
                             <img class="card-img-top game-image" src="@game.ImageUrl" alt="Game Image">
-                            <div class="card-body">
+                            <div class="card-body" style="padding: 8px;">
                                 <h5 class="card-title">@game.Title</h5>
-                                <p class="card-text">Genres: @string.Join(", ", game.Genres)</p>
-                                <a href="@Url.Action("GameDetails", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
+                                <p class="card-text"> @string.Join(", ", game.Genres)</p>
+                                <a href="@Url.Action("Details", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
                             </div>
                         </div>
                     </div>
@@ -29,24 +32,35 @@
         </div>
     </div>
 </div>
+}
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>News</h2>
+@if (Model.NewsIndexViewModels.Any())
+{
+    <div class="container">
+        <div class="row justify-content-between">
             @foreach (var newsItem in Model.NewsIndexViewModels)
             {
-                <div class="card mb-4">
-                    <h5 class="card-header">@newsItem.Title</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">@newsItem.PublishedOn</h5>
-                        <p class="card-text">@newsItem.Content</p>
-                        <a href="@Url.Action("Details", "News", new { id = newsItem.Id })" class="btn btn-primary">Read More</a>
+                <div class="col-md-4 mb-2">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">@newsItem.Title</h5>
+                            <p class="card-text">@newsItem.PublishedOn</p>
+                            <a href="@Url.Action("Details", "News", new { id = newsItem.Id })" class="btn btn-primary">Read More</a>
+                        </div>
                     </div>
                 </div>
             }
         </div>
     </div>
-</div>
+}
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
 
 

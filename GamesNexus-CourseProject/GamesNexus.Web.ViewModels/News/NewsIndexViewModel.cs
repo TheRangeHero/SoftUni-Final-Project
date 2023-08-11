@@ -13,7 +13,7 @@ namespace GamesNexus.Web.ViewModels.News
 
         public string Title { get; set; } = null!;
 
-        public string Content { get; set; } = null!;
+        //public string Content { get; set; } = null!;
 
         public string PublishedOn { get; set; } = null!;
 

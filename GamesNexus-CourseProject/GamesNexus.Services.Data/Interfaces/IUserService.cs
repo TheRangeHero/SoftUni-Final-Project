@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace GamesNexus.Services.Data.Interfaces
 {
@@ -10,5 +6,6 @@ namespace GamesNexus.Services.Data.Interfaces
     {
         Task<string> GetUsernameByEmailAsync(string username);
         Task<bool> ExistsById(string userId);
+        
     }
 }

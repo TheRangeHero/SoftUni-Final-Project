@@ -1,0 +1,33 @@
+﻿@model BecomePublisherFormModel
+
+
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form id="becomePublisherForm" method="post">
+            <h2>Become a Publisher.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-2">
+                <input asp-for="CompanyName" class="form-control" />
+                <label asp-for="CompanyName"></label>
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="BusinessEmail" class="form-control" />
+                <label asp-for="BusinessEmail"></label>
+                <span asp-validation-for="BusinessEmail" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="WebsiteURL" class="form-control" />
+                <label asp-for="WebsiteURL"></label>
+                <span asp-validation-for="WebsiteURL" class="text-danger"></span>
+            </div>
+            <button id="becomePublisherSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Evolve to Publisher</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
