@@ -19,7 +19,6 @@ namespace GamesNexus.Data.Models
             this.Comments = new HashSet<Comment>();
             this.Orders = new HashSet<Order>();
             this.Reviews = new HashSet<Review>();
-            this.News = new HashSet<News>();
             this.WishlistGames = new HashSet<Game>();
         }
 
@@ -40,7 +39,6 @@ namespace GamesNexus.Data.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Review> Reviews { get; set; }
-        public ICollection<News> News { get; set; }
         public ICollection<Game> WishlistGames { get; set; }
     }
 }

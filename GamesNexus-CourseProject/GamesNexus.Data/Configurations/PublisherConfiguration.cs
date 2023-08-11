@@ -19,6 +19,12 @@ namespace GamesNexus.Data.Configurations
                 .WithOne(g => g.Publisher)
                 .HasForeignKey(g => g.PublisherId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(n => n.News)
+                .WithOne(u => u.Publisher)
+                .HasForeignKey(u => u.PublisherId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

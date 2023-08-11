@@ -30,8 +30,8 @@ namespace GamesNexus.Data.Models
         public DateTime PublishedOn { get;  set; }
 
 
-        [ForeignKey(nameof(ApplicationUser))]
-        public Guid ApplicationUserId { get; set; }
-        public ApplicationUser? ApplicationUser { get; set; }
+        [ForeignKey(nameof(Publisher))]
+        public Guid PublisherId { get; set; } 
+        public Publisher Publisher { get; set; } = null!;
     }
 }

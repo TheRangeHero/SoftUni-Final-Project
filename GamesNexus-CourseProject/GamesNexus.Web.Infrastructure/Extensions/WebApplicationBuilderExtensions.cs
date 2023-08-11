@@ -20,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IGameService, GameServices>();
             services.AddScoped<IUserService, UserServices>();
+            services.AddScoped<INewsService, NewsServices>();
         }
 
         public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)

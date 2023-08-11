@@ -1,4 +1,8 @@
-﻿using GamesNexus.Web.Models;
+﻿using GamesNexus.Services.Data.Interfaces;
+
+using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.Home;
+using GamesNexus.Web.ViewModels.News;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,16 +11,28 @@ namespace GamesNexus.Web.Controllers
 {
     public class HomeController : BaseController
     {
-
-        public HomeController()
+        private readonly IGameService gameService;
+        private readonly INewsService newsService;
+        
+        public HomeController(IGameService _gameService, INewsService _newsService)
         {
-
+            this.gameService = _gameService;
+            this.newsService = _newsService;
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var gameViewModel = await gameService.LastFiveGamesIndexAsync();
+            var newsViewModel = await newsService.LastFiveNewsIndexAsync();
+
+            var indexViewModel = new IndexViewModel()
+            {
+                GameIndexViewModel = gameViewModel,
+                NewsIndexViewModels = newsViewModel,
+            };
+
+            return View(indexViewModel);
         }
 
         public IActionResult Privacy()

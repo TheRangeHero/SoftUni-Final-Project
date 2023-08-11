@@ -39,12 +39,6 @@ namespace GamesNexus.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasMany(n => n.News)
-                .WithOne(u => u.ApplicationUser)
-                .HasForeignKey(u => u.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                 .HasMany(o => o.Orders)
                 .WithOne(u => u.ApplicationUser)
                 .HasForeignKey(u => u.ApplicationUserId)

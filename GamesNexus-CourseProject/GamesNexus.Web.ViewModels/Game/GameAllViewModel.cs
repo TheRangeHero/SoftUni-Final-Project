@@ -16,6 +16,8 @@ namespace GamesNexus.Web.ViewModels.Game
 
         public string Image { get; set; } = null!;
 
-        public decimal Price { get; set; }
+       public decimal Price { get; set; }
+
+
     }
 }

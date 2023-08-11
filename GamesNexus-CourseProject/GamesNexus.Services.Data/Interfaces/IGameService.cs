@@ -7,5 +7,7 @@ namespace GamesNexus.Services.Data.Interfaces
         Task <IEnumerable<GameAllViewModel>> AllAsync ();
         Task<bool> ExistsByIdAsync (int Id);
         Task<GameDetailViewModel> GameDetailsById (int Id);
+        Task <IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync ();
+
     }
 }

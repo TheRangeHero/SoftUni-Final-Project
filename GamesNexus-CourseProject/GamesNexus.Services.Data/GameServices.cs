@@ -8,6 +8,7 @@ using GamesNexus.Web.ViewModels.SystemRequirement;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
+
 namespace GamesNexus.Services.Data
 {
     public class GameServices : IGameService
@@ -64,7 +65,7 @@ namespace GamesNexus.Services.Data
                 Id = game.Id,
                 Description = game.Description,
                 Price = game.Price,
-                ReleaseDate = game.ReleaseDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                ReleaseDate = game.ReleaseDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
                 Developer = game.Developer,
                 Publisher = game.Publisher.CompanyName,
                 Genres = game.GamesGenres.Select(gg => gg.Genre.Name).ToList(),
@@ -87,6 +88,25 @@ namespace GamesNexus.Services.Data
                     PostedOn = review.PostedOn.ToString("HH:mm dd.MM.yyyy"),                    
                 }).ToList()
             };
+        }
+
+        public async Task<IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync()
+        {
+            IEnumerable<GameIndexViewModel> allGames = await repository.AllReadonly<Game>()
+                .Include(g => g.Images)
+                .Include(g=>g.GamesGenres)
+                .OrderByDescending(g=>g.ReleaseDate)
+                .Take(5)
+                .Select(g => new GameIndexViewModel
+                {
+                    Id = g.Id,
+                    Title = g.Title,
+                    ImageUrl = g.Images.FirstOrDefault().ImageUrl,
+                    Genres = g.GamesGenres.Select(gg => gg.Genre.Name).ToList(),
+
+                }).ToArrayAsync();
+
+            return allGames;
         }
     }
 }

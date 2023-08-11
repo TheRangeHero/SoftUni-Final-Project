@@ -15,6 +15,7 @@ namespace GamesNexus.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.PublishedGames = new HashSet<Game>();
+            this.News = new HashSet<News>();
         }
 
         [Key]
@@ -22,7 +23,7 @@ namespace GamesNexus.Data.Models
 
         [Required]
         [MaxLength(PublisherCompanyNameMaxLength)]
-        public string CompanyName { get; set; }
+        public string CompanyName { get; set; } = null!;
 
         [Required]
         [MaxLength(PublisherEmailMaxLength)]
@@ -39,5 +40,6 @@ namespace GamesNexus.Data.Models
 
 
         public ICollection<Game> PublishedGames { get; set; }
+        public ICollection<News> News { get; set; }
     }
 }
