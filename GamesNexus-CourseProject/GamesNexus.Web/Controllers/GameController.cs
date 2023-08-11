@@ -51,6 +51,12 @@ namespace GamesNexus.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
+
         private IActionResult GeneralError()
         {
             TempData[ErrorMessage] =
