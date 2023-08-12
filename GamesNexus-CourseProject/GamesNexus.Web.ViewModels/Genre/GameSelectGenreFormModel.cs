@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GamesNexus.Web.ViewModels.Category
+namespace GamesNexus.Web.ViewModels.Genre
 {
-    public class GameSelectCategoryFormModel
+    public class GameSelectGenreFormModel
     {
         public int Id { get; set; }
 

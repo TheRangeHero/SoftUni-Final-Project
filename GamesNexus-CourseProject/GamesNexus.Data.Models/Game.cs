@@ -36,6 +36,7 @@ namespace GamesNexus.Data.Models
 
         [Required]
         public decimal Price { get; set; }
+
        
         public DateTime ReleaseDate { get;  set; }
 
@@ -43,6 +44,35 @@ namespace GamesNexus.Data.Models
         [Required]
         [MaxLength(GameDeveloperMaxLength)]
         public string Developer { get; set; } = null!;
+
+
+        [Required]
+        [MaxLength(GPUMaxLength)]
+        public string GPU { set; get; } = null!;
+
+
+        [Required]
+        [MaxLength(CPUMaxLength)]
+        public string CPU { set; get; } = null!;
+
+
+        [Required]
+        [MaxLength(OSMaxLength)]
+        public string OS { set; get; } = null!;
+
+
+        [Required]
+        [MaxLength(StorageMaxLength)]
+        public string Storage { set; get; } = null!;
+
+
+        [Required]
+        [MaxLength(RAMMaxLength)]
+        public string RAM { set; get; } = null!;
+
+
+        [MaxLength(AdditionalNotesMaxLength)]
+        public string? AdditionalNotes { set; get; }
 
 
         [ForeignKey(nameof(Publisher))]
@@ -53,9 +83,6 @@ namespace GamesNexus.Data.Models
         [ForeignKey(nameof(ApplicationUser))]
         public Guid? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
-
-        public long SystemRequirementId { get; set; }
-        public SystemRequirement? SystemRequirement { get; set; }
 
 
         public ICollection<GameGenre> GamesGenres { get; set; } 

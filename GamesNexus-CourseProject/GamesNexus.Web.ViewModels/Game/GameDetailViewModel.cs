@@ -1,5 +1,5 @@
 ﻿using GamesNexus.Web.ViewModels.Review;
-using GamesNexus.Web.ViewModels.SystemRequirement;
+using System.ComponentModel.DataAnnotations;
 
 namespace GamesNexus.Web.ViewModels.Game
 {
@@ -26,17 +26,33 @@ namespace GamesNexus.Web.ViewModels.Game
 
         public string Description { get; set; } = null!;
 
+        [Display(Name = "Release date")]
         public string ReleaseDate { get; set; } = null!;
 
         public string Developer { get; set; } = null!;
 
+        [Display(Name = "Operating system")]
+        public string OS { get; set; } = null!;
+
+        [Display (Name = "Processor")]
+        public string CPU { get; set; } = null!;
+
+        [Display(Name = "Graphics card")]
+        public string GPU { get; set; } = null!;
+
+        public string Storage { get; set; } = null!;
+
+        [Display(Name = "Memory")]
+        public string RAM { get; set; } = null!;
+
+        [Display(Name = "Additional Notes")]
+        public string AdditionalNotes { get; set; } = null!;
+
         public string Publisher { get; set; } = null!;
 
-        public SystemRequirementAllViewModel SystemRequirements { get; set; } = null!;
-
-        public ICollection<string> Genres { get; set; } 
-        public ICollection<string> Categories { get; set; } 
-        public ICollection<string> Images { get; set; } 
+        public ICollection<string> Genres { get; set; }
+        public ICollection<string> Categories { get; set; }
+        public ICollection<string> Images { get; set; }
         public ICollection<string?> Videos { get; set; }
         public ICollection<ReviewAllViewModel> Reviews { get; set; }
     }

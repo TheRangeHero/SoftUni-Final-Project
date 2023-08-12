@@ -22,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserService, UserServices>();
             services.AddScoped<INewsService, NewsServices>();
             services.AddScoped<IPublisherService, PublisherServices>();
+            services.AddScoped<IGenreService, GenreServices>();
+            services.AddScoped<ICategoryService, CategoryServices>();
         }
 
         public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)

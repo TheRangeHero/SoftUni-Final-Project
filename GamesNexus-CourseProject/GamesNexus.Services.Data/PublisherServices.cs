@@ -57,5 +57,19 @@ namespace GamesNexus.Services.Data
            await this.repository.AddAsync(publisher);
            await this.repository.SaveChangesAsync();
         }
+
+        public async Task<string> PublisherIdByUserIdAsync(string userId)
+        {
+           Publisher? publisher = await this.repository.AllReadonly<Publisher>()
+                .FirstOrDefaultAsync(p=>p.UserId.ToString()==userId);
+
+            if (publisher == null)
+            {
+                return null;
+            }
+
+            return publisher.Id.ToString();
+
+        }
     }
 }

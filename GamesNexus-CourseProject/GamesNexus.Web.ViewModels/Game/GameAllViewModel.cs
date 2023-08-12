@@ -1,4 +1,4 @@
-﻿using GamesNexus.Web.ViewModels.SystemRequirement;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,5 @@ namespace GamesNexus.Web.ViewModels.Game
         public string Image { get; set; } = null!;
 
        public decimal Price { get; set; }
-
-
     }
 }

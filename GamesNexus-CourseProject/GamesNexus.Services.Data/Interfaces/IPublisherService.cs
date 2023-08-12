@@ -13,5 +13,6 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<bool> PublisherExistsByBusinessEmailAsync(string email);
         Task<bool> PublisherExistsByCompanyNameAsync(string company);
         Task Create(string userId, BecomePublisherFormModel model);
+        Task<string?> PublisherIdByUserIdAsync(string userId);
     }
 }

@@ -1,0 +1,181 @@
+﻿@model GameAddFromModel
+
+<div class="container">
+    <form id="gameForm" asp-controller="Game" asp-action="Add" method="post">
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Title:</label>
+            <input asp-for="Title" class="form-control" style="width: 200px;  />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description:</label>
+            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Price:</label>
+            <input asp-for="Price" class="form-control" style="width: 200px;  />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Developer" class="form-label">Developer:</label>
+            <input asp-for="Developer" class="form-control" style="width: 200px;  />
+        </div>
+
+        
+        <!-- Other input fields for description, price, developer -->
+
+        <div class="mb-3">
+            <h2>System Requirements</h2>
+            <div class="mb-3">
+                <label asp-for="GPU" class="form-label">GPU:</label>
+                <input asp-for="GPU" class="form-control" style="width: 200px; />
+            </div>
+            <div class="mb-3">
+                <label asp-for="CPU" class="form-label">CPU:</label>
+                <input asp-for="CPU" class="form-control" style="width: 200px; />
+            </div>
+            <div class="mb-3">
+                <label asp-for="OS" class="form-label">Operating System:</label>
+                <input asp-for="OS" class="form-control" style="width: 200px; />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Storage" class="form-label">Storage:</label>
+                <input asp-for="Storage" class="form-control" style="width: 200px;  />
+            </div>
+            <div class="mb-3">
+                <label asp-for="RAM" class="form-label">RAM:</label>
+                <input asp-for="RAM" class="form-control" style="width: 200px;  />
+            </div>
+            <div class="mb-3">
+                <label asp-for="AdditionalNotes" class="form-label">Additional Notes:</label>
+                <textarea asp-for="AdditionalNotes" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Genres & Categories</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Genres</h4>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" name="GenreIds" value="@genre.Id" class="form-check-input" />
+                            <label class="form-check-label">@genre.Name</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <h4>Categories</h4>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" name="CategoryIds" value="@category.Id" class="form-check-input" />
+                            <label class="form-check-label">@category.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="ImageUrlsInput">Image URLs:</label>
+            <input class="form-control" id="ImageUrlsInput" name="ImageUrlsInput" />
+            <div id="additionalImageUrls">
+            </div>
+            <button type="button" id="addImageUrlBtn" class="btn btn-info mt-2">Add Another Image</button>
+        </div>
+
+        <div class="form-group">
+            <label for="VideoUrlsInput">Video URLs:</label>
+            <input class="form-control" id="VideoUrlsInput" name="VideoUrlsInput" />
+            <div id="additionalVideoUrls">
+            </div>
+            <button type="button" id="addVideoUrlBtn" class="btn btn-info mt-2">Add Another Video</button>
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn btn-primary mt-3">Add Game</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addImageUrlBtn = document.getElementById("addImageUrlBtn");
+        const additionalImageUrlsContainer = document.getElementById("additionalImageUrls");
+        const addVideoUrlBtn = document.getElementById("addVideoUrlBtn");
+        const additionalVideoUrlsContainer = document.getElementById("additionalVideoUrls");
+        const form = document.getElementById("gameForm");
+
+        let imageUrlCounter = 1;
+        let videoUrlCounter = 1;
+
+        addImageUrlBtn.addEventListener("click", function () {
+            const inputContainer = document.createElement("div");
+            inputContainer.className = "input-group mt-2"; // Apply Bootstrap input group styling
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control"; // Apply Bootstrap form control styling
+            input.name = `AdditionalImageUrls[${imageUrlCounter}]`;
+            input.placeholder = "Enter image URL";
+            inputContainer.appendChild(input);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-danger"; // Apply Bootstrap danger button styling
+            deleteButton.textContent = "Remove"; // Add a "Remove" button for each input
+            deleteButton.addEventListener("click", function () {
+                inputContainer.remove(); // Remove the input field when "Remove" is clicked
+            });
+
+            // Add margin to the button for spacing
+            deleteButton.style.marginLeft = "5px"; // Adjust the margin as needed
+
+            inputContainer.appendChild(deleteButton);
+
+            additionalImageUrlsContainer.appendChild(inputContainer);
+
+            imageUrlCounter++;
+        });
+
+        addVideoUrlBtn.addEventListener("click", function () {
+            const inputContainer = document.createElement("div");
+            inputContainer.className = "input-group mt-2"; // Apply Bootstrap input group styling
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control"; // Apply Bootstrap form control styling
+            input.name = `AdditionalVideoUrls[${videoUrlCounter}]`;
+            input.placeholder = "Enter video URL";
+            inputContainer.appendChild(input);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-danger"; // Apply Bootstrap danger button styling
+            deleteButton.textContent = "Remove"; // Add a "Remove" button for each input
+            deleteButton.addEventListener("click", function () {
+                inputContainer.remove(); // Remove the input field when "Remove" is clicked
+            });
+
+            // Add margin to the button for spacing
+            deleteButton.style.marginLeft = "5px"; // Adjust the margin as needed
+
+            inputContainer.appendChild(deleteButton);
+
+            additionalVideoUrlsContainer.appendChild(inputContainer);
+
+            videoUrlCounter++;
+        });
+
+        form.addEventListener("submit", function () {
+            const inputFields = document.querySelectorAll("input[name^='AdditionalImageUrls'], input[name^='AdditionalVideoUrls']");
+            for (const input of inputFields) {
+                if (input.value.trim() === "") {
+                    input.parentNode.removeChild(input);
+                }
+            }
+        });
+    });
+</script>
+

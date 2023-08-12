@@ -8,6 +8,7 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<bool> ExistsByIdAsync (int Id);
         Task<GameDetailViewModel> GameDetailsById (int Id);
         Task <IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync ();
+        Task CreateAsync(GameAddFromModel formModel, string publisherId);
 
     }
 }

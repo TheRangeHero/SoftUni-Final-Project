@@ -42,12 +42,6 @@ namespace GamesNexus.Data.Configurations
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-               .HasOne(sr => sr.SystemRequirement)
-               .WithOne(g => g.Game)
-               .HasForeignKey<SystemRequirement>(sr => sr.GameId)
-               .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasData(GenerateGames());
         }
 
@@ -64,7 +58,12 @@ namespace GamesNexus.Data.Configurations
                 Price = 10.25M,
                 Developer = "Riot Games",
                 PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
-                SystemRequirementId=1                
+                GPU = "4 GB VRAM, AMD Radeon R9 380 or NVIDIA GeForce GTX 960 DirectX: Version 12",
+                CPU = "AMD Ryzen 3 1200 or Intel Core i5-2500",
+                OS = "Windows 10 (20H1 version or newer, 64-bit versions)",
+                Storage = "90 GB available space",
+                RAM = "8 GB RAM",
+                AdditionalNotes = "SSD recommended, 60 FPS, 1920x1080 in ultra",
             };
             games.Add(game);
 
@@ -76,7 +75,11 @@ namespace GamesNexus.Data.Configurations
                 Price = 55.55M,
                 Developer = "Insomniac Games",
                 PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
-                SystemRequirementId=2
+                GPU = "NVIDIA GeForce GTX 960 (2 GB) | AMD Radeon RX 480",
+                CPU = "Intel Core i5-2500K | AMD FX-8350",
+                OS = "Windows 7",
+                Storage = "40 GB available space",
+                RAM = "8 GB RAM",
             };
             games.Add(game);
 
@@ -88,7 +91,11 @@ namespace GamesNexus.Data.Configurations
                 Price = 20,
                 Developer = "Valve Corporation, Hidden Path Entertainment",
                 PublisherId = Guid.Parse("DAE07E76-9F5D-4BFB-800B-C0DFB0EFEC5B"),
-                SystemRequirementId=3
+                GPU = "Video card must be 256 MB or more and should be a DirectX 9-compatible with support for Pixel Shader 3.0",
+                CPU = "Intel® Core™ 2 Duo E6600 or AMD Phenom™ X3 8750 processor or better",
+                OS = "Windows® 7/Vista/XP",
+                Storage = "15 GB available space",
+                RAM = "2 GB RAM",
             };
             games.Add(game);
 

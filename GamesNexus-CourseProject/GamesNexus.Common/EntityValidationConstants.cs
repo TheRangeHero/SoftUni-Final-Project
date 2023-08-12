@@ -63,6 +63,28 @@ namespace GamesNexus.Common
 
             public const int GameDeveloperMinLength = 2;
             public const int GameDeveloperMaxLength = 70;
+
+            public const string GamePriceMinValue = "0";
+            public const string GamePriceMaxValue = "2000";
+
+
+
+            public const int GPUMinLength = 3;
+            public const int GPUMaxLength = 150;
+
+            public const int CPUMinLength = 3;
+            public const int CPUMaxLength = 150;
+
+            public const int OSMinLength = 3;
+            public const int OSMaxLength = 100;
+
+            public const int StorageMinLength = 1;
+            public const int StorageMaxLength = 50;
+
+            public const int RAMMinLength = 1;
+            public const int RAMMaxLength = 150;
+
+            public const int AdditionalNotesMaxLength = 200;
         }
 
         public static class GameImage
@@ -105,28 +127,6 @@ namespace GamesNexus.Common
         {
             public const int ReviewCommentMinLength = 3;
             public const int ReviewCommentMaxLength = 1600;
-        }
-        public static class SystemRequirement
-        {
-            public const int GPUMinLength = 3;
-            public const int GPUMaxLength = 150;
-
-            public const int CPUMinLength = 3;
-            public const int CPUMaxLength = 150;
-
-            public const int OSMinLength = 3;
-            public const int OSMaxLength = 100;
-
-            public const int StorageMinLength = 1;
-            public const int StorageMaxLength = 50;
-
-            public const int RAMMinLength = 1;
-            public const int RAMMaxLength = 150;
-
-            public const int AdditionalNotesMinLength = 3;
-            public const int AdditionalNotesMaxLength = 200;
-
-
         }
 
     }
