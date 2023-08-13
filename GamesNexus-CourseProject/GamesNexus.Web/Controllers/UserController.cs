@@ -45,8 +45,6 @@ namespace GamesNexus.Web.Controllers
 
             ApplicationUser applicationUser = new ApplicationUser()
             {
-                //UserName = model.UserName,
-                //Email = model.Email,
             };
 
             await this.userManager.SetEmailAsync(applicationUser, model.Email);

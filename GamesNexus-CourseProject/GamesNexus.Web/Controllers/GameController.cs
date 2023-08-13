@@ -91,25 +91,21 @@ namespace GamesNexus.Web.Controllers
                 return RedirectToAction("Become", "Publisher");
             }
 
-
-
-            //bool categoryExists = await this.categoryService.ExistsById(model.CategoryId);
-
-            foreach (var category in model.Categories)
+            foreach (var categoryId in model.SelectedCategoryIds)
             {
-                bool categoryExists = await this.categoryService.ExistsByIdAsync(category.Id);
+                bool categoryExists = await this.categoryService.ExistsByIdAsync(categoryId);
                 if (!categoryExists)
                 {
-                    ModelState.AddModelError(nameof(model.CategoryId), "Selected category does not exists!");
+                    ModelState.AddModelError(nameof(model.SelectedCategoryIds), $"Selected category does not exists");
                 }
             }
 
-            foreach (var genre in model.Genres)
+            foreach (var genreId in model.SelectedGenreIds)
             {
-                bool genereExists = await this.genreService.ExistsByIdAsync(genre.Id);
-                if (!genereExists)
+                bool genreExists = await this.genreService.ExistsByIdAsync(genreId);
+                if (!genreExists)
                 {
-                    ModelState.AddModelError(nameof(model.GenreId), "Selected genere does not exists!");
+                    ModelState.AddModelError(nameof(model.SelectedGenreIds), $"Selected genere does not exists!");
                 }
             }
 

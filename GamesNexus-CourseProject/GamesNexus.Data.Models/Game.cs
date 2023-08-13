@@ -17,8 +17,6 @@ namespace GamesNexus.Data.Models
             this.Reviews = new HashSet<Review>();
             this.GamesCategories = new HashSet<GameCategory>();
             this.GamesGenres = new HashSet<GameGenre>();
-            this.Images = new HashSet<GameImage>();
-            this.Videos = new HashSet<GameVideo>();
             this.OrderDetail = new HashSet<OrderDetail>();
             this.ReleaseDate = DateTime.UtcNow;
         }
@@ -75,6 +73,23 @@ namespace GamesNexus.Data.Models
         public string? AdditionalNotes { set; get; }
 
 
+        [Required]
+        [MaxLength(GameImageURLMaxLength)]
+        public string Image1URL { get; set; } = null!;
+
+
+        [MaxLength(GameImageURLMaxLength)]
+        public string? Image2URL { get; set; }
+
+
+        [MaxLength(GameImageURLMaxLength)]
+        public string? Image3URL { get; set; }
+
+        [Required]
+        [MaxLength(GameVideoURLMaxLength)]
+        public string VideoURL { get; set; } = null!;
+
+
         [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; }
         public Publisher Publisher { get; set; } = null!;
@@ -83,13 +98,9 @@ namespace GamesNexus.Data.Models
         [ForeignKey(nameof(ApplicationUser))]
         public Guid? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
-
-
         public ICollection<GameGenre> GamesGenres { get; set; } 
         public ICollection<GameCategory> GamesCategories { get; set; } 
         public ICollection<Review> Reviews { get; set; } 
-        public ICollection<GameImage> Images { get; set; } 
-        public ICollection<GameVideo> Videos { get; set; } 
         public ICollection<OrderDetail> OrderDetail { get; set; } 
     }
 }

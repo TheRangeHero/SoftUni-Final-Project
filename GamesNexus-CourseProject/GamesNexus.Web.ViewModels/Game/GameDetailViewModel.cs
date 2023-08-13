@@ -10,8 +10,6 @@ namespace GamesNexus.Web.ViewModels.Game
         {
             this.Genres = new HashSet<string>();
             this.Categories = new HashSet<string>();
-            this.Images = new HashSet<string>();
-            this.Videos = new HashSet<string?>();
             this.Reviews = new HashSet<ReviewAllViewModel>();
 
         }
@@ -49,11 +47,14 @@ namespace GamesNexus.Web.ViewModels.Game
         public string AdditionalNotes { get; set; } = null!;
 
         public string Publisher { get; set; } = null!;
+        public string Image1 { get; set; } = null!; 
+        public string? Image2 { get; set; }
+        public string? Image3 { get; set; }
+        public string Video { get; set; } = null!;
+
 
         public ICollection<string> Genres { get; set; }
         public ICollection<string> Categories { get; set; }
-        public ICollection<string> Images { get; set; }
-        public ICollection<string?> Videos { get; set; }
         public ICollection<ReviewAllViewModel> Reviews { get; set; }
     }
 }

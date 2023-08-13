@@ -19,8 +19,6 @@ namespace GamesNexus.Data
         public DbSet<Game> Games { get; set; } = null!;
         public DbSet<GameCategory> GamesCategories { get; set; } = null!;
         public DbSet<GameGenre> GamesGenres { get; set; } = null!;
-        public DbSet<GameImage> GamesImages { get; set; } = null!;
-        public DbSet<GameVideo> GamesVideos { get; set; } = null!;
         public DbSet<Genre> Genres { get; set; } = null!;
         public DbSet<News> News { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;

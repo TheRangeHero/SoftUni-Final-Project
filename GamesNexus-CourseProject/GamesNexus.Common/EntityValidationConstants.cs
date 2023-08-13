@@ -85,15 +85,8 @@ namespace GamesNexus.Common
             public const int RAMMaxLength = 150;
 
             public const int AdditionalNotesMaxLength = 200;
-        }
 
-        public static class GameImage
-        {
             public const int GameImageURLMaxLength = 2048;
-        }
-
-        public static class GameVideo
-        {
             public const int GameVideoURLMaxLength = 2048;
         }
 

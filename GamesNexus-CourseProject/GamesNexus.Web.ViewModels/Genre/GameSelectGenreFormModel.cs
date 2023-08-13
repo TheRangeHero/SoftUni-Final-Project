@@ -12,6 +12,5 @@ namespace GamesNexus.Web.ViewModels.Genre
 
         public string Name { get; set; } = null!;
 
-        public bool IsSelected { get; set; }
     }
 }

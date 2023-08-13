@@ -30,18 +30,6 @@ namespace GamesNexus.Data.Configurations
                 .HasForeignKey(g => g.GameId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasMany(i => i.Images)
-                .WithOne(g => g.Game)
-                .HasForeignKey(g => g.GameId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasMany(v => v.Videos)
-                .WithOne(g => g.Game)
-                .HasForeignKey(g => g.GameId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasData(GenerateGames());
         }
 
@@ -64,6 +52,9 @@ namespace GamesNexus.Data.Configurations
                 Storage = "90 GB available space",
                 RAM = "8 GB RAM",
                 AdditionalNotes = "SSD recommended, 60 FPS, 1920x1080 in ultra",
+                Image1URL = "https://media.wired.co.uk/photos/606da9336ab54fce4fbb245f/master/w_1280,c_limit/lol_1.jpg",
+                Image2URL = "https://i.pinimg.com/564x/c5/6c/77/c56c774ee09e3e16bf12460dea765109.jpg",
+                VideoURL = "https://www.leagueoflegends.com/static/hero-0632cbf2872c5cc0dffa93d2ae8a29e8.webm"
             };
             games.Add(game);
 
@@ -80,6 +71,8 @@ namespace GamesNexus.Data.Configurations
                 OS = "Windows 7",
                 Storage = "40 GB available space",
                 RAM = "8 GB RAM",
+                Image1URL = "https://cdn.mobygames.com/covers/7240915-spyro-reignited-trilogy-xbox-one-front-cover.jpg",
+                VideoURL = "https://cdn.akamai.steamstatic.com/steam/apps/256752581/movie480.webm?t=1560272971"
             };
             games.Add(game);
 
@@ -96,6 +89,9 @@ namespace GamesNexus.Data.Configurations
                 OS = "Windows® 7/Vista/XP",
                 Storage = "15 GB available space",
                 RAM = "2 GB RAM",
+                Image1URL = "https://fanspace.gg/wp-content/uploads/2022/12/csgo-1-1024x576.jpg",
+                Image2URL = "https://estnn.com/wp-content/uploads/2021/04/csgoft2.jpg.webp",
+                VideoURL = "https://cdn.cloudflare.steamstatic.com/steam/apps/81958/movie480.webm?t=1554409259"
             };
             games.Add(game);
 

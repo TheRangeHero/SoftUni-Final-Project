@@ -5,6 +5,7 @@ using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.ViewModels.Game;
 using GamesNexus.Web.ViewModels.Review;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 
 
@@ -24,12 +25,11 @@ namespace GamesNexus.Services.Data
         public async Task<IEnumerable<GameAllViewModel>> AllAsync()
         {
             IEnumerable<GameAllViewModel> allGames = await repository.AllReadonly<Game>()
-                .Include(g => g.Images)
                 .Select(g => new GameAllViewModel
                 {
                     Id = g.Id,
                     Title = g.Title,
-                    Image = g.Images.FirstOrDefault().ImageUrl,
+                    Image = g.Image1URL,
                     Price = g.Price,
 
                 }).ToArrayAsync();
@@ -48,8 +48,6 @@ namespace GamesNexus.Services.Data
         public async Task<GameDetailViewModel> GameDetailsById(int Id)
         {
             Game game = await repository.AllReadonly<Game>()
-                  .Include(g => g.Videos)
-                  .Include(g => g.Images)
                   .Include(g => g.Publisher)
                   .Include(g => g.GamesCategories).ThenInclude(g => g.Category)
                   .Include(g => g.GamesGenres).ThenInclude(g => g.Genre)
@@ -73,8 +71,10 @@ namespace GamesNexus.Services.Data
                 GPU = game.GPU,
                 Storage = game.Storage,
                 AdditionalNotes = game.AdditionalNotes,
-                Images = game.Images.Select(img => img.ImageUrl).ToList(),
-                Videos = game.Videos.Select(vid => vid.VideoUrl).ToList(),
+                Image1 = game.Image1URL,
+                Image2 = string.IsNullOrWhiteSpace(game.Image2URL) ? null : game.Image2URL,
+                Image3 = string.IsNullOrWhiteSpace(game.Image3URL) ? null : game.Image3URL,
+                Video = game.VideoURL,
                 Reviews = game.Reviews.Select(review => new ReviewAllViewModel
                 {
                     Rating = Enum.GetName(typeof(RatingOption), review.Rating),
@@ -86,7 +86,6 @@ namespace GamesNexus.Services.Data
         public async Task<IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync()
         {
             IEnumerable<GameIndexViewModel> allGames = await repository.AllReadonly<Game>()
-                .Include(g => g.Images)
                 .Include(g => g.GamesGenres)
                 .OrderByDescending(g => g.ReleaseDate)
                 .Take(5)
@@ -94,7 +93,7 @@ namespace GamesNexus.Services.Data
                 {
                     Id = g.Id,
                     Title = g.Title,
-                    ImageUrl = g.Images.FirstOrDefault().ImageUrl,
+                    ImageUrl = g.Image1URL,
                     Genres = g.GamesGenres.Select(gg => gg.Genre.Name).ToList(),
 
                 }).ToArrayAsync();
@@ -116,29 +115,53 @@ namespace GamesNexus.Services.Data
                 RAM = formModel.RAM,
                 GPU = formModel.GPU,
                 Storage = formModel.Storage,
-                Images = formModel.ImageUrls.Select(url => new GameImage { ImageUrl = url }).ToList(),
-                Videos = formModel.VideoUrls.Select(url => new GameVideo { VideoUrl = url }).ToList(),
-
-                GamesCategories = formModel.Categories.Select(category => new GameCategory
-                {
-                    GameId = formModel.Id,
-                    CategoryId = category.Id,
-
-                })
-                                        .ToList(),
-
-                GamesGenres = formModel.Genres.Select(genre => new GameGenre
-                {
-                    GameId = formModel.Id,
-                    GenreId = genre.Id
-                })
-                                    .ToList(),
+                Image1URL = formModel.Image1,
+                Image2URL = formModel.Image2,
+                Image3URL = formModel.Image3,
+                VideoURL = formModel.Video,
                 PublisherId = Guid.Parse(publisherId)
             };
 
+            try
+            {
             await this.repository.AddAsync(newGame);
             await this.repository.SaveChangesAsync();
 
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Database failed to save info", ex);
+            }
+
+
+            List<GameGenre> gameGenres = new List<GameGenre>();
+            foreach (var genreId in formModel.SelectedGenreIds)
+            {
+                var gameGenre = new GameGenre
+                {
+                    GameId = newGame.Id,
+                    GenreId = genreId
+                };
+                gameGenres.Add(gameGenre);
+
+            }
+            await this.repository.AddRangeAsync(gameGenres);
+            await this.repository.SaveChangesAsync();
+
+            List<GameCategory> gameCategories = new List<GameCategory>();
+            foreach (var categoryId in formModel.SelectedCategoryIds)
+            {
+                var gameCategory = new GameCategory
+                {
+                    GameId = newGame.Id,
+                    CategoryId = categoryId
+                };
+                gameCategories.Add(gameCategory);
+
+
+            }
+            await repository.AddRangeAsync(gameCategories);
+            await this.repository.SaveChangesAsync();
         }
     }
 }

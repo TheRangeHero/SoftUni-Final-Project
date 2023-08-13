@@ -54,65 +54,6 @@
     </div>
 }
 
-<div class="form-group">
-    <label for="ImageUrlsInput">Image URLs:</label>
-    <input class="form-control" id="ImageUrlsInput" name="ImageUrlsInput"/>
-    <div id="additionalImageUrls">
-        <!-- Dynamically generated input fields will go here -->
-    </div>
-    <button type="button" id="addImageUrlBtn" class="btn btn-info mt-2">Add Another Image</button>
-
-</div>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addImageUrlBtn = document.getElementById("addImageUrlBtn");
-        const additionalImageUrlsContainer = document.getElementById("additionalImageUrls");
-
-        let imageUrlCounter = 1;
-
-        addImageUrlBtn.addEventListener("click", function () {
-            const inputContainer = document.createElement("div");
-            inputContainer.className = "input-group mt-2"; // Apply Bootstrap input group styling
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "form-control"; // Apply Bootstrap form control styling
-            input.name = `AdditionalImageUrls[${imageUrlCounter}]`;
-            input.placeholder = "Enter image URL";
-            inputContainer.appendChild(input);
-
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "btn btn-danger"; // Apply Bootstrap danger button styling
-            deleteButton.textContent = "Remove"; // Add a "Remove" button for each input
-            deleteButton.addEventListener("click", function () {
-                inputContainer.remove(); // Remove the input field when "Remove" is clicked
-            });
-
-            // Add margin to the button for spacing
-            deleteButton.style.marginLeft = "5px"; // Adjust the margin as needed
-
-            inputContainer.appendChild(deleteButton);
-
-            additionalImageUrlsContainer.appendChild(inputContainer);
-
-            imageUrlCounter++;
-        });
-        const form = document.getElementById("yourFormId"); // Replace with your form ID
-        form.addEventListener("submit", function () {
-            const inputFields = document.querySelectorAll("input[name^='AdditionalImageUrls']");
-            for (const input of inputFields) {
-                if (input.value.trim() === "") {
-                    input.parentNode.removeChild(input);
-                }
-            }
-        });
-    });
-</script>
-
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

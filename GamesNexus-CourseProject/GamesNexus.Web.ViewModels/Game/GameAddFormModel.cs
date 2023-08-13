@@ -16,7 +16,7 @@ namespace GamesNexus.Web.ViewModels.Game
             this.Categories = new HashSet<GameSelectCategoryFormModel>();
         }
 
-        public long Id { get; set; }    
+        public long Id { get; set; }
 
         [Required]
         [StringLength(GameTitleMaxLength, MinimumLength = GameTitleMinLength)]
@@ -58,7 +58,7 @@ namespace GamesNexus.Web.ViewModels.Game
 
 
         [Required]
-        [StringLength(StorageMaxLength, MinimumLength = StorageMinLength)]        
+        [StringLength(StorageMaxLength, MinimumLength = StorageMinLength)]
         public string Storage { set; get; } = null!;
 
 
@@ -72,16 +72,30 @@ namespace GamesNexus.Web.ViewModels.Game
         [Display(Name = "Memory")]
         public string? AdditionalNotes { set; get; }
 
+        [Required]
+        [StringLength(GameImageURLMaxLength)]
+        [Display(Name ="Game cover image link")]
+        public string Image1 { get; set; } = null!;
 
-        public List<string> ImageUrls { get; set; } = new List<string>();
-        public List<string> VideoUrls { get; set; } = new List<string>();
+        [StringLength(GameImageURLMaxLength)]
+        [Display(Name = "Additional game image link")]
+        public string? Image2 { get; set; }
 
-        [Display(Name = "Categories")]
-        public int GenreId { get; set; }
-        public IEnumerable<GameSelectGenreFormModel> Genres { get; set; }
+        [StringLength(GameImageURLMaxLength)]
+        [Display(Name = "Additional game image link")]
+        public string? Image3 { get; set; }
+
+        [Required]
+        [StringLength(GameVideoURLMaxLength)]
+        [Display(Name = "Trailer video link")]
+        public string Video { get; set; } = null!;
 
         [Display(Name = "Genres")]
-        public int CategoryId { get; set; }
+        public List<int> SelectedGenreIds { get; set; } = new List<int>();
+        public IEnumerable<GameSelectGenreFormModel> Genres { get; set; }
+
+        [Display(Name = "Categories")]
+        public List<int> SelectedCategoryIds { get; set; } = new List<int>();
         public IEnumerable<GameSelectCategoryFormModel> Categories { get; set; }
     }
 
