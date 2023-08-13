@@ -25,6 +25,7 @@ namespace GamesNexus.Services.Data
         public async Task<IEnumerable<GameAllViewModel>> AllAsync()
         {
             IEnumerable<GameAllViewModel> allGames = await repository.AllReadonly<Game>()
+                .Where(g=>g.IsActive)
                 .Select(g => new GameAllViewModel
                 {
                     Id = g.Id,
@@ -88,6 +89,7 @@ namespace GamesNexus.Services.Data
         {
             IEnumerable<GameIndexViewModel> allGames = await repository.AllReadonly<Game>()
                 .Include(g => g.GamesGenres)
+                .Where(g => g.IsActive)
                 .OrderByDescending(g => g.ReleaseDate)
                 .Take(5)
                 .Select(g => new GameIndexViewModel
@@ -155,6 +157,42 @@ namespace GamesNexus.Services.Data
             }
             await repository.AddRangeAsync(gameCategories);
             await this.repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<GameAllViewModel>> AllByUserIdAsync(string agentId)
+        {
+            IEnumerable<GameAllViewModel> allUsersHouses = await this.repository.AllReadonly<Game>()
+               .Include(u => u.ApplicationUser)
+               .Where(g => g.IsActive)
+               .Where(g => g.ApplicationUserId.ToString() == agentId)
+               .Select(g => new GameAllViewModel()
+               {
+                   Id = g.Id,
+                   Title = g.Title,
+                   Image = g.Image1URL,
+                   Price = g.Price,
+               })
+               .ToArrayAsync();
+
+            return allUsersHouses;
+        }
+
+        public async Task<IEnumerable<GameAllViewModel>> AllByPublisherIdAsync(string publisherId)
+        {
+            IEnumerable<GameAllViewModel> allPublisherHouses = await this.repository.AllReadonly<Game>()
+               .Include(p => p.Publisher)
+               .Where(g => g.IsActive)
+               .Where(g => g.PublisherId.ToString() == publisherId)
+               .Select(g => new GameAllViewModel()
+               {
+                   Id = g.Id,
+                   Title = g.Title,
+                   Image = g.Image1URL,
+                   Price = g.Price,
+               })
+               .ToArrayAsync();
+
+            return allPublisherHouses;
         }
     }
 }

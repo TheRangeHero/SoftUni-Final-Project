@@ -1,0 +1,25 @@
+﻿@model IEnumerable<GameAllViewModel>
+
+@{
+    ViewData["Title"] = "My Games";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You don't have favorite games yet!</h2>
+}
+else
+{
+    <div class="row">
+        @foreach (var game in Model)
+        {
+            <div class="col-md-4">
+                <partial name="_AllGameListPartial" model="game" />
+            </div>
+        }
+    </div>
+
+}

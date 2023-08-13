@@ -1,22 +1,25 @@
 ﻿@model IEnumerable<GameAllViewModel>
 
-<h1>All Games</h1>
-
-<div class="game-container">
-    @foreach (var game in Model)
-    {
-        <div class="game-item">
-            <a href="@Url.Action("Details", "Game", new { id = game.Id })">
-                <img src="@game.Image" alt="Game Image">
-            </a>
-            <h2 class="game-title">@game.Title</h2>
-            <p class="game-price">Price: @game.Price</p>
-            <a href="@Url.Action("Details", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
-        </div>
-    }
-</div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+@{
+    ViewData["Title"] = "All Games";
 }
 
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No games found for displaying!</h2>
+}
+else
+{
+        <div class="row">
+            @foreach (var game in Model)
+            {
+                <div class="col-md-4">
+                    <partial name="_AllGameListPartial" model="game" />
+                </div>
+            }
+        </div>
+     
+}

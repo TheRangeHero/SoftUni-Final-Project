@@ -29,6 +29,8 @@ namespace GamesNexus.Data.Models
 
         public DateTime PublishedOn { get;  set; }
 
+        public bool IsActive { get; set; } = true;
+
 
         [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; } 

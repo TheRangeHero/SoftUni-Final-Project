@@ -25,6 +25,8 @@ namespace GamesNexus.Data.Models
         [Required]
         public DateTime PostedOn { get;  set; }
 
+        public bool IsActive { get; set; } = true;
+
 
         [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }

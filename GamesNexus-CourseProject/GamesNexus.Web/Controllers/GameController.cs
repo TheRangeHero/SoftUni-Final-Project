@@ -136,6 +136,30 @@ namespace GamesNexus.Web.Controllers
             return this.RedirectToAction("All", "Game");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<GameAllViewModel> myGames = new List<GameAllViewModel>();
+
+            string userId = this.User.GetId()!;
+            bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(userId);
+            myGames.AddRange(await this.gameService.AllByUserIdAsync(userId));
+
+            if (isUserPublisher)
+            {
+                string? publisherId = await this.publisherService.PublisherIdByUserIdAsync(userId);
+                myGames.AddRange(await this.gameService.AllByPublisherIdAsync(publisherId!));
+            }
+            else
+            {
+                this.TempData[ErrorMessage] = "You must become a publisher and add your games in order to see them!";
+                return RedirectToAction("Become", "Publisher");
+            }
+
+            return this.View(myGames);
+        }
+
+
         private IActionResult GeneralError()
         {
             TempData[ErrorMessage] =

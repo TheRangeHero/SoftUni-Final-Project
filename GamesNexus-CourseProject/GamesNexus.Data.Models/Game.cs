@@ -89,6 +89,8 @@ namespace GamesNexus.Data.Models
         [MaxLength(GameVideoURLMaxLength)]
         public string VideoURL { get; set; } = null!;
 
+        public bool IsActive { get; set; } = true;
+
 
         [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; }

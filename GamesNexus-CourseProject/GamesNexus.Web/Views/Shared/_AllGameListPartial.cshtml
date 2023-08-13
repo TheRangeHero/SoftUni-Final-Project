@@ -1,0 +1,22 @@
+﻿@model GameAllViewModel
+
+
+<div class="col-md-4 mb-4">
+    <div class="card h-100">
+        <a href="@Url.Action("Details", "Game", new { id = Model.Id })">
+            <img src="@Model.Image" alt="Game Image" class="card-img-top img-fluid">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">Price: @Model.Price</p>
+            <a href="@Url.Action("Details", "Game", new { id = Model.Id })" class="btn btn-primary">Details</a>
+           
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+

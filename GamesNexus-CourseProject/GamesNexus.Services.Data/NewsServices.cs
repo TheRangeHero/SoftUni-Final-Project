@@ -23,6 +23,7 @@ namespace GamesNexus.Services.Data
         public async Task<IEnumerable<NewsIndexViewModel>> LastFiveNewsIndexAsync()
         {
             IEnumerable<NewsIndexViewModel> news = await repository.AllReadonly<News>()
+                .Where(n => n.IsActive)
                 .OrderByDescending(n => n.PublishedOn)
                 .Take(6)
                 .Select(n => new NewsIndexViewModel

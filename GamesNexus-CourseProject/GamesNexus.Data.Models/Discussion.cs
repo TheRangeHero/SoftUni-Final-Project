@@ -28,6 +28,8 @@ namespace GamesNexus.Data.Models
         [MaxLength(DiscussionContentMaxLength)]
         public string Content { get; set; } = null!;
 
+        public bool IsActive { get; set; } = true;
+
         [Required]
         public DateTime CreatedOn { get;  set; }
 

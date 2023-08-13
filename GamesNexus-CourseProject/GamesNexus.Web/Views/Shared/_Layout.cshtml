@@ -29,7 +29,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="All">All Games</a></li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Mine">Favorite</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Mine">Mine</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Add">Add Game</a></li>
                                 }
                             </ul>
