@@ -17,9 +17,9 @@ namespace GamesNexus.Web.Controllers
         private readonly ICategoryService categoryService;
         private readonly IGenreService genreService;
 
-        public GameController(IGameService _gameService, 
-                              IPublisherService _publisherService, 
-                              ICategoryService _categoryService, 
+        public GameController(IGameService _gameService,
+                              IPublisherService _publisherService,
+                              ICategoryService _categoryService,
                               IGenreService _genreService)
         {
             this.gameService = _gameService;
@@ -83,7 +83,7 @@ namespace GamesNexus.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GameAddFromModel model)
         {
-            bool isPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);           
+            bool isPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
 
             if (!isPublisher)
             {
@@ -111,7 +111,7 @@ namespace GamesNexus.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Categories= await this.categoryService.AllCategoriesAsync();
+                model.Categories = await this.categoryService.AllCategoriesAsync();
                 model.Genres = await this.genreService.AllGenresAsync();
 
 
@@ -133,7 +133,7 @@ namespace GamesNexus.Web.Controllers
                 return this.View(model);
             }
 
-            return this.RedirectToAction("All","Game");
+            return this.RedirectToAction("All", "Game");
         }
 
         private IActionResult GeneralError()

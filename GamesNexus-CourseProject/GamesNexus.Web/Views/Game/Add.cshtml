@@ -4,18 +4,22 @@
     <form id="gameForm" asp-controller="Game" asp-action="Add" method="post">
         <div class="mb-3">
             <label asp-for="Title" class="form-label">Title:</label>
+            <span asp-validation-for="Title" class="small text-danger"></span>
             <input asp-for="Title" class="form-control" style="width: 200px;  />
         </div>
         <div class="mb-3">
             <label asp-for="Description" class="form-label">Description:</label>
+            <span asp-validation-for="Description" class="small text-danger"></span>
             <textarea asp-for="Description" class="form-control" rows="5"></textarea>
         </div>
         <div class="mb-3">
             <label asp-for="Price" class="form-label">Price:</label>
+            <span asp-validation-for="Price" class="small text-danger"></span>
             <input asp-for="Price" class="form-control" style="width: 200px;  />
         </div>
         <div class="mb-3">
             <label asp-for="Developer" class="form-label">Developer:</label>
+            <span asp-validation-for="Developer" class="small text-danger"></span>
             <input asp-for="Developer" class="form-control" style="width: 200px;  />
         </div>
 
@@ -26,26 +30,32 @@
             <h2>System Requirements</h2>
             <div class="mb-3">
                 <label asp-for="GPU" class="form-label">GPU:</label>
+                <span asp-validation-for="GPU" class="small text-danger"></span>
                 <input asp-for="GPU" class="form-control" style="width: 200px; />
             </div>
             <div class="mb-3">
                 <label asp-for="CPU" class="form-label">CPU:</label>
+                <span asp-validation-for="CPU" class="small text-danger"></span>
                 <input asp-for="CPU" class="form-control" style="width: 200px; />
             </div>
             <div class="mb-3">
                 <label asp-for="OS" class="form-label">Operating System:</label>
+                <span asp-validation-for="OS" class="small text-danger"></span>
                 <input asp-for="OS" class="form-control" style="width: 200px; />
             </div>
             <div class="mb-3">
                 <label asp-for="Storage" class="form-label">Storage:</label>
+                <span asp-validation-for="Storage" class="small text-danger"></span>
                 <input asp-for="Storage" class="form-control" style="width: 200px;  />
             </div>
             <div class="mb-3">
                 <label asp-for="RAM" class="form-label">RAM:</label>
+                <span asp-validation-for="RAM" class="small text-danger"></span>
                 <input asp-for="RAM" class="form-control" style="width: 200px;  />
             </div>
             <div class="mb-3">
                 <label asp-for="AdditionalNotes" class="form-label">Additional Notes:</label>
+                <span asp-validation-for="AdditionalNotes" class="small text-danger"></span>
                 <textarea asp-for="AdditionalNotes" class="form-control" rows="3"></textarea>
             </div>
         </div>
@@ -63,6 +73,7 @@
                             <label class="form-check-label">@genre.Name</label>
                         </div>
                     }
+                    <span asp-validation-for="SelectedGenreIds" class="small text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <h4>Categories</h4>
@@ -73,6 +84,7 @@
                             <label class="form-check-label">@category.Name</label>
                         </div>
                     }
+                    <span asp-validation-for="SelectedCategoryIds" class="small text-danger"></span>
                 </div>
             </div>
         </div>
@@ -82,22 +94,26 @@
             <label asp-for="Image1" class="form-label">Image 1 URL:</label>
             <input asp-for="Image1" class="form-control" />
             <img src="@Model.Image1" class="d-block w-100" alt="Game Image 1" onerror="this.src='~/images/placeholder.jpg'">
+            <span asp-validation-for="Image1" class="small text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="Image2" class="form-label">Image 2 URL:</label>
             <input asp-for="Image2" class="form-control" />
             <img src="@Model.Image2" class="d-block w-100" alt="Game Image 2" onerror="this.src='~/images/placeholder.jpg'">
+            <span asp-validation-for="Image2" class="small text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="Image3" class="form-label">Image 3 URL:</label>
             <input asp-for="Image3" class="form-control" />
             <img src="@Model.Image3" class="d-block w-100" alt="Game Image 3" onerror="this.src='~/images/placeholder.jpg'">
+            <span asp-validation-for="Image3" class="small text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label asp-for="Video" class="form-label">Video URL:</label>
             <input asp-for="Video" class="form-control" />
             <span asp-validation-for="Video" class="text-danger"></span>
+            <span asp-validation-for="Video" class="small text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary">Add Game</button>
@@ -107,84 +123,4 @@
         </div>
     </form>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const addImageUrlBtn = document.getElementById("addImageUrlBtn");
-        const additionalImageUrlsContainer = document.getElementById("additionalImageUrls");
-        const addVideoUrlBtn = document.getElementById("addVideoUrlBtn");
-        const additionalVideoUrlsContainer = document.getElementById("additionalVideoUrls");
-        const form = document.getElementById("gameForm");
-
-        let imageUrlCounter = 1;
-        let videoUrlCounter = 1;
-
-        addImageUrlBtn.addEventListener("click", function () {
-            const inputContainer = document.createElement("div");
-            inputContainer.className = "input-group mt-2"; // Apply Bootstrap input group styling
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "form-control"; // Apply Bootstrap form control styling
-            input.name = `AdditionalImageUrls[${imageUrlCounter}]`;
-            input.placeholder = "Enter image URL";
-            inputContainer.appendChild(input);
-
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "btn btn-danger"; // Apply Bootstrap danger button styling
-            deleteButton.textContent = "Remove"; // Add a "Remove" button for each input
-            deleteButton.addEventListener("click", function () {
-                inputContainer.remove(); // Remove the input field when "Remove" is clicked
-            });
-
-            // Add margin to the button for spacing
-            deleteButton.style.marginLeft = "5px"; // Adjust the margin as needed
-
-            inputContainer.appendChild(deleteButton);
-
-            additionalImageUrlsContainer.appendChild(inputContainer);
-
-            imageUrlCounter++;
-        });
-
-        addVideoUrlBtn.addEventListener("click", function () {
-            const inputContainer = document.createElement("div");
-            inputContainer.className = "input-group mt-2"; // Apply Bootstrap input group styling
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "form-control"; // Apply Bootstrap form control styling
-            input.name = `AdditionalVideoUrls[${videoUrlCounter}]`;
-            input.placeholder = "Enter video URL";
-            inputContainer.appendChild(input);
-
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "btn btn-danger"; // Apply Bootstrap danger button styling
-            deleteButton.textContent = "Remove"; // Add a "Remove" button for each input
-            deleteButton.addEventListener("click", function () {
-                inputContainer.remove(); // Remove the input field when "Remove" is clicked
-            });
-
-            // Add margin to the button for spacing
-            deleteButton.style.marginLeft = "5px"; // Adjust the margin as needed
-
-            inputContainer.appendChild(deleteButton);
-
-            additionalVideoUrlsContainer.appendChild(inputContainer);
-
-            videoUrlCounter++;
-        });
-
-        form.addEventListener("submit", function () {
-            const inputFields = document.querySelectorAll("input[name^='AdditionalImageUrls'], input[name^='AdditionalVideoUrls']");
-            for (const input of inputFields) {
-                if (input.value.trim() === "") {
-                    input.parentNode.removeChild(input);
-                }
-            }
-        });
-    });
-</script>
 

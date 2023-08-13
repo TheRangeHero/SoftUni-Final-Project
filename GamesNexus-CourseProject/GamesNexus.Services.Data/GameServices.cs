@@ -83,6 +83,7 @@ namespace GamesNexus.Services.Data
                 }).ToList()
             };
         }
+
         public async Task<IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync()
         {
             IEnumerable<GameIndexViewModel> allGames = await repository.AllReadonly<Game>()
@@ -100,6 +101,7 @@ namespace GamesNexus.Services.Data
 
             return allGames;
         }
+
         public async Task CreateAsync(GameAddFromModel formModel, string publisherId)
         {
 
@@ -122,17 +124,8 @@ namespace GamesNexus.Services.Data
                 PublisherId = Guid.Parse(publisherId)
             };
 
-            try
-            {
             await this.repository.AddAsync(newGame);
             await this.repository.SaveChangesAsync();
-
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Database failed to save info", ex);
-            }
-
 
             List<GameGenre> gameGenres = new List<GameGenre>();
             foreach (var genreId in formModel.SelectedGenreIds)
