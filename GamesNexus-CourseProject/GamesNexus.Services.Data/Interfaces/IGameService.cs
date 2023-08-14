@@ -13,6 +13,8 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<IEnumerable<GameAllViewModel>> AllByPublisherIdAsync(string publisherId);
         Task<GameAddFromModel> GetGameForEditByIdAsync(long id);
         Task<bool> IsPublisherWithIdPublisherOfGameWithIdAsync(long gameId, string publisherId);
-        Task EditGameByIdAndFormModel (GameAddFromModel formModel, long id);
+        Task EditGameByIdAndFormModelAsync(GameAddFromModel formModel, long id);
+        Task<GamePreDeleteDetailsViewModel> GetGameForDeleteAsync(long id);
+        Task DeleteGameByIdAsync(long id);
     }
 }

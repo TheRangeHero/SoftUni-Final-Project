@@ -227,6 +227,7 @@ namespace GamesNexus.Services.Data
                 Image2 = game.Image2URL,
                 Image3 = game.Image3URL,
                 Video = game.VideoURL,
+                AdditionalNotes = game.AdditionalNotes,
                 SelectedGenreIds = game.GamesGenres.Select(g => g.GenreId).ToList(),
                 SelectedCategoryIds = game.GamesCategories.Select(c => c.CategoryId).ToList()
 
@@ -234,7 +235,7 @@ namespace GamesNexus.Services.Data
         }
 
 
-        public async Task EditGameByIdAndFormModel(GameAddFromModel formModel, long id)
+        public async Task EditGameByIdAndFormModelAsync(GameAddFromModel formModel, long id)
         {
             Game game = await this.repository.All<Game>()
                  .Include(g => g.GamesGenres)
@@ -292,7 +293,25 @@ namespace GamesNexus.Services.Data
                 .FirstAsync(g => g.Id == gameId);
 
             return game.PublisherId.ToString() == publisherId;
+        }       
+
+        public async Task<GamePreDeleteDetailsViewModel> GetGameForDeleteAsync(long id)
+        {
+            Game game = await this.repository.GetByIdAsync<Game>(id);
+            return new GamePreDeleteDetailsViewModel
+            {
+                Title = game.Title,
+                Description = game.Description,
+                ImageURL = game.Image1URL
+            };
         }
+        public async Task DeleteGameByIdAsync(long id)
+        {
+            Game gameToDelete = await this.repository.GetByIdAsync<Game>(id);
+            gameToDelete.IsActive = false;
+            await this.repository.SaveChangesAsync();
+        }
+
     }
 }
 
