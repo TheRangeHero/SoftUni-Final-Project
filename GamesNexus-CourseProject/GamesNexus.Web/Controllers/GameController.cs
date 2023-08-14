@@ -134,6 +134,9 @@ namespace GamesNexus.Web.Controllers
             {
                 string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
                 await this.gameService.CreateAsync(model, publisherId!);
+
+                this.TempData[SuccessMessage] = "House was added successfully!";
+
             }
             catch (Exception)
             {
@@ -258,7 +261,7 @@ namespace GamesNexus.Web.Controllers
             try
             {
 
-                await this.gameService.EditGameByIdAndFormModel(gameAddFromModel, id);
+                await this.gameService.EditGameByIdAndFormModelAsync(gameAddFromModel, id);
             }
             catch (Exception)
             {
@@ -269,8 +272,92 @@ namespace GamesNexus.Web.Controllers
                 gameAddFromModel.Genres = await this.genreService.AllGenresAsync();
                 return this.View(gameAddFromModel);
             }
-
+            this.TempData[SuccessMessage] = "House was edited successfully!";
             return this.RedirectToAction("All", "Game");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(long id)
+        {
+            bool gameExists = await gameService.ExistsByIdAsync(id);
+            if (!gameExists)
+            {
+                this.TempData[ErrorMessage] = "Game with the provided id does not exist!";
+
+                return RedirectToAction("All", "Game");
+            }
+
+            bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
+            if (!isUserPublisher)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
+
+                return this.RedirectToAction("Become", "Publisher");
+            }
+
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            if (!isPublisherOwnGame)
+            {
+                this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
+
+                return this.RedirectToAction("Mine", "Game");
+            }
+
+            try
+            {
+                GamePreDeleteDetailsViewModel viewModel = await this.gameService.GetGameForDeleteAsync(id);
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+
+                return this.GeneralError();
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id, GamePreDeleteDetailsViewModel model)
+        {
+            bool gameExists = await gameService.ExistsByIdAsync(id);
+            if (!gameExists)
+            {
+                this.TempData[ErrorMessage] = "Game with the provided id does not exist!";
+
+                return RedirectToAction("All", "Game");
+            }
+
+            bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
+            if (!isUserPublisher)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
+
+                return this.RedirectToAction("Become", "Publisher");
+            }
+
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            if (!isPublisherOwnGame)
+            {
+                this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
+
+                return this.RedirectToAction("Mine", "Game");
+            }
+
+            try
+            {
+                await this.gameService.DeleteGameByIdAsync(id);
+
+                this.TempData[WarningMessage] = "The game was successfully delete!";
+
+                return this.RedirectToAction("Mine", "Game");
+            }
+            catch (Exception)
+            {
+
+                return this.GeneralError();
+            }
         }
 
 

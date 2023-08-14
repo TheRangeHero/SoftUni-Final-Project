@@ -234,7 +234,7 @@ namespace GamesNexus.Services.Data
         }
 
 
-        public async Task EditGameByIdAndFormModel(GameAddFromModel formModel, long id)
+        public async Task EditGameByIdAndFormModelAsync(GameAddFromModel formModel, long id)
         {
             Game game = await this.repository.All<Game>()
                  .Include(g => g.GamesGenres)
@@ -261,8 +261,6 @@ namespace GamesNexus.Services.Data
             repository.DeleteRange(game.GamesCategories);
 
             await repository.SaveChangesAsync();
-
-            // Create and add new relations for genres
             foreach (var genreId in formModel.SelectedGenreIds)
             {
                 game.GamesGenres.Add(new GameGenre
@@ -271,8 +269,6 @@ namespace GamesNexus.Services.Data
                     GenreId = genreId
                 });
             }
-
-            // Create and add new relations for categories
             foreach (var categoryId in formModel.SelectedCategoryIds)
             {
                 game.GamesCategories.Add(new GameCategory
@@ -281,8 +277,6 @@ namespace GamesNexus.Services.Data
                     CategoryId = categoryId
                 });
             }
-
-            // Save the updated game entity
             await repository.SaveChangesAsync();
         }
         public async Task<bool> IsPublisherWithIdPublisherOfGameWithIdAsync(long gameId, string publisherId)
@@ -292,6 +286,29 @@ namespace GamesNexus.Services.Data
                 .FirstAsync(g => g.Id == gameId);
 
             return game.PublisherId.ToString() == publisherId;
+        }
+
+        public async Task<GamePreDeleteDetailsViewModel> GetGameForDeleteAsync(long id)
+        {
+            Game game = await this.repository.GetByIdAsync<Game>(id);
+
+            return new GamePreDeleteDetailsViewModel
+            {
+                Title = game.Title,
+                Description = game.Description,
+                ImageURL = game.Image1URL
+            };
+
+
+        }
+
+        public async Task DeleteGameByIdAsync(long id)
+        {
+            Game gameToDelete = await this.repository.GetByIdAsync<Game>(id);
+
+            gameToDelete.IsActive = false;
+
+            await this.repository.SaveChangesAsync();
         }
     }
 }
