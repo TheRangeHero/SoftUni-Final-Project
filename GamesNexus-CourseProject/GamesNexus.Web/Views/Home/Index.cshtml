@@ -18,8 +18,8 @@
                     @foreach (var game in Model.GameIndexViewModel)
                     {
                         <div class="col-md-4 mb-4">
-                            <div class="card" style="width: 100%;">
-                                <img class="card-img-top game-image" src="@game.ImageUrl" alt="Game Image">
+                            <div class="card" style="width:100%;">
+                                <img class="object-fit-sm-contain border rounded" src="@game.ImageUrl" alt="Game Image">
                                 <div class="card-body" style="padding: 8px;">
                                     <h5 class="card-title">@game.Title</h5>
                                     <p class="card-text"> @string.Join(", ", game.Genres)</p>

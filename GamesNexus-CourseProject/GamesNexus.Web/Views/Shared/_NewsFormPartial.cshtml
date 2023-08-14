@@ -1,0 +1,32 @@
+﻿@model NewsAddFormModel
+
+<div class="card">
+    <div class="card-header h2 font-weight-bold">
+        Add News Article
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Enter news title">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea class="form-control" id="Content" asp-for="Content" rows="5" placeholder="Enter news content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

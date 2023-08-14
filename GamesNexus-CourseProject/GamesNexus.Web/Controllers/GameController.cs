@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static GamesNexus.Common.NotificationMessagesConstants;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace GamesNexus.Web.Controllers
 {
@@ -40,7 +40,7 @@ namespace GamesNexus.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int Id)
+        public async Task<IActionResult> Details(long Id)
         {
             bool gameExists = await gameService.ExistsByIdAsync(Id);
             if (!gameExists)
@@ -192,8 +192,8 @@ namespace GamesNexus.Web.Controllers
                 return this.RedirectToAction("Become", "Publisher");
             }
 
-            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
-            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId!);
             if (!isPublisherOwnGame)
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
@@ -248,8 +248,8 @@ namespace GamesNexus.Web.Controllers
                 return this.RedirectToAction("Become", "Publisher");
             }
 
-            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
-            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId!);
             if (!isPublisherOwnGame)
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
@@ -265,7 +265,7 @@ namespace GamesNexus.Web.Controllers
             catch (Exception)
             {
 
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your new house! Please try again later or contact administrator!");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your new game! Please try again later or contact administrator!");
 
                 gameAddFromModel.Categories = await this.categoryService.AllCategoriesAsync();
                 gameAddFromModel.Genres = await this.genreService.AllGenresAsync();
@@ -290,8 +290,8 @@ namespace GamesNexus.Web.Controllers
                 this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
                 return this.RedirectToAction("Become", "Publisher");
             }
-            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
-            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId!);
             if (!isPublisherOwnGame)
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
@@ -322,8 +322,8 @@ namespace GamesNexus.Web.Controllers
                 this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
                 return this.RedirectToAction("Become", "Publisher");
             }
-            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
-            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId!);
             if (!isPublisherOwnGame)
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";

@@ -9,7 +9,7 @@
 
 @if (!Model.Any())
 {
-    <h2 class="text-center">You don't have published games yet!</h2>
+    <h2 class="text-center">You don't have any published games yet!</h2>
 }
 else
 {
@@ -22,4 +22,8 @@ else
         }
     </div>
 
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

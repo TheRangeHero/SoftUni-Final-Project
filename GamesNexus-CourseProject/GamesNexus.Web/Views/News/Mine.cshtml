@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NewsAllViewModel>
 
 @{
-    ViewData["Title"] = "All Games";
+    ViewData["Title"] = "My Posted News";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -9,14 +9,17 @@
 
 @if (!Model.Any())
 {
-    <h2 class="text-center">No news found for displaying!</h2>
+    <h2 class="text-center">You don't have any posted news yet!</h2>
 }
 else
 {
+
     @foreach (var news in Model)
     {
         <partial name="_AllNewsListPartial" model="news" />
     }
+
+
 }
 
 @section Scripts {

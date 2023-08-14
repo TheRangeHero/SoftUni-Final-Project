@@ -4,6 +4,7 @@ using GamesNexus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesNexus.Data.Migrations
 {
     [DbContext(typeof(GamesNexusDbContext))]
-    partial class GamesNexusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230814183317_IncreasedTheMaximumsizeForContentInNews")]
+    partial class IncreasedTheMaximumsizeForContentInNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

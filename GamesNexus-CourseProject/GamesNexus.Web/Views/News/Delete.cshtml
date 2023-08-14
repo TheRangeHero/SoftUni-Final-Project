@@ -1,0 +1,18 @@
+﻿@model NewsAllViewModel
+
+<div class="card text-center">
+    <div class="card-header">
+        @Model.Title
+    </div>
+    <div class="card-body">
+        <p class="card-text">@Model.Content</p>
+        <form asp-action="Delete" asp-controller="News" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Delete this News</button>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <span>Created from: @Model.PublisherName</span>
+        <span>Created on: @Model.PublishedOn</span>
+    </div>
+</div>
