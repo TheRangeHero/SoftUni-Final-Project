@@ -5,7 +5,9 @@ using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.ViewModels.Game;
 using GamesNexus.Web.ViewModels.Review;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Globalization;
 
 
@@ -15,17 +17,21 @@ namespace GamesNexus.Services.Data
     public class GameServices : IGameService
     {
         private readonly IRepository repository;
+        private readonly IGenreService genreService;
+        private readonly ICategoryService categoryService;
 
 
-        public GameServices(IRepository _repository)
+        public GameServices(IRepository _repository, IGenreService _genreService, ICategoryService _categoryService)
         {
             repository = _repository;
+            this.genreService = _genreService;
+            this.categoryService = _categoryService;
         }
 
         public async Task<IEnumerable<GameAllViewModel>> AllAsync()
         {
             IEnumerable<GameAllViewModel> allGames = await repository.AllReadonly<Game>()
-                .Where(g=>g.IsActive)
+                .Where(g => g.IsActive)
                 .Select(g => new GameAllViewModel
                 {
                     Id = g.Id,
@@ -38,9 +44,10 @@ namespace GamesNexus.Services.Data
             return allGames;
 
         }
-        public async Task<bool> ExistsByIdAsync(int Id)
+        public async Task<bool> ExistsByIdAsync(long Id)
         {
             bool result = await repository.AllReadonly<Game>()
+                .Where(g => g.IsActive)
                 .AnyAsync(g => g.Id == Id);
 
             return result;
@@ -59,6 +66,7 @@ namespace GamesNexus.Services.Data
             return new GameDetailViewModel
             {
                 Id = game.Id,
+                Title = game.Title,
                 Description = game.Description,
                 Price = game.Price,
                 ReleaseDate = game.ReleaseDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture),
@@ -193,6 +201,97 @@ namespace GamesNexus.Services.Data
                .ToArrayAsync();
 
             return allPublisherHouses;
+        }
+
+        public async Task<GameAddFromModel> GetGameForEditByIdAsync(long id)
+        {
+            Game game = await repository.AllReadonly<Game>()
+
+                 .Include(g => g.GamesCategories).ThenInclude(g => g.Category)
+                 .Include(g => g.GamesGenres).ThenInclude(g => g.Genre)
+                 .Include(g => g.Reviews)
+                 .FirstAsync(g => g.Id == id);
+
+            return new GameAddFromModel
+            {
+                Title = game.Title,
+                Description = game.Description,
+                Price = game.Price,
+                Developer = game.Developer,
+                OS = game.OS,
+                CPU = game.CPU,
+                RAM = game.RAM,
+                GPU = game.GPU,
+                Storage = game.Storage,
+                Image1 = game.Image1URL,
+                Image2 = game.Image2URL,
+                Image3 = game.Image3URL,
+                Video = game.VideoURL,
+                SelectedGenreIds = game.GamesGenres.Select(g => g.GenreId).ToList(),
+                SelectedCategoryIds = game.GamesCategories.Select(c => c.CategoryId).ToList()
+
+            };
+        }
+
+
+        public async Task EditGameByIdAndFormModel(GameAddFromModel formModel, long id)
+        {
+            Game game = await this.repository.All<Game>()
+                 .Include(g => g.GamesGenres)
+                 .Include(g => g.GamesCategories)
+                 .FirstAsync(g => g.Id == id);
+    
+            game.Title = formModel.Title;
+            game.Description = formModel.Description;
+            game.Price = formModel.Price;
+            game.Developer = formModel.Developer;
+            game.OS = formModel.OS;
+            game.CPU = formModel.CPU;
+            game.RAM = formModel.RAM;
+            game.GPU = formModel.GPU;
+            game.AdditionalNotes = formModel.AdditionalNotes;
+            game.Storage = formModel.Storage;
+            game.Image1URL = formModel.Image1;
+            game.Image2URL = formModel.Image2;
+            game.Image3URL = formModel.Image3;
+            game.VideoURL = formModel.Video;
+            await repository.SaveChangesAsync();
+
+            repository.DeleteRange(game.GamesGenres);
+            repository.DeleteRange(game.GamesCategories);
+
+            await repository.SaveChangesAsync();
+
+            // Create and add new relations for genres
+            foreach (var genreId in formModel.SelectedGenreIds)
+            {
+                game.GamesGenres.Add(new GameGenre
+                {
+                    GameId = game.Id,
+                    GenreId = genreId
+                });
+            }
+
+            // Create and add new relations for categories
+            foreach (var categoryId in formModel.SelectedCategoryIds)
+            {
+                game.GamesCategories.Add(new GameCategory
+                {
+                    GameId = game.Id,
+                    CategoryId = categoryId
+                });
+            }
+
+            // Save the updated game entity
+            await repository.SaveChangesAsync();
+        }
+        public async Task<bool> IsPublisherWithIdPublisherOfGameWithIdAsync(long gameId, string publisherId)
+        {
+            Game game = await this.repository.AllReadonly<Game>()
+                .Where(g => g.IsActive)
+                .FirstAsync(g => g.Id == gameId);
+
+            return game.PublisherId.ToString() == publisherId;
         }
     }
 }

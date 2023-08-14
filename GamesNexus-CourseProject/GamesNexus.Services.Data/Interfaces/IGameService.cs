@@ -5,11 +5,14 @@ namespace GamesNexus.Services.Data.Interfaces
     public interface IGameService
     {
         Task<IEnumerable<GameAllViewModel>> AllAsync();
-        Task<bool> ExistsByIdAsync(int Id);
+        Task<bool> ExistsByIdAsync(long Id);
         Task<GameDetailViewModel> GameDetailsById(int Id);
         Task<IEnumerable<GameIndexViewModel>> LastFiveGamesIndexAsync();
         Task CreateAsync(GameAddFromModel formModel, string publisherId);
         Task<IEnumerable<GameAllViewModel>> AllByUserIdAsync(string userId);
         Task<IEnumerable<GameAllViewModel>> AllByPublisherIdAsync(string publisherId);
+        Task<GameAddFromModel> GetGameForEditByIdAsync(long id);
+        Task<bool> IsPublisherWithIdPublisherOfGameWithIdAsync(long gameId, string publisherId);
+        Task EditGameByIdAndFormModel (GameAddFromModel formModel, long id);
     }
 }

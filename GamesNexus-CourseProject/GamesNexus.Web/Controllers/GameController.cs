@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using static GamesNexus.Common.NotificationMessagesConstants;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GamesNexus.Web.Controllers
 {
@@ -57,7 +58,7 @@ namespace GamesNexus.Web.Controllers
             catch (Exception)
             {
 
-                return GeneralError();
+               return this.GeneralError();
             }
         }
 
@@ -71,6 +72,10 @@ namespace GamesNexus.Web.Controllers
                 return RedirectToAction("Become", "Publisher");
             }
 
+
+            try
+            {
+
             GameAddFromModel model = new GameAddFromModel()
             {
                 Categories = await this.categoryService.AllCategoriesAsync(),
@@ -78,6 +83,13 @@ namespace GamesNexus.Web.Controllers
             };
 
             return View(model);
+            }
+            catch (Exception)
+            {
+
+              return this.GeneralError();
+            }
+
         }
 
         [HttpPost]
@@ -120,7 +132,7 @@ namespace GamesNexus.Web.Controllers
 
             try
             {
-                string? publisherId = await this.publisherService.PublisherIdByUserIdAsync(this.User.GetId()!);
+                string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
                 await this.gameService.CreateAsync(model, publisherId!);
             }
             catch (Exception)
@@ -147,7 +159,7 @@ namespace GamesNexus.Web.Controllers
 
             if (isUserPublisher)
             {
-                string? publisherId = await this.publisherService.PublisherIdByUserIdAsync(userId);
+                string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(userId);
                 myGames.AddRange(await this.gameService.AllByPublisherIdAsync(publisherId!));
             }
             else
@@ -157,6 +169,108 @@ namespace GamesNexus.Web.Controllers
             }
 
             return this.View(myGames);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(long id)
+        {
+            bool gameExists = await gameService.ExistsByIdAsync(id);
+            if (!gameExists)
+            {
+                this.TempData[ErrorMessage] = "Game with the provided id does not exist!";
+
+                return RedirectToAction("All", "Game");
+            }
+
+            bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
+            if (!isUserPublisher)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
+
+                return this.RedirectToAction("Become", "Publisher");
+            }
+
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            if (!isPublisherOwnGame)
+            {
+                this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
+
+                return this.RedirectToAction("Mine", "Game");
+            }
+
+
+            try
+            {
+            GameAddFromModel model = await this.gameService.GetGameForEditByIdAsync(id);
+            model.Categories = await this.categoryService.AllCategoriesAsync();
+            model.Genres = await this.genreService.AllGenresAsync();
+            return this.View(model);
+
+            }
+            catch (Exception)
+            {
+
+                return this.GeneralError();
+            }
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(long id, GameAddFromModel gameAddFromModel)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                gameAddFromModel.Categories = await this.categoryService.AllCategoriesAsync();
+                gameAddFromModel.Genres = await this.genreService.AllGenresAsync();
+
+
+                return this.View(gameAddFromModel);
+            }
+
+            bool gameExists = await gameService.ExistsByIdAsync(id);
+            if (!gameExists)
+            {
+                this.TempData[ErrorMessage] = "Game with the provided id does not exist!";
+
+                return RedirectToAction("All", "Game", new { id });
+            }
+
+            bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
+            if (!isUserPublisher)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
+
+                return this.RedirectToAction("Become", "Publisher");
+            }
+
+            string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId());
+            bool isPublisherOwnGame = await this.gameService.IsPublisherWithIdPublisherOfGameWithIdAsync(id, publisherId);
+            if (!isPublisherOwnGame)
+            {
+                this.TempData[ErrorMessage] = "You must be the publisher of the game you want to edit!";
+
+                return this.RedirectToAction("Details", "Game");
+            }
+
+            try
+            {
+
+                await this.gameService.EditGameByIdAndFormModel(gameAddFromModel, id);
+            }
+            catch (Exception)
+            {
+
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your new house! Please try again later or contact administrator!");
+
+                gameAddFromModel.Categories = await this.categoryService.AllCategoriesAsync();
+                gameAddFromModel.Genres = await this.genreService.AllGenresAsync();
+                return this.View(gameAddFromModel);
+            }
+
+            return this.RedirectToAction("All", "Game");
         }
 
 

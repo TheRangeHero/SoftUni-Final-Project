@@ -1,7 +1,7 @@
 ﻿@model GameAllViewModel
 
 
-<div class="col-md-4 mb-4">
+<div class="col-md-8 mb-4">
     <div class="card h-100">
         <a href="@Url.Action("Details", "Game", new { id = Model.Id })">
             <img src="@Model.Image" alt="Game Image" class="card-img-top img-fluid">
@@ -9,8 +9,24 @@
         <div class="card-body">
             <h5 class="card-title">@Model.Title</h5>
             <p class="card-text">Price: @Model.Price</p>
-            <a href="@Url.Action("Details", "Game", new { id = Model.Id })" class="btn btn-primary">Details</a>
-           
+
+            <!-- Buttons container -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-2">
+
+            <a asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+
+
+                <!-- Edit button -->
+                <a asp-area="" asp-controller="Game" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-warning">Edit</a>
+
+                <!-- Delete button -->
+                <a asp-area="" asp-controller="Game" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Delete</a>
+            </div>
+            </div>
         </div>
     </div>
 </div>
