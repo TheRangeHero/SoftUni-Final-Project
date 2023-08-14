@@ -1,6 +1,7 @@
 ﻿using GamesNexus.Data.Common;
 using GamesNexus.Data.Models;
 using GamesNexus.Services.Data.Interfaces;
+using GamesNexus.Web.ViewModels.Game;
 using GamesNexus.Web.ViewModels.News;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,25 @@ namespace GamesNexus.Services.Data
         {
             this.repository = _repository;
         }
+
+        public async Task<IEnumerable<NewsAllViewModel>> AllAsync()
+        {
+            IEnumerable<NewsAllViewModel> allNews = await repository.AllReadonly<News>()
+                .Where(n => n.IsActive)
+                .Include(p=>p.Publisher)
+                .Select(n => new NewsAllViewModel
+                {
+                    Id = n.Id,
+                    Title = n.Title,
+                    Content = n.Content,
+                    PublishedOn = n.PublishedOn.ToString("MM/dd/yyyy"),
+                    PublisherName =n.Publisher.ApplicationUser.UserName
+
+                }).ToArrayAsync();
+
+           return allNews;
+        }
+
         public async Task<IEnumerable<NewsIndexViewModel>> LastFiveNewsIndexAsync()
         {
             IEnumerable<NewsIndexViewModel> news = await repository.AllReadonly<News>()
@@ -36,5 +56,6 @@ namespace GamesNexus.Services.Data
 
             return news;
         }
+
     }
 }

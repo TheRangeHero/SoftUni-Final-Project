@@ -1,0 +1,18 @@
+﻿@model IEnumerable<NewsAllViewModel>
+
+@{
+    ViewData["Title"] = "All Games";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No news found for displaying!</h2>
+}
+else
+{
+    <partial name="_AllNewsListPartial" model="@Model" />
+
+}

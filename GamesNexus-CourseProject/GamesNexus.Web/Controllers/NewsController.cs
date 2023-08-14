@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GamesNexus.Services.Data.Interfaces;
+using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.News;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GamesNexus.Web.Controllers
 {
     public class NewsController : BaseController
     {
-        public Task<IActionResult> All()
+        private readonly INewsService newsService;
+
+        public NewsController(INewsService _newsService)
         {
-            return null;
+            this.newsService = _newsService;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> All()
+        {
+            IEnumerable<NewsAllViewModel> allGames = await newsService.AllAsync();
+            return View(allGames);
         }
     }
 }
