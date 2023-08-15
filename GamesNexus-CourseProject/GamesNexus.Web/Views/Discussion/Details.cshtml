@@ -1,6 +1,6 @@
 ﻿@model DiscussionDetailView
 
-<!-- Display the discussion details -->
+
 <div class="card mb-4">
     <div class="card-body">
         <h3 class="card-title">@Model.Title</h3>
@@ -13,7 +13,7 @@
 
 </div>
 
-<!-- Display each comment in separate boxes -->
+
 @if (Model.Comments.Any())
 {
     <div class="comments-list">
@@ -31,7 +31,6 @@
     </div>
 }
 
-<!-- Add comment section: using a partial view -->
 <partial name="_AddCommentPartial" model="Model.CreateCommentViewModel" />
 
 
