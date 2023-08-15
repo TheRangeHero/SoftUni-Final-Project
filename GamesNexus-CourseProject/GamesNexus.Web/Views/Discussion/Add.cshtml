@@ -1,0 +1,33 @@
+﻿@model DiscussionCreateViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Create a New Discussion</div>
+                <div class="card-body">
+                    <form asp-action="Add" asp-controller="Discussion" method="post">
+
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" id="Title" placeholder="Enter discussion title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Content">Content</label>
+                            <textarea asp-for="Content" class="form-control" id="Content" rows="4" placeholder="Enter discussion content"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

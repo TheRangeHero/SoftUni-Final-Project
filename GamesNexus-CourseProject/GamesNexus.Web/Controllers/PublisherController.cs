@@ -21,9 +21,9 @@ namespace GamesNexus.Web.Controllers
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.publisherService.PublisherExistsByUserId(userId);
+            bool isPublisher = await this.publisherService.PublisherExistsByUserId(userId);
 
-            if (isAgent)
+            if (isPublisher)
             {
                 return BadRequest("You are already a Publisher!");
             }
@@ -36,9 +36,9 @@ namespace GamesNexus.Web.Controllers
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.publisherService.PublisherExistsByUserId(userId);
+            bool isPublisher = await this.publisherService.PublisherExistsByUserId(userId);
 
-            if (isAgent)
+            if (isPublisher)
             {
                 return BadRequest("You are already a Publisher!");
             }

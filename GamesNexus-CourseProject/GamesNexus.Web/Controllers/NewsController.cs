@@ -140,7 +140,7 @@ namespace GamesNexus.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit (int id)
         {
-            bool gameExists = await newsService.ExistsByIdAsync(id);
+            bool gameExists = await newsService.NewsExistsByIdAsync(id);
             if (!gameExists)
             {
                 this.TempData[ErrorMessage] = "News with the provided Id does not exist!";
@@ -151,7 +151,7 @@ namespace GamesNexus.Web.Controllers
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
             if (!isUserPublisher)
             {
-                this.TempData[ErrorMessage] = "You must become an agent to edit news!";
+                this.TempData[ErrorMessage] = "You must become an publisher to edit news!";
 
                 return this.RedirectToAction("Become", "Publisher");
             }
@@ -187,7 +187,7 @@ namespace GamesNexus.Web.Controllers
                 return this.View(model);           
             }
 
-            bool gameExists = await newsService.ExistsByIdAsync(id);
+            bool gameExists = await newsService.NewsExistsByIdAsync(id);
             if (!gameExists)
             {
                 this.TempData[ErrorMessage] = "News with the provided id does not exist!";
@@ -198,7 +198,7 @@ namespace GamesNexus.Web.Controllers
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
             if (!isUserPublisher)
             {
-                this.TempData[ErrorMessage] = "You must become an agent to edit game info!";
+                this.TempData[ErrorMessage] = "You must become an publisher to edit news info!";
 
                 return this.RedirectToAction("Become", "Publisher");
             }
@@ -232,7 +232,7 @@ namespace GamesNexus.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            bool newsExists = await newsService.ExistsByIdAsync(id);
+            bool newsExists = await newsService.NewsExistsByIdAsync(id);
             if (!newsExists)
             {
                 this.TempData[ErrorMessage] = "News with the provided id does not exist!";
@@ -241,7 +241,7 @@ namespace GamesNexus.Web.Controllers
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
             if (!isUserPublisher)
             {
-                this.TempData[ErrorMessage] = "You must become an agent to edit news!";
+                this.TempData[ErrorMessage] = "You must become an publisher to edit news!";
                 return this.RedirectToAction("Become", "Publisher");
             }
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
@@ -265,7 +265,7 @@ namespace GamesNexus.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete (int id, NewsAllViewModel model)
         {
-            bool newsExists = await newsService.ExistsByIdAsync(id);
+            bool newsExists = await newsService.NewsExistsByIdAsync(id);
             if (!newsExists)
             {
                 this.TempData[ErrorMessage] = "News with the provided id does not exist!";
@@ -274,14 +274,14 @@ namespace GamesNexus.Web.Controllers
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
             if (!isUserPublisher)
             {
-                this.TempData[ErrorMessage] = "You must become an agent to edit news info!";
+                this.TempData[ErrorMessage] = "You must become an publisher to delete news!";
                 return this.RedirectToAction("Become", "Publisher");
             }
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
             bool isPublisherOwnNews = await this.newsService.IsPublisherWithIdPublisherOfNewsWithIdAsync(id, publisherId!);
             if (!isPublisherOwnNews)
             {
-                this.TempData[ErrorMessage] = "You must be the publisher of the news in order to edit it!";
+                this.TempData[ErrorMessage] = "You must be the publisher of the news in order to delete it!";
                 return this.RedirectToAction("Mine", "News");
             }
             try

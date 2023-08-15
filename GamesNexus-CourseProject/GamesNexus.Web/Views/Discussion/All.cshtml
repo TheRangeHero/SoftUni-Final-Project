@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AllDiscussionViewModel>
+
+@{
+    ViewData["Title"] = "All Discussions";
+}
+
+@foreach (var discussion in Model)
+{
+    <div class="card mb-3 discussion-card" style="width: 18rem;" data-discussion-id="@discussion.Id">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-normal">@discussion.Title</span>
+                <span>
+                    <i class="fas fa-comment"></i> @discussion.CommentCount
+                </span>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="Details" asp-route-id="@discussion.Id" class="btn btn-info btn-sm">View Post</a>
+                <button data-id="@discussion.Id" class="btn btn-danger btn-sm delete-discussion" type="button">Delete</button>
+            </li>
+        </ul>
+    </div>
+}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let deleteButtons = document.querySelectorAll('.delete-discussion');
+
+        deleteButtons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                let parentCard = this.closest('.discussion-card');
+                if (!parentCard) return;
+
+                let discussionId = parentCard.getAttribute('data-discussion-id');
+                if (!discussionId) return;
+
+                const url = `/Discussion/Delete/${discussionId}`;
+                console.log("AJAX request to URL:", url); // This will log the URL, you can remove this later.
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            parentCard.remove();
+                        } else {
+                            alert(data.message || "Failed to delete the discussion.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    });
+
+
+
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

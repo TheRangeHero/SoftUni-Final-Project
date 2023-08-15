@@ -1,0 +1,98 @@
+﻿@model DiscussionDetailView
+
+<!-- Display the discussion details -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Title</h3>
+        <p class="card-text">@Model.Content</p>
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+        <span>Published by @Model.PubisherBy</span>
+        <span>Published: @Model.PublishedOn</span>
+    </div>
+
+</div>
+
+<!-- Display each comment in separate boxes -->
+@if (Model.Comments.Any())
+{
+    <div class="comments-list">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">@comment.Content</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Published by @comment.PublishedBy on @comment.PostedOn
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- Add comment section: using a partial view -->
+<partial name="_AddCommentPartial" model="Model.CreateCommentViewModel" />
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("addCommentForm");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(form);
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/Discussion/PostComment", true);
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Important for ASP.NET Core
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        // Append the new comment to the list of comments
+                        let commentDiv = document.createElement("div");
+                        commentDiv.className = "card mb-3";
+
+                        let commentBody = document.createElement("div");
+                        commentBody.className = "card-body";
+
+                        let commentText = document.createElement("p");
+                        commentText.className = "card-text";
+                        commentText.innerText = data.comment.content;
+                        commentBody.appendChild(commentText);
+
+                        let commentFooter = document.createElement("div");
+                        commentFooter.className = "card-footer text-muted";
+                        commentFooter.innerText = "Published by " + data.comment.publishedBy + " on " + data.comment.postedOn;
+
+                        commentDiv.appendChild(commentBody);
+                        commentDiv.appendChild(commentFooter);
+
+                        document.querySelector(".comments-list").appendChild(commentDiv);
+
+                        // Clear the textarea
+                        document.querySelector("#Content").value = '';
+                    } else {
+                        alert("There was an error. Please try again.");
+                    }
+                } else {
+                    alert("Error " + xhr.status + ": " + xhr.statusText);
+                }
+            };
+
+            xhr.onerror = function () {
+                alert("Request failed. Please try again.");
+            };
+
+            xhr.send(formData);
+        });
+    });
+</script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

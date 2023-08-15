@@ -20,6 +20,5 @@ namespace GamesNexus.Web.Infrastructure.Extensions
         {
             return user.IsInRole(AdminRoleName);
         }
-
     }
 }

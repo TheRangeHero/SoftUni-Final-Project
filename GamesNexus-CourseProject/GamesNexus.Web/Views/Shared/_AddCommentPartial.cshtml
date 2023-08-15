@@ -1,0 +1,21 @@
+﻿@model CreateCommentViewModel
+
+<div class="card mt-4">
+    <div class="card-body">
+        <!-- Add id="addCommentForm" to the form tag -->
+        <form asp-action="PostComment" asp-controller="Discussion" method="post" id="addCommentForm">
+            <input type="hidden" asp-for="DiscussionId" value="@ViewContext.RouteData.Values["id"]" />
+            <div class="form-group">
+                <label for="Content">Add a comment:</label>
+                <textarea class="form-control" asp-for="Content" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

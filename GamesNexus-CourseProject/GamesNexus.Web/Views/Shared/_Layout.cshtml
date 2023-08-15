@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GamesNexus.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 </head>
 <body>
     <header>
@@ -29,8 +31,8 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="All">All Games</a></li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Mine">My Published Games</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Add">Add Game</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Game" asp-action="Mine">My Published Games</a></li>
                                 }
                             </ul>
                         </li>
@@ -42,8 +44,21 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="All">All News</a></li>
                                 @if (this.User.Identity?.IsAuthenticated ?? false)
                                 {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Mine">My News</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Add">Add News</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="Mine">My News</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Community Space
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Discussion" asp-action="All">Discussion</a></li>
+                                @if (this.User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Discussion" asp-action="Add">Add New Discussion</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Discussion" asp-action="Mine">My Discussions</a></li>
                                 }
                             </ul>
                         </li>

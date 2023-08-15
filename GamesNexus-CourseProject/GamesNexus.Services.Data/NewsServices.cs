@@ -74,7 +74,7 @@ namespace GamesNexus.Services.Data
             return news;
         }
 
-        public async Task<bool> NewsExistsByIdAsync(long Id)
+        public async Task<bool> NewsExistsByIdAsync(int Id)
         {
             bool result = await repository.AllReadonly<News>()
                 .Where(g => g.IsActive)
@@ -115,15 +115,6 @@ namespace GamesNexus.Services.Data
               .ToArrayAsync();
 
             return allUserNews;
-        }
-
-        public async Task<bool> ExistsByIdAsync(int Id)
-        {
-            bool result = await repository.AllReadonly<News>()
-                .Where(g => g.IsActive)
-                .AnyAsync(g => g.Id == Id);
-
-            return result;
         }
 
         public async Task<bool> IsPublisherWithIdPublisherOfNewsWithIdAsync(int gameId, string publisherId)
