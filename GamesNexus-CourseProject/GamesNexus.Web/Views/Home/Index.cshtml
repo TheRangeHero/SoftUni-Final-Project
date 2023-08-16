@@ -7,41 +7,44 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
+<!-- Games Section -->
 @if (Model.GameIndexViewModel.Any())
 {
-
-    <div class="container">
+    <section class="container mt-4">
+        <h2 class="mb-4">Games</h2>
         <div class="row">
-            <div class="col-md-6">
-                <h2>Games</h2>
-                <div class="row justify-content-between">
-                    @foreach (var game in Model.GameIndexViewModel)
-                    {
-                        <div class="col-md-4 mb-4">
-                            <div class="card" style="width:100%;">
-                                <img class="object-fit-sm-contain border rounded" src="@game.ImageUrl" alt="Game Image">
-                                <div class="card-body" style="padding: 8px;">
-                                    <h5 class="card-title">@game.Title</h5>
-                                    <p class="card-text"> @string.Join(", ", game.Genres)</p>
-                                    <a href="@Url.Action("Details", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
-                                </div>
-                            </div>
+            @foreach (var game in Model.GameIndexViewModel)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card d-flex flex-column">
+                        <!-- Use a container div to maintain aspect ratio -->
+                        <div class="game-image-container">
+                            <img class="game-image rounded" src="@game.ImageUrl" alt="Game Image">
                         </div>
-                    }
+                        <div class="card-body">
+                            <h5 class="card-title">@game.Title</h5>
+                            <p class="card-text d-flex flex-wrap"> @string.Join(", ", game.Genres)</p>
+                        </div>
+                        <div class="card-footer mt-auto">
+                            <a href="@Url.Action("Details", "Game", new { id = game.Id })" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-    </div>
+    </section>
 }
 
+<!-- News Section -->
 @if (Model.NewsIndexViewModels.Any())
 {
-    <div class="container">
-        <div class="row justify-content-between">
+    <section class="container mt-4">
+        <h2 class="mb-4">News</h2>
+        <div class="row">
             @foreach (var newsItem in Model.NewsIndexViewModels)
             {
                 <div class="col-md-4 mb-2">
-                    <div class="card" style="width: 100%;">
+                    <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">@newsItem.Title</h5>
                             <p class="card-text">@newsItem.PublishedOn</p>
@@ -51,7 +54,7 @@
                 </div>
             }
         </div>
-    </div>
+    </section>
 }
 
 @section Scripts {

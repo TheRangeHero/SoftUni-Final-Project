@@ -1,10 +1,11 @@
 ﻿@model GameAllViewModel
 
-
 <div class="col-md-8 mb-4">
     <div class="card h-100">
         <a href="@Url.Action("Details", "Game", new { id = Model.Id })">
-            <img src="@Model.Image" alt="Game Image" class="card-img-top img-fluid">
+            <div class="image-frame">
+                <img src="@Model.Image" alt="Game Image" class="card-img-top img-fluid rounded">
+            </div>
         </a>
         <div class="card-body">
             <h5 class="card-title">@Model.Title</h5>
@@ -13,26 +14,22 @@
             <!-- Buttons container -->
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div class="d-flex gap-2">
+                    <a asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@Model.Id"
+                       class="btn btn-success">Details</a>
 
-            <a asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@Model.Id"
-               class="btn btn-success">Details</a>
+                    <!-- Edit button -->
+                    <a asp-area="" asp-controller="Game" asp-action="Edit" asp-route-id="@Model.Id"
+                       class="btn btn-warning">Edit</a>
 
-
-                <!-- Edit button -->
-                <a asp-area="" asp-controller="Game" asp-action="Edit" asp-route-id="@Model.Id"
-                   class="btn btn-warning">Edit</a>
-
-                <!-- Delete button -->
-                <a asp-area="" asp-controller="Game" asp-action="Delete" asp-route-id="@Model.Id"
-                   class="btn btn-danger">Delete</a>
-            </div>
+                    <!-- Delete button -->
+                    <a asp-area="" asp-controller="Game" asp-action="Delete" asp-route-id="@Model.Id"
+                       class="btn btn-danger">Delete</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
-
