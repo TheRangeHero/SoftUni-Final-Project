@@ -1,7 +1,9 @@
 ﻿using GamesNexus.Data.Common;
+using GamesNexus.Data.Models.Enums;
 using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.Infrastructure.Extensions;
 using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.Review;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -341,6 +343,32 @@ namespace GamesNexus.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PostReview(ReviewPostViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Invalid review data.", errors = ModelState });
+            }
+
+            bool gameExists = await gameService.ExistsByIdAsync(model.GameId);
+            if (!gameExists)
+            {
+                return Json(new { success = false, message = "Game with the provided id does not exist!" });
+            }
+
+            string userId = this.User.GetId()!;
+
+            bool reviewPosted = await gameService.PostReview(model.GameId, userId, model);
+            if (!reviewPosted)
+            {
+                return Json(new { success = false, message = "There was an error posting the review. Please try again." });
+            }
+
+            return Json(new { success = true, message = "Review posted successfully!" });
+        }
+
+
 
         private IActionResult GeneralError()
         {
@@ -349,5 +377,7 @@ namespace GamesNexus.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

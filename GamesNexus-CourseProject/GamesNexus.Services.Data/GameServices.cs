@@ -61,6 +61,7 @@ namespace GamesNexus.Services.Data
                   .Include(g => g.GamesCategories).ThenInclude(g => g.Category)
                   .Include(g => g.GamesGenres).ThenInclude(g => g.Genre)
                   .Include(g => g.Reviews)
+                  .ThenInclude(g => g.ApplicationUser)
                   .FirstAsync(g => g.Id == Id);
 
             return new GameDetailViewModel
@@ -89,8 +90,13 @@ namespace GamesNexus.Services.Data
                     Rating = Enum.GetName(typeof(RatingOption), review.Rating),
                     Comment = review.Comment,
                     PostedOn = review.PostedOn.ToString("dd.MM.yyyy"),
-                    PostedBy = review.Game.Publisher?.ApplicationUser?.UserName
-                }).ToList()
+                    PostedBy = review.ApplicationUser.UserName
+                }).ToList(),
+                PostReview = new ReviewPostViewModel
+                {
+                    RatingOptions = GetRatingOptions()
+                }
+
             };
         }
 
@@ -242,7 +248,7 @@ namespace GamesNexus.Services.Data
                  .Include(g => g.GamesGenres)
                  .Include(g => g.GamesCategories)
                  .FirstAsync(g => g.Id == id);
-    
+
             game.Title = formModel.Title;
             game.Description = formModel.Description;
             game.Price = formModel.Price;
@@ -294,7 +300,7 @@ namespace GamesNexus.Services.Data
                 .FirstAsync(g => g.Id == gameId);
 
             return game.PublisherId.ToString() == publisherId;
-        }       
+        }
 
         public async Task<GamePreDeleteDetailsViewModel> GetGameForDeleteAsync(long id)
         {
@@ -313,8 +319,38 @@ namespace GamesNexus.Services.Data
             await this.repository.SaveChangesAsync();
         }
 
+        private Dictionary<int, string> GetRatingOptions()
+        {
+            return Enum.GetValues(typeof(RatingOption))
+                    .Cast<RatingOption>()
+                    .ToDictionary(r => (int)r, r => r.ToString());
+        }
+
+        public async Task<bool> PostReview(long id, string userId, ReviewPostViewModel model)
+        {
+            var review = new Review
+            {
+                Comment = model.Review,
+                Rating = (RatingOption)model.Rating,
+                GameId = id,
+                ApplicationUserId = Guid.Parse(userId),
+            };
+
+            try
+            {
+                await repository.AddAsync(review);
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
     }
 }
+
 
 
 

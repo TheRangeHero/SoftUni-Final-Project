@@ -56,5 +56,7 @@ namespace GamesNexus.Web.ViewModels.Game
         public ICollection<string> Genres { get; set; }
         public ICollection<string> Categories { get; set; }
         public ICollection<ReviewAllViewModel> Reviews { get; set; }
+
+        public ReviewPostViewModel? PostReview { get; set; }
     }
 }

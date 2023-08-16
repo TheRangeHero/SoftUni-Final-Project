@@ -1,4 +1,5 @@
 ﻿using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.Review;
 
 namespace GamesNexus.Services.Data.Interfaces
 {
@@ -16,5 +17,7 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<bool> IsPublisherWithIdPublisherOfGameWithIdAsync(long gameId, string publisherId);
         Task<GamePreDeleteDetailsViewModel> GetGameForDeleteAsync(long id);
         Task DeleteGameByIdAsync(long id);
+        Task<bool> PostReview(long id, string userId, ReviewPostViewModel model);
+
     }
 }
