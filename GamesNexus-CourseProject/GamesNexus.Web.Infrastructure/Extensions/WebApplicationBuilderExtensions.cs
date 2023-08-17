@@ -2,6 +2,7 @@
 using GamesNexus.Data.Models;
 using GamesNexus.Services.Data;
 using GamesNexus.Services.Data.Interfaces;
+using GamesNexus.Web.Infrastructure.MIddlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         }
 
                         IdentityRole<Guid> role =
-                    new IdentityRole<Guid>( AdminRoleName);
+                    new IdentityRole<Guid>(AdminRoleName);
 
                         await roleManager.CreateAsync(role);
 
@@ -60,6 +61,11 @@ namespace Microsoft.Extensions.DependencyInjection
                     .GetResult();
 
             return app;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }

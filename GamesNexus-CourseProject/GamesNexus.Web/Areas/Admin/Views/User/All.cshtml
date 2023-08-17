@@ -1,4 +1,6 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@using GamesNexus.Web.Infrastructure.MIddlewares;
+
+@model IEnumerable<UserViewModel>
 @{
     ViewBag.Title = "All Users";
 }
@@ -11,6 +13,7 @@
             <th><label>Full Name</label></th>
             <th><label>Business Email</label></th>
             <th><label>User Is Publisher</label></th>
+            <th><label>User is Online</label></th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +32,17 @@
                     {
                         <label class="text-center">❌</label>
                     }
+                </td>
+                <td>
+                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+
                 </td>
             </tr>
         }
