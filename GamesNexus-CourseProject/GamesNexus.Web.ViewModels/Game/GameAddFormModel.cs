@@ -69,7 +69,7 @@ namespace GamesNexus.Web.ViewModels.Game
 
 
         [MaxLength(AdditionalNotesMaxLength)]
-        [Display(Name = "Memory")]
+        [Display(Name = "Additional Notes")]
         public string? AdditionalNotes { set; get; }
 
         [Required]

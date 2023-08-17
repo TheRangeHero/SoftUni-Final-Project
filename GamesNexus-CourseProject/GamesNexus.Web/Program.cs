@@ -41,6 +41,8 @@ namespace GamesNexus.Web
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
+                cfg.Cookie.SameSite = SameSiteMode.Lax; 
+                cfg.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
                 cfg.LoginPath = "/User/Login";
             });
 
@@ -77,10 +79,18 @@ namespace GamesNexus.Web
             app.SeedAdministrator(DevelopmentAdminEmail);
             }
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
             app.Run();
         }
-    }
+    }  												
 }

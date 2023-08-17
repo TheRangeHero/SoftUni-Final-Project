@@ -133,6 +133,7 @@ namespace GamesNexus.Services.Data
                 CPU = formModel.CPU,
                 RAM = formModel.RAM,
                 GPU = formModel.GPU,
+                AdditionalNotes = formModel.AdditionalNotes,
                 Storage = formModel.Storage,
                 Image1URL = formModel.Image1,
                 Image2URL = formModel.Image2,
@@ -228,13 +229,13 @@ namespace GamesNexus.Services.Data
                 OS = game.OS,
                 CPU = game.CPU,
                 RAM = game.RAM,
-                GPU = game.GPU,
+                GPU = game.GPU,                
+                AdditionalNotes = game.AdditionalNotes,
                 Storage = game.Storage,
                 Image1 = game.Image1URL,
                 Image2 = game.Image2URL,
                 Image3 = game.Image3URL,
                 Video = game.VideoURL,
-                AdditionalNotes = game.AdditionalNotes,
                 SelectedGenreIds = game.GamesGenres.Select(g => g.GenreId).ToList(),
                 SelectedCategoryIds = game.GamesCategories.Select(c => c.CategoryId).ToList()
 

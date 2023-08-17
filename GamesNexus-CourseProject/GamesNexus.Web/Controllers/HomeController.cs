@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+using static GamesNexus.Common.GeneralApplicationConstants;
+
 namespace GamesNexus.Web.Controllers
 {
     public class HomeController : BaseController
@@ -23,6 +25,11 @@ namespace GamesNexus.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+               return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             var gameViewModel = await gameService.LastFiveGamesIndexAsync();
             var newsViewModel = await newsService.LastFiveNewsIndexAsync();
 
