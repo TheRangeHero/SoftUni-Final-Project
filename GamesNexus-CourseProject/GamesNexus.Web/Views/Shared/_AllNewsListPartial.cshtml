@@ -1,25 +1,41 @@
-﻿@model NewsAllViewModel
+﻿@using GamesNexus.Services.Data.Interfaces
+@using GamesNexus.Web.Infrastructure.Extensions
+@model NewsAllViewModel
 
+@inject IPublisherService PublisherService
+@inject INewsService NewsService
 
-    <div class="card mb-3">
+@{
+    bool isUserPublisher = await PublisherService.PublisherExistsByUserId(User.GetId()!);
+    bool publisherId = await this.PublisherService.HasNewsWithIdAsync(this.User.GetId(), Model.Id);
+}
+
+<div class="card mb-3">
 
     <h5 class="card-header">@Model.Title</h5>
-        <div class="card-body">
+    <div class="card-body">
         <p class="card-text">@((Model.Content.Length <= 100) ? Model.Content : Model.Content.Substring(0, 200) + " ...")</p>
         <p class="mt-2 text-muted">Published by: @Model.PublisherName</p>
-            <div class="d-flex align-items-center mt-3">
-                <div class="d-flex gap-2">
+        <div class="d-flex align-items-center mt-3">
+            <div class="d-flex gap-2">
                 <a asp-area="" asp-controller="News" asp-action="Details" asp-route-id="@Model.Id"
-                       class="btn btn-info mr-2">Read more</a>
-                <a asp-area="" asp-controller="News" asp-action="Edit" asp-route-id="@Model.Id"
-                       class="btn btn-warning mr-2">Edit</a>
-                <a asp-area="" asp-controller="News" asp-action="Delete" asp-route-id="@Model.Id"
-                       class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-            <div class="position-absolute text-muted" style="bottom: 10px; right: 10px;">
-                Published on: @Model.PublishedOn
+                   class="btn btn-info mr-2">Read more</a>
+
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    @if ((isUserPublisher && publisherId) || User.IsAdmin())
+                    {
+                        <a asp-area="" asp-controller="News" asp-action="Edit" asp-route-id="@Model.Id"
+                           class="btn btn-warning mr-2">Edit</a>
+
+                        <a asp-area="" asp-controller="News" asp-action="Delete" asp-route-id="@Model.Id"
+                           class="btn btn-danger">Delete</a>
+                    }
+                }
             </div>
         </div>
+        <div class="position-absolute text-muted" style="bottom: 10px; right: 10px;">
+            Published on: @Model.PublishedOn
+        </div>
     </div>
-
+</div>

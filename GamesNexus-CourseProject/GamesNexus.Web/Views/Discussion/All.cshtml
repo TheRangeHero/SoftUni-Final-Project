@@ -1,4 +1,11 @@
-﻿@model IEnumerable<AllDiscussionViewModel>
+﻿@using GamesNexus.Web.Infrastructure.Extensions
+@using GamesNexus.Services.Data.Interfaces
+@model IEnumerable<AllDiscussionViewModel>
+
+@inject IUserService UserService
+@inject IDiscussionService DiscussionService
+
+
 
 @{
     ViewData["Title"] = "All Discussions";
@@ -6,6 +13,7 @@
 
 @foreach (var discussion in Model)
 {
+    bool isUserPublisher = await UserService.HasDiscussionsWithIdAsync(this.User.GetId(), discussion.Id);
     <div class="card mb-3 discussion-card" style="width: 18rem;" data-discussion-id="@discussion.Id">
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -16,7 +24,15 @@
             </li>
             <li class="list-group-item">
                 <a asp-action="Details" asp-route-id="@discussion.Id" class="btn btn-info btn-sm">View Post</a>
-                <button data-id="@discussion.Id" class="btn btn-danger btn-sm delete-discussion" type="button">Delete</button>
+
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    @if ((isUserPublisher) || User.IsAdmin())
+                    {
+
+                        <button data-id="@discussion.Id" class="btn btn-danger btn-sm delete-discussion" type="button">Delete</button>
+                    }
+                }
             </li>
         </ul>
     </div>

@@ -9,6 +9,8 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<string> GetUsernameByEmailAsync(string username);
         Task<bool> ExistsById(string userId);
         Task<IEnumerable<UserViewModel>> AllAsync();
-        
+        Task<bool> HasDiscussionsWithIdAsync(string? userId, int id);
+
+
     }
 }

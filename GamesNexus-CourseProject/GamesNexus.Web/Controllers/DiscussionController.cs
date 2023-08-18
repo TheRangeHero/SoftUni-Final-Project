@@ -28,7 +28,6 @@ namespace GamesNexus.Web.Controllers
             var discussions = await this.discussionService.AllAsync();
             return View(discussions);
         }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
@@ -64,8 +63,6 @@ namespace GamesNexus.Web.Controllers
                 return GeneralError();
             }
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(DiscussionCreateViewModel model)
@@ -91,7 +88,6 @@ namespace GamesNexus.Web.Controllers
             }
             return this.RedirectToAction("All", "Discussion");
         }
-
         [HttpPost]
         public async Task<IActionResult> PostComment(CreateCommentViewModel model)
         {
@@ -126,9 +122,6 @@ namespace GamesNexus.Web.Controllers
                 return Json(new { success = false });
             }
         }
-
-
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -141,7 +134,7 @@ namespace GamesNexus.Web.Controllers
             var currentUserId = this.User.GetId()!;
 
             bool isUsersOwnNews = await this.discussionService.IsUserWithIdPublisherOfDiscussionWithIdAsync(id, currentUserId!);
-            if (!isUsersOwnNews)
+            if (!isUsersOwnNews && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the creator of the discussion in order to delete it!";
                 return this.RedirectToAction("Mine", "News");
@@ -156,12 +149,6 @@ namespace GamesNexus.Web.Controllers
                 return this.GeneralError();
             }
         }
-
-
-
-
-
-
         private IActionResult GeneralError()
         {
             TempData[ErrorMessage] =

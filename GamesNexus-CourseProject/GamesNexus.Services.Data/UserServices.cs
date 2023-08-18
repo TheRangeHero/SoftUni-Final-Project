@@ -57,5 +57,19 @@ namespace GamesNexus.Services.Data
 
             return user.UserName;
         }
+
+        public async Task<bool> HasDiscussionsWithIdAsync(string? userId, int id)
+        {
+            ApplicationUser? user = await this.repository.All<ApplicationUser>()
+                .Include(p => p.Discussions)
+                .FirstOrDefaultAsync(p => p.Id.ToString() == userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            return user.Discussions.Any(g => g.Id == id);
+        }
     }
 }

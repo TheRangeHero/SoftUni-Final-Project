@@ -1,4 +1,5 @@
-﻿using GamesNexus.Web.ViewModels.Publisher;
+﻿using GamesNexus.Data.Migrations;
+using GamesNexus.Web.ViewModels.Publisher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace GamesNexus.Services.Data.Interfaces
         Task<bool> PublisherExistsByCompanyNameAsync(string company);
         Task Create(string userId, BecomePublisherFormModel model);
         Task<string?> GetPublisherIdByUserIdAsync(string userId);
+        Task<bool> HasGameWithIdAsync (string? userId, long gameId);
+        Task<bool> HasNewsWithIdAsync(string? userId, int id);
 
     }
 }

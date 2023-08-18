@@ -28,7 +28,6 @@ namespace GamesNexus.Web.Controllers
             IEnumerable<NewsAllViewModel> allGames = await newsService.AllAsync();
             return View(allGames);
         }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(int Id)
@@ -52,7 +51,6 @@ namespace GamesNexus.Web.Controllers
                 return this.GeneralError();
             }
         }
-
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -136,7 +134,6 @@ namespace GamesNexus.Web.Controllers
 
             return this.View(myNews);
         }
-
         [HttpGet]
         public async Task<IActionResult> Edit (int id)
         {
@@ -149,7 +146,7 @@ namespace GamesNexus.Web.Controllers
             }
 
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
-            if (!isUserPublisher)
+            if (!isUserPublisher && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an publisher to edit news!";
 
@@ -158,7 +155,7 @@ namespace GamesNexus.Web.Controllers
 
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
             bool isPublisherOwnNews = await this.newsService.IsPublisherWithIdPublisherOfNewsWithIdAsync(id, publisherId!);
-            if (!isPublisherOwnNews)
+            if (!isPublisherOwnNews && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of this news in order to edit it!";
 
@@ -178,7 +175,6 @@ namespace GamesNexus.Web.Controllers
                 return this.GeneralError();
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Edit (int id, NewsAddFormModel model)
         {
@@ -196,7 +192,7 @@ namespace GamesNexus.Web.Controllers
             }
 
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
-            if (!isUserPublisher)
+            if (!isUserPublisher && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an publisher to edit news info!";
 
@@ -205,7 +201,7 @@ namespace GamesNexus.Web.Controllers
 
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
             bool isPublisherOwnNews = await this.newsService.IsPublisherWithIdPublisherOfNewsWithIdAsync(id, publisherId!);
-            if (!isPublisherOwnNews)
+            if (!isPublisherOwnNews && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of this news if you want to edit!";
 
@@ -228,7 +224,6 @@ namespace GamesNexus.Web.Controllers
             this.TempData[SuccessMessage] = "Edited successfully!";
             return this.RedirectToAction("Mine", "News");
         }
-
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -239,14 +234,14 @@ namespace GamesNexus.Web.Controllers
                 return RedirectToAction("All", "News");
             }
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
-            if (!isUserPublisher)
+            if (!isUserPublisher && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an publisher to edit news!";
                 return this.RedirectToAction("Become", "Publisher");
             }
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
             bool isPublisherOwnNews = await this.newsService.IsPublisherWithIdPublisherOfNewsWithIdAsync(id, publisherId!);
-            if (!isPublisherOwnNews)
+            if (!isPublisherOwnNews && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of this news if you want to edit!";
                 return this.RedirectToAction("Mine", "News");
@@ -261,7 +256,6 @@ namespace GamesNexus.Web.Controllers
                 return this.GeneralError();
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Delete (int id, NewsAllViewModel model)
         {
@@ -272,14 +266,14 @@ namespace GamesNexus.Web.Controllers
                 return RedirectToAction("All", "News");
             }
             bool isUserPublisher = await this.publisherService.PublisherExistsByUserId(this.User.GetId()!);
-            if (!isUserPublisher)
+            if (!isUserPublisher && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an publisher to delete news!";
                 return this.RedirectToAction("Become", "Publisher");
             }
             string? publisherId = await this.publisherService.GetPublisherIdByUserIdAsync(this.User.GetId()!);
             bool isPublisherOwnNews = await this.newsService.IsPublisherWithIdPublisherOfNewsWithIdAsync(id, publisherId!);
-            if (!isPublisherOwnNews)
+            if (!isPublisherOwnNews && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the publisher of the news in order to delete it!";
                 return this.RedirectToAction("Mine", "News");

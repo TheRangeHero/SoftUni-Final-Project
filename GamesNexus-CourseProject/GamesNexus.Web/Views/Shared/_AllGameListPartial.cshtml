@@ -1,4 +1,15 @@
-﻿@model GameAllViewModel
+﻿@using GamesNexus.Services.Data.Interfaces
+@using GamesNexus.Web.Infrastructure.Extensions
+@model GameAllViewModel
+
+@inject IPublisherService PublisherService
+@inject IGameService GameService
+
+@{
+    bool isUserPublisher = await PublisherService.PublisherExistsByUserId(User.GetId()!);
+    bool isPublisherOwnerOfThegGame = await PublisherService.HasGameWithIdAsync(User.GetId(), Model.Id);
+}
+
 
 <div class="col-md-8 mb-4">
     <div class="card h-100">
@@ -11,19 +22,21 @@
             <h5 class="card-title">@Model.Title</h5>
             <p class="card-text">Price: @Model.Price</p>
 
-            <!-- Buttons container -->
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <div class="d-flex gap-2">
                     <a asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@Model.Id"
                        class="btn btn-success">Details</a>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        @if ((isUserPublisher && isPublisherOwnerOfThegGame) || User.IsAdmin())
+                        {
 
-                    <!-- Edit button -->
-                    <a asp-area="" asp-controller="Game" asp-action="Edit" asp-route-id="@Model.Id"
-                       class="btn btn-warning">Edit</a>
-
-                    <!-- Delete button -->
-                    <a asp-area="" asp-controller="Game" asp-action="Delete" asp-route-id="@Model.Id"
-                       class="btn btn-danger">Delete</a>
+                            <a asp-area="" asp-controller="Game" asp-action="Edit" asp-route-id="@Model.Id"
+                               class="btn btn-warning">Edit</a>
+                            <a asp-area="" asp-controller="Game" asp-action="Delete" asp-route-id="@Model.Id"
+                               class="btn btn-danger">Delete</a>
+                        }
+                    }
                 </div>
             </div>
         </div>

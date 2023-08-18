@@ -3,11 +3,6 @@ using GamesNexus.Data.Models;
 using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.ViewModels.Publisher;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GamesNexus.Services.Data
 {
@@ -70,6 +65,34 @@ namespace GamesNexus.Services.Data
 
             return publisher.Id.ToString();
 
+        }
+
+        public async Task<bool> HasGameWithIdAsync(string? userId, long gameId)
+        {
+            Publisher? publisher = await this.repository.All<Publisher>()
+                .Include(p=>p.PublishedGames)
+                .FirstOrDefaultAsync(p=>p.UserId.ToString()==userId);
+
+            if(publisher == null)
+            {
+                return false;
+            }
+
+            return publisher.PublishedGames.Any(g=> g.Id==gameId);
+        }
+
+        public async Task<bool> HasNewsWithIdAsync(string? userId, int id)
+        {
+            Publisher? publisher = await this.repository.All<Publisher>()
+                .Include(p => p.News)
+                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+
+            if (publisher == null)
+            {
+                return false;
+            }
+
+            return publisher.News.Any(g => g.Id == id);
         }
     }
 }
