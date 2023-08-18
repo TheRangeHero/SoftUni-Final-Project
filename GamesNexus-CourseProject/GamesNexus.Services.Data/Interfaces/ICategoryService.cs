@@ -1,4 +1,5 @@
 ﻿using GamesNexus.Web.ViewModels.Category;
+using GamesNexus.Web.ViewModels.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace GamesNexus.Services.Data.Interfaces
     {
         Task<IEnumerable<GameSelectCategoryFormModel>> AllCategoriesAsync();
         Task<bool> ExistsByIdAsync(int id);
+        Task<bool> ExistsByNameAsync(string name);
+        Task CreateAsync(CreateCategoryViewModel formModel);
     }
 }

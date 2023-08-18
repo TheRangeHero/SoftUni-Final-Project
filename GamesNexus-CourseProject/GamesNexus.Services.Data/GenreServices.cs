@@ -3,11 +3,6 @@ using GamesNexus.Data.Models;
 using GamesNexus.Services.Data.Interfaces;
 using GamesNexus.Web.ViewModels.Genre;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GamesNexus.Services.Data
 {
@@ -34,12 +29,29 @@ namespace GamesNexus.Services.Data
             return allGerens;
         }
 
+        public async Task CreateAsync(CreateGenreViewModel formModel)
+        {
+            Genre genre  = new Genre()
+            {
+                Name = formModel.Name,
+            };
+
+            await this.repository.AddAsync(genre);
+            await this.repository.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistsByIdAsync(int id)
         {
             bool result = await this.repository.AllReadonly<Genre>()
                 .AnyAsync(g=>g.Id == id);
 
             return result;
+        }
+
+        public async Task<bool> ExistsByNameAsync(string name)
+        {
+            return await this.repository.AllReadonly<Genre>()
+                .AllAsync(g=>g.Name.ToLower() == name.ToLower());
         }
     }
 }

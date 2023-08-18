@@ -25,4 +25,12 @@
     <span> | </span>
     <a asp-area="Admin" asp-controller="User" asp-action="All"
        class="btn btn-primary btn-lg">All Users</a>
+    <span> | </span>
+    <button data-bs-toggle="modal" data-bs-target="#addCategoryModal" class="btn btn-outline-primary btn-lg">Add Category</button>
+    <span> | </span>
+    <button data-bs-toggle="modal" data-bs-target="#addGenreModal" class="btn btn-outline-primary btn-lg">Add Genre</button>
+
+    <partial name="_AddCategoryModalPartial" model=Model />
+    <partial name="_AddGenreModalPartial" model=Model />
 </div>
+

@@ -1,4 +1,5 @@
-﻿using GamesNexus.Web.ViewModels.Genre;
+﻿using GamesNexus.Web.ViewModels.Game;
+using GamesNexus.Web.ViewModels.Genre;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace GamesNexus.Services.Data.Interfaces
     {
         Task<IEnumerable<GameSelectGenreFormModel>> AllGenresAsync();
         Task<bool> ExistsByIdAsync(int id);
+        Task<bool> ExistsByNameAsync(string name);
+        Task CreateAsync(CreateGenreViewModel formModel);
     }
 }
