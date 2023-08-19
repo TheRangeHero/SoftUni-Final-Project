@@ -2,6 +2,7 @@ using GamesNexus.Data;
 using GamesNexus.Data.Models;
 using GamesNexus.Web.Infrastructure.ModelBinders;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using static GamesNexus.Common.GeneralApplicationConstants;
@@ -50,6 +51,7 @@ namespace GamesNexus.Web
                 .AddMvcOptions(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
             WebApplication app = builder.Build();
@@ -62,7 +64,8 @@ namespace GamesNexus.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 

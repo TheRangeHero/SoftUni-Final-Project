@@ -327,7 +327,7 @@ namespace GamesNexus.Services.Data
                     .ToDictionary(r => (int)r, r => r.ToString());
         }
 
-        public async Task<bool> PostReview(long id, string userId, ReviewPostViewModel model)
+        public async Task<Review?> PostReview(long id, string userId, ReviewPostViewModel model)
         {
             var review = new Review
             {
@@ -340,17 +340,17 @@ namespace GamesNexus.Services.Data
             try
             {
                 await repository.AddAsync(review);
-                return true;
-
+                return review;
             }
             catch (Exception)
             {
-
-                return false;
+                return null;
             }
         }
+
     }
 }
+
 
 
 

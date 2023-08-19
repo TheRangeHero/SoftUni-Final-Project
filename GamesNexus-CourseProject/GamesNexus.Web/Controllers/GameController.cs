@@ -359,15 +359,28 @@ namespace GamesNexus.Web.Controllers
             }
 
             string userId = this.User.GetId()!;
+            var newReview = await gameService.PostReview(model.GameId, userId, model);
 
-            bool reviewPosted = await gameService.PostReview(model.GameId, userId, model);
-            if (!reviewPosted)
+            if (newReview != null)
             {
-                return Json(new { success = false, message = "There was an error posting the review. Please try again." });
+                return Json(new
+                {
+                    success = true,
+                    message = "Review posted successfully!",
+                    review = new
+                    {
+                        Rating = newReview.Rating.ToString(),
+                        Comment = newReview.Comment,
+                        PostedOn = newReview.PostedOn.ToString(), // You might want to adjust this based on your Review model.
+                        PostedBy = User.Identity.Name  // This is an assumption; replace with appropriate code if it's different.
+                    }
+                });
             }
 
-            return Json(new { success = true, message = "Review posted successfully!" });
+            return Json(new { success = false, message = "Review could not be posted." });
         }
+
+
 
 
 

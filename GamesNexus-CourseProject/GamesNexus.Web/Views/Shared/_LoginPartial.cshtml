@@ -1,37 +1,44 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using GamesNexus.Data.Models
 @using GamesNexus.Services.Data.Interfaces
+@using GamesNexus.Web.Infrastructure.Extensions
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserService UserService
+@inject IPublisherService PublisherService
+
 
 @{
     string username = await UserService.GetUsernameByEmailAsync(User.Identity?.Name!);
+    bool isPublisher = await PublisherService.PublisherExistsByUserId(this.User.GetId()!);
 }
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="EditProfile">Hello, @username </a>
-    </li>
+    @if (SignInManager.IsSignedIn(User))
+    {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Become">Become Publisher </a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="EditProfile">Hello, @username </a>
         </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
+        @if (!isPublisher)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Publisher" asp-action="Become">Become Publisher </a>
+            </li>
+        }
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-    </li>
-    <li class="nav-item">
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-    </li>
-}
+        </li>
+    }
 </ul>

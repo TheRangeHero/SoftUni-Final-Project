@@ -45,102 +45,110 @@
                     </button>
                 </div>
             </div>
-            </div>
-
-            <!-- Description, Release Info, Publisher/Developer Info, Genres, and Categories -->
-            <div class="col-md-5">
-                <div>
-                    <h4>Description</h4>
-                    <p>@Model.Description</p>
-                </div>
-
-                <div class="mt-3">
-                    <h4>Release Date and Price</h4>
-                    <p>Release Date: @Model.ReleaseDate</p>
-                    <p>Price: $@Model.Price</p>
-                </div>
-
-                <div class="mt-3">
-                    <h4>Publisher and Developer</h4>
-                    <p>Publisher: @Model.Publisher</p>
-                    <p>Developer: @Model.Developer</p>
-                </div>
-
-                <div class="mt-3">
-                    <h4>Genres and Categories</h4>
-                    <p>Genres: @string.Join(", ", Model.Genres)</p>
-                    <p>Categories: @string.Join(", ", Model.Categories)</p>
-                </div>
-            </div>
         </div>
 
-        <!-- System Requirements -->
-        <div class="row mt-5">
-            <div class="col">
-                <h2>System Requirements</h2>
-                <p>OS: @Model.OS</p>
-                <p>CPU: @Model.CPU</p>
-                <p>RAM: @Model.RAM</p>
-                <p>GPU: @Model.GPU</p>
-                <p>Storage: @Model.Storage</p>
-                <p>Additional Notes: @Model.AdditionalNotes</p>
+        <!-- Description, Release Info, Publisher/Developer Info, Genres, and Categories -->
+        <div class="col-md-5">
+            <div>
+                <h4>Description</h4>
+                <p>@Model.Description</p>
+            </div>
+
+            <div class="mt-3">
+                <h4>Release Date and Price</h4>
+                <p>Release Date: @Model.ReleaseDate</p>
+                <p>Price: $@Model.Price</p>
+            </div>
+
+            <div class="mt-3">
+                <h4>Publisher and Developer</h4>
+                <p>Publisher: @Model.Publisher</p>
+                <p>Developer: @Model.Developer</p>
+            </div>
+
+            <div class="mt-3">
+                <h4>Genres and Categories</h4>
+                <p>Genres: @string.Join(", ", Model.Genres)</p>
+                <p>Categories: @string.Join(", ", Model.Categories)</p>
             </div>
         </div>
+    </div>
 
-        <!-- Reviews -->
-        <div class="row mt-5">
-            <div class="col">
-                <h2>Reviews</h2>
-                <ul>
-                    @foreach (var review in Model.Reviews)
+    <!-- System Requirements -->
+    <div class="row mt-5">
+        <div class="col">
+            <h2>System Requirements</h2>
+            <p>OS: @Model.OS</p>
+            <p>CPU: @Model.CPU</p>
+            <p>RAM: @Model.RAM</p>
+            <p>GPU: @Model.GPU</p>
+            <p>Storage: @Model.Storage</p>
+            <p>Additional Notes: @Model.AdditionalNotes</p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h2>Reviews</h2>
+            <ul>
+                @foreach (var review in Model.Reviews)
+                {
+                    <li class="mb-3">
+                        <strong>Rating:</strong> @review.Rating <br>
+                        <strong>Opinion:</strong> @review.Comment <br>
+                        <strong>Posted On:</strong> @review.PostedOn <br>
+                        <strong>Posted By:</strong> @review.PostedBy
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h2>Post Your Review</h2>
+            <form id="postReviewForm" class="mt-3" action="@Url.Action("PostReview", "Game")" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="GameId" value="@Model.Id" />
+                <textarea name="Review" placeholder="Your review..." rows="5" cols="50" required class="form-control mb-3"></textarea>
+                <label for="Rating" class="form-label">Rating:</label>
+                <select name="Rating" required class="form-select mb-3">
+                    @foreach (var ratingOption in Model.PostReview.RatingOptions)
                     {
-                        <li class="mb-3">
-                            <strong>Rating:</strong> @review.Rating <br>
-                            <strong>Opinion:</strong> @review.Comment <br>
-                            <strong>Posted On:</strong> @review.PostedOn <br>
-                            <strong>Posted By:</strong> @review.PostedBy
-                        </li>
+                        <option value="@ratingOption.Key">@ratingOption.Value</option>
                     }
-                </ul>
-            </div>
+                </select>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+            <div id="postReviewResponse" class="mt-3"></div>
         </div>
-
-        <!-- Post Your Review -->
-        <div class="row mt-5">
-            <div class="col">
-                <h2>Post Your Review</h2>
-                <form id="postReviewForm" class="mt-3">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="GameId" value="@Model.Id" />
-                    <textarea name="Review" placeholder="Your review..." rows="5" cols="50" required class="form-control mb-3"></textarea>
-                    <label for="Rating" class="form-label">Rating:</label>
-                    <select name="Rating" required class="form-select mb-3">
-                        @foreach (var ratingOption in Model.PostReview.RatingOptions)
-                        {
-                            <option value="@ratingOption.Key">@ratingOption.Value</option>
-                        }
-                    </select>
-                    <button type="submit" class="btn btn-primary">Submit Review</button>
-                </form>
-                <div id="postReviewResponse" class="mt-3"></div>  <!-- For displaying messages after submitting the review -->
-                </div>
-               </div>
+    </div>
 
     <script>
         $(document).ready(function () {
             $("#postReviewForm").on("submit", function (event) {
                 event.preventDefault();
-
                 $.ajax({
-                    url: "@Url.Action("PostReview", "Game")", // Use the Url.Action method to generate the URL
+                    url: "@Url.Action("PostReview", "Game")",
                     method: "POST",
+                    dataType: 'json',
                     headers: { 'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() },
                     data: $(this).serialize(),
                     success: function (response) {
                         if (response.success) {
                             $("#postReviewResponse").html('<span class="text-success">' + response.message + '</span>');
                             $("#postReviewForm")[0].reset();
-                            location.reload();
+
+                            var newReviewHtml = '<li class="mb-3">' +
+                                '<strong>Rating:</strong> ' + response.review.Rating + '<br>' +
+                                '<strong>Opinion:</strong> ' + response.review.Comment + '<br>' +
+                                '<strong>Posted On:</strong> ' + response.review.PostedOn + '<br>' +
+                                '<strong>Posted By:</strong> ' + response.review.PostedBy +
+                                '</li>';
+
+                            // Add the new review to the reviews list
+                            $(newReviewHtml).prependTo("div.row:nth-child(3) div.col ul");
+
                         } else {
                             var errorMessage = response.message;
                             if (response.errors) {
@@ -162,6 +170,7 @@
             });
         });
     </script>
+
 </body>
 
 
